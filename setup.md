@@ -288,12 +288,13 @@ You cannot submit jobs from the Container - you need to open a separate window, 
 
 We are moving to the Alma9 version of unix.  Not all DUNE code has been ported yet but if you are doing basic analysis work, try it out. 
 
-Here is how you set up basic DUNE software on Alma 9
+Here is how you set up basic DUNE software on Alma 9. We are now using the super-computer packaging system [Spack][Spack documentation] to give versioned access to code.
 
-login into a unix machine at FNAL or CERN
+1. login into a unix machine at FNAL or CERN
+
+2. Log into a gpvm or lxplus
 
 ~~~
-# get the larsoft version of the env
 source /cvmfs/larsoft.opensciencegrid.org/spack-packages/setup-env.sh 
 ~~~
 {: .language-bash}
@@ -321,7 +322,7 @@ Try testing ROOT to make certain things are working
 
 ### Caveats
 
-We don't have a full ability to rebuild DUNE Software packages yet, but you can run the basic examples from Alma9
+We don't have a full ability to rebuild DUNE Software packages yet.  We will be adding more functionality here. 
 
 
 ## 5. Exercise! (it's easy)
@@ -467,6 +468,7 @@ The [DUNE FAQ][dunefaq] on GitHub.
 {%include links.md%} 
 
 [SL7_to_Alma9]: https://wiki.dunescience.org/wiki/SL7_to_Alma9_conversion#SL7_to_Alma_9_conversion
+[Spack documentation]: https://fifewiki.fnal.gov/wiki/Spack
 [indico-event-page]: https://indico.fnal.gov/event/59762/
 [indico-event-requirements]: https://indico.fnal.gov/event/59762/page/3229-requirements
 [dune-collaboration]: http://collaboration.dunescience.org/

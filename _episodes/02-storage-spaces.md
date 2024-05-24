@@ -39,7 +39,7 @@ There are four types of storage volumes that you will encounter at Fermilab (or 
 - large-scale, distributed storage
 - Rucio Storage Elements (RSE's)
 
-Each has it's own advantages and limitations, and knowing which one to use when isn't all straightforward or obvious. But with some amount of foresight, you can avoid some of the common pitfalls that have caught out other users.
+Each has its own advantages and limitations, and knowing which one to use when isn't all straightforward or obvious. But with some amount of foresight, you can avoid some of the common pitfalls that have caught out other users.
 
 
 ## Vocabulary
@@ -115,7 +115,7 @@ Full documentation: [Understanding Storage Volumes](https://cdcvs.fnal.gov/redmi
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
 | Home Area (NFS mount)	| Yes (~10 GB) | Centrally Managed by CCD | No | Until manually deleted | Storing global environment scripts (All FNAL Exp) | /nashome/\<letter\>/\<uid\>| No |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
-| Rucio	| 10 PB | Centrally Managed by DUNE  | Yes | Each file has retention policy | Official DUNE Data sampoels | use rucio/justin to access| Yes |
+| Rucio	| 10 PB | Centrally Managed by DUNE  | Yes | Each file has retention policy | Official DUNE Data samples | use rucio/justin to access| Yes |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
 
 
