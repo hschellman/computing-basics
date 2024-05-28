@@ -1,5 +1,5 @@
 
-DUNE Computing Training May 2023 edition
+DUNE Computing Training 2024 Draft update
 ========================================
 
 This repository holds the source code of the webpage that is rendered [here](https://dune.github.io/computing-basics/). 
@@ -9,18 +9,21 @@ This training module is part of an initiative of the [DUNE Computing Consortium]
 
 When:
 
-2023 May 24-25, from 2:30 PM - 6:00 PM CST
+2024 revisions to online version
 
-What:
+Live versions are delivered 1-2 times/year but this document can also be worked through on your own. 
 
 Learn the basics of DUNE computing:  storage spaces, data management, LArSoft, grid job submission
+
+### Live sessions
+
 New! Lectures will be recorded. 
 There will be hands-on, facilitated with a Q&A on a live doc.
 New! There will be quizzes and special sessions “expert in the room” to answer questions of beginners and not-so-beginner about their code.
 
 How to attend?
 
-Participants must have a valid FNAL or CERN account. The Indico site is [https://indico.fnal.gov/event/59762/][indico-event]
+Participants must have a valid FNAL or CERN account. The Indico site  will be announced is [https://indico.fnal.gov/event/59762/][indico-event]
 
 Apply immediately if you do not yet have accounts at either lab (info).
 

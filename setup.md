@@ -1,7 +1,7 @@
 ---
 title: Mission Setup
 teaching: 60
-exercises: 0
+exercises: 20
 questions:
 - How do I prepare for the DUNE computing tutorial?
 objectives:  
@@ -26,7 +26,9 @@ keypoints:
 
 ## Requirements
 
-You must be on the DUNE Collaboration member list and have a valid FNAL or CERN account. See the [Indico Requirement page][indico-event-requirements] for more information. Windows users are invited to review the [Putty Setup page]({{ site.baseurl }}/putty.html).
+You must be on the DUNE Collaboration member list and have a valid FNAL or CERN account. See the old [Indico Requirement page][indico-event-requirements] for more information. Windows users are invited to review the [Putty Setup page]({{ site.baseurl }}/putty.html).
+
+You should join the DUNE Slack instance and look in #computing-training-basics for help with this tutorial
 
 
 > ## Note
@@ -140,6 +142,10 @@ After executing this command, you will have to use kinit again to get a new tick
 
 Some users have reported that an installation of Anaconda interferes with the use of the system kinit.  If you must use the kinit supplied with Anaconda, see these [instructions][anaconda-faq-kinit].
 
+Check out the DUNE FAQ for a long list of possible error messages and suggested solutions. 
+
+[DUNE FAQ][DUNE FAQ]
+
 ## 2. ssh-in
 **What is it?** SSH stands for Secure SHell. It uses an encrypted protocol used for connecting to remote machines and it works with Kerberos tickets when configured to do so. The configuration is done in your local file in your home directory:
 
@@ -214,12 +220,39 @@ Once you identify environment variables that might conflict with your DUNE work,
 
 A simpler solution would be to rename your login scripts (for instance .bashrc as .bashrc_save and/or .profile as .profile_bkp) so that your setup at login will be minimal and you will get the cleanest shell. For this to take into effect, you will need to exit and reconnect through ssh.
 
-## 4. Setting up DUNE software
-To set up your environment with DUNE, the command is:
+## 4.1 Setting up DUNE software - Scientific Linux 7 version
+
+See [SL7_to_Alma9][SL7_to_Alma9] for more information
+
+
+To set up your environment in SL7, the commands are:
+
+Log into a DUNE machine running Alma9
+
+Launch an SL7 container
+
 ~~~
+/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
+-B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid \
+/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
+~~~
+{: .language-bash}
+
+You will then be in a container which looks like:
+
+~~~
+Apptainer>
+~~~
+{: .output}
+
+You can then set up DUNE's code 
+
+~~~
+export UPS_OVERRIDE="-H Linux64bit+3.10-2.17" # makes certain you get the right UPS
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 ~~~
 {: .language-bash}
+
 You should see in your terminal the following output:
 ~~~
 Setting up larsoft UPS area... /cvmfs/larsoft.opensciencegrid.org/products/
@@ -228,40 +261,116 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 {: .output}
 
 
-> ## How to make custom setup command with aliases
-> Not familiar with aliases? Read below.
-> 
-> To create unix custom commands for yourself, we use 'aliases':
-> ~~~
-> alias my_custom_commmand='the_long_command_you_want_to_alias_in_a_shorter_custom_name'
-> ~~~
-> {: .source}
-> For DUNE setup, you can type for instance:
-> ~~~
-> alias dune_setup='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
-> ~~~
-> {: .language-bash}
-> 
-> So next time you type:
-> ~~~
-> dune_setup
-> ~~~
-> {: .source}
-> Your terminal will execute the long command. This will work for your current session (if you disconnect, the alias won't exist anymore). You can store this in your (minimal) .bashrc or .profile if you want this alias to be available in all sessions. The alias will be defined but not executed. Only if you type the command `dune_setup` yourself.
-{: .solution}
+
+> ## Optional
+> > ## See how you can make an alias so you don't have to type everything
+> > You can store this in your (minimal) .bashrc or .profile if you want this alias to be available in all sessions. The alias will be defined but not executed. Only if you type the command `dune_setup` yourself.> Not familiar with aliases? Read below.
+> > 
+> > To create unix custom commands for yourself, we use 'aliases':
+> > ~~~
+> > alias my_custom_commmand='the_long_command_you_want_to_alias_in_a_shorter_custom_name'
+> > ~~~
+> > {: .source}
+> > For DUNE setup, you can type for instance:
+> > ~~~
+> > alias dune_setup='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
+> > ~~~
+> > {: .language-bash}
+> > 
+> > So next time you type:
+> > ~~~
+> > dune_setup
+> > ~~~
+> > {: .source}
+> > Your terminal will execute the long command. This will work for your current session (if you disconnect, the alias won't exist anymore). 
+> {: .solution}
+{: .callout}
+
+
+Try testing ROOT to make certain things are working
+
+~~~
+setup root -v v6_28_12 -q e26:p3915:prof # sets up root for you  
+
+#  right now setup seems to spew out 1000's of lines of verbose output just doing its job. 
+
+root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
+~~~
+{: .language-bash}
+
+You should see a plot that updates and then terminates.   
+
+### Caveats for later
+
+You cannot submit jobs from the Container - you need to open a separate window, not do the apptainer and submit your jobs from that window. 
+
+
+## 4.2 Setting up DUNE software - Alma9 version
+
+We are moving to the Alma9 version of unix.  Not all DUNE code has been ported yet but if you are doing basic analysis work, try it out. 
+
+Here is how you set up basic DUNE software on Alma 9. We are now using the super-computer packaging system [Spack][Spack documentation] to give versioned access to code.
+
+1. login into a unix machine at FNAL or CERN
+
+2. Log into a gpvm or lxplus
+
+~~~
+source /cvmfs/larsoft.opensciencegrid.org/spack-packages/setup-env.sh 
+~~~
+{: .language-bash}
+
+~~~
+# get some basic things - 
+# use the command spack find to find packages you might want
+# If you just type spack load ... you may be presented with a choice and will need to choose. 
+#
+spack load root@6.28.12
+spack load cmake@3.27.7
+spack load gcc@12.2.0
+spack load fife-utils@3.7.0
+spack load metacat@4.0.0
+spack load rucio-clients@33.3.0
+spack load sam-web-client@3.4%gcc@12.2.0 
+
+# config for dune
+spack load r-m-dd-config@1.0 experiment=dune
+export SAM_EXPERIMENT=dune
+~~~
+{: .language-bash}
+
+Try testing ROOT to make certain things are working
+
+~~~
+root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
+~~~
+{: .language-bash}
+
+You should see a plot that updates and then terminates. 
+
+### Caveats
+
+We don't have a full ability to rebuild DUNE Software packages yet.  We will be adding more functionality here. 
+
 
 ## 5. Exercise! (it's easy)
 This exercise will help organizers see if you reached this step or need help.
 
-1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_202305.sh```.  Write in it the following:
+1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2024.sh```.  
+
+Launch the Apptainer as described above in the SL7 version 
+
+Write in it the following:
 ~~~
 export DUNESW_VERSION=v09_72_01d00
+export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
+
 alias dune_setup='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
 ~~~
 {: .source}
 When you start the training, you will have to source this file:
 ~~~
-source ~/dune_presetup_202305.sh
+source ~/dune_presetup_2024.sh
 ~~~
 {: .language-bash}
 Then, to setup DUNE, use the created alias:
@@ -272,7 +381,7 @@ dune_setup
 
 2) Create working directories in the `dune/app` and `pnfs/dune` areas (these will be explained during the training):
 ~~~
-mkdir -p /dune/app/users/${USER}
+mkdir -p /exp/dune/app/users/${USER}
 mkdir -p /pnfs/dune/scratch/users/${USER}
 mkdir -p /pnfs/dune/persistent/users/${USER}
 ~~~
@@ -280,13 +389,13 @@ mkdir -p /pnfs/dune/persistent/users/${USER}
 
 3) Print the date and add the output to a file named `my_first_login.txt`:
 ~~~
-date >& /dune/app/users/${USER}/my_first_login.txt
+date >& /exp/dune/app/users/${USER}/my_first_login.txt
 ~~~
 {: .language-bash}
 4) With the above, we will check if you reach this point. However we want to tailor this tutorial to your preferences as much as possible. We will let you decide which animals you would like to see in future material, between: "puppy", "cat", "squirrel", "sloth", "unicorn pegasus llama" (or "prefer not to say" of course). Write your desired option on the second line of the file you just created above.
 
 > ## Note
-> If you experience difficulties, refer to the support options mentioned on Indico. Please mention in your message this is about the Setup step 5. Thanks!
+> If you experience difficulties, please ask for help in the Slack channel #computing-training-basics.  Please mention in your message this is about the Setup step 5. Thanks!
 {: .challenge}
 
 ## 6. Getting setup for streaming and grid access
@@ -326,12 +435,12 @@ Your proxy is valid until Mon Jan 25 18:09:25 2021
 {: .output}
 Report this by appending the output of `voms-proxy-info` to your first login file:
 ~~~
-voms-proxy-info >> /dune/app/users/${USER}/my_first_login.txt
+voms-proxy-info >> /exp/dune/app/users/${USER}/my_first_login.txt
 ~~~
 {: .language-bash}
 
 > ## Issues
-> If you have issues here, please refer to the [Indico event page][indico-event-page] to get support. Please mention in your message it is the Step 6 of the setup. Thanks!
+> If you have issues here, please ask #computing-training-basics in Slack to get support. Please mention in your message it is the Step 6 of the setup. Thanks!
 {: .challenge}
 
 > ## Success
@@ -386,12 +495,15 @@ If however you are experiencing issues, please contact us as soon as possible. B
 
 ### Useful Links
    
-The [DUNE FAQ][dunefaq] on GitHub.
+The [DUNE FAQ][DUNE FAQ] on GitHub.
 
 [Wiki page][dune-wiki-interactive-resources] on DUNE's interactive computing resources, including tips on using Kerberos and VNC.
 
 {%include links.md%} 
 
+[SL7_to_Alma9]: https://wiki.dunescience.org/wiki/SL7_to_Alma9_conversion#SL7_to_Alma_9_conversion
+
+[Spack documentation]: https://fifewiki.fnal.gov/wiki/Spack
 [indico-event-page]: https://indico.fnal.gov/event/59762/
 [indico-event-requirements]: https://indico.fnal.gov/event/59762/page/3229-requirements
 [dune-collaboration]: http://collaboration.dunescience.org/
@@ -408,4 +520,5 @@ The [DUNE FAQ][dunefaq] on GitHub.
 [dune-wiki-interactive-resources]: https://wiki.dunescience.org/wiki/DUNE_Computing/DUNE_Interactive_Computing_Resources
 [anaconda-faq-kinit]: https://github.com/DUNE/FAQ/issues/22
 [dunefaq]: https://github.com/DUNE/FAQ
+[DUNE FAQ]: https://github.com/DUNE/FAQ/projects/1
 

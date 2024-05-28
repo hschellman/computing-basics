@@ -41,9 +41,19 @@ Quiz blocks are added in this lesson and should be administered in the closing m
 
 ## Introduction
 
-DUNE data is stored around the world and the storage elements are not always organized in a way that they can be easily inspected. For this purpose we use the SAM web client.
+DUNE data is stored around the world and the storage elements are not always organized in a way that they can be easily inspected. For this purpose we use the metacat data catalog to describe the data and collections and rucio to determine where replicas of files are.  There is also a legacy SAM data access system that can be used for older files. 
 
-### What is SAM?  
+### What is metacat
+
+Metacat is a file catalog - it allows you to search for files that have particular attributes and understand their provenance, including details on all of their processing steps. 
+
+You can find extensive documentation on metacat at:
+
+[General metacat documentation](https://metacat.readthedocs.io/en/latest/)
+
+[DUNE metacat examples](https://dune.github.io/DataCatalogDocs/related.html#metacat)
+
+### What is(was) SAM?  
 Sequential Access with Metadata (SAM) is a data handling system developed at Fermilab.  It is designed to tracklocations of files and other file metadata.
 
 This lecture will show you how to access data files that have been defined to the DUNE Data Catalog. Execute the following commands after logging in to the DUNE interactive node, and sourcing the main dune setups.
