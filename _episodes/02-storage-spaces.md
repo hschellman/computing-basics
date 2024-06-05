@@ -17,8 +17,11 @@ keypoints:
 - The tool suites idfh and XRootD allow for accessing data with appropriate transfer method and in a scalable way.
 ---
 
+## This is an updated version of the 2023 training
 
-#### Session Video
+
+
+<!-- #### Session Video
 
 The session will be captured on video a placed here after the workshop for asynchronous study.
 
@@ -26,10 +29,17 @@ The session will be captured on video a placed here after the workshop for async
 
 Participants are encouraged to monitor and utilize the [Livedoc for May. 2023](https://docs.google.com/document/d/19XMQqQ0YV2AtR5OdJJkXoDkuRLWv30BnHY9C5N92uYs/edit?usp=sharing) to ask questions and learn.  For reference, the [Livedoc from Jan. 2023](https://docs.google.com/document/d/1sgRQPQn1OCMEUHAk28bTPhZoySdT5NUSDnW07aL-iQU/edit?usp=sharing) is provided.
 
-<!-- Temporary Note: This lesson (02-storage-spaces.md) was imported from the [Jan. 2023 lesson](https://github.com/DUNE/computing-training-basics-short/tree/gh-pages/_episodes) which was a shortened version of the training. The May 2022 training event was a two day event, see [02-storage-spaces.md (May 2022)](https://github.com/DUNE/computing-training-basics/blob/gh-pages/_episodes/02-storage-spaces.md) for reference. Quiz blocks were added. -->
+Temporary Note: This lesson (02-storage-spaces.md) was imported from the [Jan. 2023 lesson](https://github.com/DUNE/computing-training-basics-short/tree/gh-pages/_episodes) which was a shortened version of the training. The May 2022 training event was a two day event, see [02-storage-spaces.md (May 2022)](https://github.com/DUNE/computing-training-basics/blob/gh-pages/_episodes/02-storage-spaces.md) for reference. Quiz blocks were added. -->
 
 ## Introduction
-There are three types of storage volumes that you will encounter at Fermilab: local hard drives, network attached storage, and large-scale, distributed storage. Each has it's own advantages and limitations, and knowing which one to use when isn't all straightforward or obvious. But with some amount of foresight, you can avoid some of the common pitfalls that have caught out other users.
+There are four types of storage volumes that you will encounter at Fermilab (or CERN): 
+
+- local hard drives
+- network attached storage
+- large-scale, distributed storage
+- Rucio Storage Elements (RSE's)
+
+Each has its own advantages and limitations, and knowing which one to use when isn't all straightforward or obvious. But with some amount of foresight, you can avoid some of the common pitfalls that have caught out other users.
 
 
 ## Vocabulary
@@ -38,8 +48,7 @@ There are three types of storage volumes that you will encounter at Fermilab: lo
 
 **What is meant by 'grid accessible'?** Volumes that are grid accessible require specific tool suites to handle data stored there. Grid access to a volume is NOT POSIX access. This will be explained in the following sections.
 
-**What is immutable?** A file that is immutable means that once it is written to the volume it cannot be modified. It can only be read, moved, or deleted. This property is in general a restriction imposed by the storage volume on which the file is stored. Not a good choice for code or other files you want to change.
-
+**What is immutable?** A file that is immutable means that once it is written to the volume it cannot be modified. It can only be read, moved, or deleted. This property is in general a restriction imposed by the storage volume on which the file is stored. Not a good choice for code or other files you want to change.  
 
 ## Interactive storage volumes (mounted on dunegpvmXX.fnal.gov)
 
@@ -65,7 +74,7 @@ There are three types of storage volumes that you will encounter at Fermilab: lo
 * fast and stable POSIX access to these volumes
 * volumes available only on a limited number of computers or servers
 * not available on larger grid computing (FermiGrid, Open Science Grid, etc.)
-* /dune/app has periodic snapshots in /dune/app/.snapshot, but /dune/data and /dune/data2 do NOT
+* /exp/dune/app/....yourdir has periodic snapshots in /exp/dune/app/... yourdir/.snap, but /exp/dune/data do NOT
 
 ## Grid-accessible storage volumes
 
@@ -83,6 +92,9 @@ Files are not available for immediate read on disk, but needs to be 'staged' fro
 
 **Resilient dCache**: NOTE: DIRECT USAGE is being phased out and if the Rapid Code Distribution function in POMS/jobsub does not work for you, consult with the FIFE team for a solution (handles custom user code for their grid jobs, often in the form of a tarball. Inappropriate to store any other files here (NO DATA OR NTUPLES)).
 
+**Rucio Storage Elements**: Rucio Storage Elements (or RSEs) are storage elements provided by collaborating institution for official DUNE datasets.  Data stored in DUNE RSE's must be fully cataloged in the [metacat][metacat] catalog and is managed by the DUNE data management team. This is where you find the big official data samples. 
+
+
 ## Summary on storage spaces
 Full documentation: [Understanding Storage Volumes](https://cdcvs.fnal.gov/redmine/projects/fife/wiki/Understanding_storage_volumes)
 
@@ -97,12 +109,15 @@ Full documentation: [Understanding Storage Volumes](https://cdcvs.fnal.gov/redmi
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
 | Tape backed| dCache	No/O(10) PB | LRU eviction (from disk) | Yes | Approx 30 days | Long-term archive | /pnfs/dune/... | Yes |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
-| NAS Data | Yes (~1 TB)/ 32+30 TB total | Managed by Experiment | No | Until manually deleted | Storing final analysis samples | /dune/data | No |
+| NAS Data | Yes (~1 TB)/ 32+30 TB total | Managed by Experiment | No | Until manually deleted | Storing final analysis samples | /exp/dune/data | No |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
-| NAS App | Yes (~100 GB)/ ~15 TB total | Managed by Experiment | No | Until manually deleted | Storing and compiling software | /dune/app | No |
+| NAS App | Yes (~100 GB)/ ~15 TB total | Managed by Experiment | No | Until manually deleted | Storing and compiling software | /exp/dune/app | No |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
 | Home Area (NFS mount)	| Yes (~10 GB) | Centrally Managed by CCD | No | Until manually deleted | Storing global environment scripts (All FNAL Exp) | /nashome/\<letter\>/\<uid\>| No |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
+| Rucio	| 10 PB | Centrally Managed by DUNE  | Yes | Each file has retention policy | Official DUNE Data samples | use rucio/justin to access| Yes |
+|-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
+
 
 ![Storage Picture](../fig/Storage.png){: .image-with-shadow }
 
@@ -139,7 +154,7 @@ Note, if the destination for an ifdh cp command is a directory instead of filena
 > ## Exercise 1
 > Using the ifdh command, complete the following tasks:
 * create a directory in your dCache scratch area (/pnfs/dune/scratch/users/${USER}/) called "DUNE_tutorial_Jan2023" 
-* copy /dune/app/users/${USER}/my_first_login.txt file to that directory
+* copy /exp/dune/app/users/${USER}/my_first_login.txt file to that directory
 * copy the my_first_login.txt file from your dCache scratch directory (i.e. DUNE_tutorial_Jan2023) to /dev/null
 * remove the directory DUNE_tutorial_Jan2023
 * create the directory DUNE_tutorial_Jan2023_data_file
@@ -148,7 +163,7 @@ Note, if the destination for an ifdh cp command is a directory instead of filena
 
 ~~~
 ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023
-ifdh cp -D /dune/app/users/${USER}/my_first_login.txt /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023
+ifdh cp -D /exp/dune/app/users/${USER}/my_first_login.txt /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023
 ifdh cp /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023/my_first_login.txt /dev/null
 ifdh rm /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023/my_first_login.txt
 ifdh rmdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023
@@ -229,7 +244,7 @@ df -h
 >
 > Which volumes are directly accessible (POSIX) from grid worker nodes?
 > <ol type="A">
-> <li>/dune/data</li>
+> <li>/exp/dune/data</li>
 > <li>DUNE CVMFS repository</li>
 > <li>/pnfs/dune/scratch</li>
 > <li>/pnfs/dune/persistent</li>
@@ -267,7 +282,7 @@ df -h
 > <ol type="A">
 > <li>DUNE CVMFS repository</li>
 > <li>/pnfs/dune/scratch/</li>
-> <li>/dune/app/</li>
+> <li>/exp/dune/app/</li>
 > <li>Your GPVM home area</li>
 > <li>Your laptop home area</li>
 > </ol>
