@@ -2,20 +2,20 @@
 layout: lesson
 root: .  # Is the only page that doesn't follow the pattern /:path/index.html
 permalink: index.html  # Is the only page that doesn't follow the pattern /:path/index.html
-venue: "Fermi National Accelerator Laboratory"
+venue: "DUNE Collaboration"
 address: "online"
 country: "us"
 language: "en"
 latitude: "45"
 longitude: "-1"
-humandate: "May 24-25, 2023"
-humantime: "8:00 am - 3:00 pm"
-startdate: "2023-05-24"
-enddate: "2023-05-25"
-instructor: ["Michael Kirby","Steve Timm","Tom Junk","Ken Herner"]
+humandate: "May 2024"
+humantime: "asynchronous"
+startdate: "2024-05-20"
+enddate: "2024-12-01"
+instructor: ["Heidi Schellman","Dave Demuth","Michael Kirby","Steve Timm","Tom Junk","Ken Herner"]
 helper: ["mentor1", "mentor2"]
-email: ["mkirby@fnal.gov","timm@fnal.gov","junk@fnal.gov","herner@fnal.gov"]
-collaborative_notes: "2023-05-24-dune"
+email: ["schellmh@oregonstate.edu","dmdemuth@gmail.com","mkirby@bnl.gov","timm@fnal.gov","junk@fnal.gov","herner@fnal.gov"]
+collaborative_notes: "2024-05-24-dune"
 eventbrite:
 ---
 
@@ -54,16 +54,21 @@ You will need to be a DUNE Collaborator (listed member), and have a valid FNAL o
 > ## Getting Started
 >
 > First step: follow the directions in the "[Setup](
-> {{ page.root }}/setup.html)" to arrived prepared for this event. Follow the instructions; we give you an easy exercise 
+> {{ page.root }}/setup.html)". Follow the instructions; we give you an easy exercise 
 > to make sure you are good to go.
 {: .callout}
 
+Then proceed through the episodes
 
-<h2 id="schedule">Schedule by Day</h2>
+If there is a live session the schedule will appear here
+
+<!--<h2 id="schedule">Schedule by Day</h2>
 
 The official schedule for this event is listed on the [Indico site (59762)](https://indico.fnal.gov/event/59762/timetable/#20230524).
 
 {% include sc/schedule.html %}
+--->
+
 
 <!--<center><img  alt="" src="fig/Schedule_computing_training_202105.png"/></center>-->
 

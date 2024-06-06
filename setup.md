@@ -28,13 +28,13 @@ keypoints:
 
 You must be on the DUNE Collaboration member list and have a valid FNAL or CERN account. See the old [Indico Requirement page][indico-event-requirements] for more information. Windows users are invited to review the [Putty Setup page]({{ site.baseurl }}/putty.html).
 
-You should join the DUNE Slack instance and look in #computing-training-basics for help with this tutorial
+You should join the DUNE Slack instance and look in [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR) for help with this tutorial
 
-go to https://atwork.dunescience.org/tools/ scroll down to Slack and request an invite.  Please do not do this if you are already in DUNE Slack.
+go to [https://atwork.dunescience.org/tools/](https://atwork.dunescience.org/tools/) scroll down to Slack and request an invite.  Please do not do this if you are already in DUNE Slack.
 
 
 > ## Note
-> The instructions below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the "Setup on CERN machines".
+> The instructions below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#CERN_setup).
 {: .challenge}
 
 ## 1. Kerberos business
@@ -222,9 +222,9 @@ Once you identify environment variables that might conflict with your DUNE work,
 
 A simpler solution would be to rename your login scripts (for instance .bashrc as .bashrc_save and/or .profile as .profile_bkp) so that your setup at login will be minimal and you will get the cleanest shell. For this to take into effect, you will need to exit and reconnect through ssh.
 
-## 4.1 Setting up DUNE software - Scientific Linux 7 version
+## 4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>
 
-See [SL7_to_Alma9][SL7_to_Alma9] for more information
+See [SL7_to_Alma9][SL7_to_Alma9] for more information 
 
 
 To set up your environment in SL7, the commands are:
@@ -304,7 +304,7 @@ You should see a plot that updates and then terminates.
 
 ### Caveats for later
 
-You cannot submit jobs from the Container - you need to open a separate window, not do the apptainer and submit your jobs from that window. 
+You cannot submit jobs from the Container - you need to open a separate window, now do the [Apptainer](#SL7_setup) and submit your jobs from that window. 
 
 
 ## 4.2 Setting up DUNE software - Alma9 version
@@ -360,7 +360,7 @@ This exercise will help organizers see if you reached this step or need help.
 
 1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2024.sh```.  
 
-Launch the Apptainer as described above in the SL7 version 
+Launch the *Apptainer* as described above in the [SL7 version](#SL7_setup) 
 
 Write in it the following:
 ~~~
@@ -397,7 +397,7 @@ date >& /exp/dune/app/users/${USER}/my_first_login.txt
 4) With the above, we will check if you reach this point. However we want to tailor this tutorial to your preferences as much as possible. We will let you decide which animals you would like to see in future material, between: "puppy", "cat", "squirrel", "sloth", "unicorn pegasus llama" (or "prefer not to say" of course). Write your desired option on the second line of the file you just created above.
 
 > ## Note
-> If you experience difficulties, please ask for help in the Slack channel #computing-training-basics.  Please mention in your message this is about the Setup step 5. Thanks!
+> If you experience difficulties, please ask for help in the Slack channel [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR).  Please mention in your message this is about the Setup step 5. Thanks!
 {: .challenge}
 
 ## 6. Getting setup for streaming and grid access
@@ -420,7 +420,9 @@ Your certificate is valid until: Wed Jan 27 18:03:55 2021
 
 To access the grid resources, you will need either need a proxy or a token. More information on proxy is available [here][proxy-info].
 
-### Proxy method <a name="proxy"></a>
+
+
+## How to authorize with the KX509/Proxy method <a name="proxy"></a>
 
 This is to be done once every 24 hours per login machine you’re using to identify yourself:
 
@@ -431,7 +433,7 @@ voms-proxy-init -rfc -noregen -voms=dune:/dune/Role=$ROLE -valid 120:00
 {: .language-bash}
 
 ~~~
-Your identity: /DC=org/DC=cilogon/C=US/O=Fermi National Accelerator Laboratory/OU=People/CN=Claire David/CN=UID:cdavid
+Your identity: /DC=org/DC=cilogon/C=US/O=Fermi National Accelerator Laboratory/ OU=People/CN=Claire David/CN=UID:cdavid
 Contacting  voms1.fnal.gov:15042 [/DC=org/DC=incommon/C=US/ST=Illinois/L=Batavia/O=Fermi Research Alliance/OU=Fermilab/CN=voms1.fnal.gov] "dune" Done
 Creating proxy .................................... Done
 
@@ -439,11 +441,19 @@ Your proxy is valid until Mon Jan 25 18:09:25 2021
 ~~~
 {: .output}
 
+You should be able to access files now
+
+> {: .solution}
+{: .callout}
+
 Report this by appending the output of `voms-proxy-info` to your first login file:
 ~~~
 voms-proxy-info >> /exp/dune/app/users/${USER}/my_first_login.txt
 ~~~
 {: .language-bash}
+
+With this done, you should be able to submit jobs and access remote DUNE storage systems via xroot. 
+
 
 
 ### Tokens method <a name="tokens"></a>
@@ -457,7 +467,7 @@ We are moving from proxies to tokens - these are a bit different.
 ~~~
 {: .language-bash}
 
-the first time you do this, it will ask you to open a web browser and 
+the first time you do this (and once a month thereafter), it will ask you to open a web browser and 
 
 ~~~
 Attempting OIDC authentication with https://htvaultprod.fnal.gov:8200
@@ -469,8 +479,7 @@ Waiting for response in web browser
 ~~~
 {: .output}
 
-You do want to follow the instructions and copy and paste the link into your browser (can be any browser). There is a time limit on it so its best to do it right away. Always choose Fermilab as the identity provider in the menu, even if your home institution is listed. After you hit log on, you'll get a message saying you approved the access request, and then after a short delay (may be several seconds) in the terminal you will see.
-
+You will need to follow the instructions and copy and paste that link into your browser (can be any browser). There is a time limit on it so its best to do it right away. Choose Fermilab as the identity provider in the menu, even if your home institution is listed. After you hit log on with your service credentials, you'll get a message saying you approved the access request, and then after a short delay (may be several seconds) in the terminal you will see.
 
 
 ~~~
@@ -494,10 +503,12 @@ export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 
 the `id -u` just returns your numerical user ID 
 
+With this done, you should be able to submit jobs and access remote DUNE storage systems via xroot. 
+
 
 
 > ## Issues
-> If you have issues here, please ask #computing-training-basics in Slack to get support. Please mention in your message it is the Step 6 of the setup. Thanks!
+> If you have issues here, please ask [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR) in Slack to get support. Please mention in your message it is the Step 6 of the setup. Thanks!
 {: .challenge}
 
 > ## Success
@@ -505,7 +516,7 @@ the `id -u` just returns your numerical user ID
 {: .keypoints}
 
 
-## Set up on CERN machines
+## Set up on CERN machines <a name="setup_CERN"></a>
 
 Caution: the following instructions are for those of you who do not have a valid FNAL account but have access to CERN machines. 
 
@@ -547,7 +558,7 @@ If however you are experiencing issues, please contact us as soon as possible. B
 {: .checklist}
 
 > ## Issues
-> If you have issues here, please refer to the [Indico event page][indico-event-page] to get support. Please note that you are on a CERN machine in your message. Thanks!
+> If you have issues here, please go to the [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR)Slack channel to get support. Please note that you are on a CERN machine in your message. Thanks!
 {: .discussion}
 
 ### Useful Links
@@ -578,5 +589,6 @@ The [DUNE FAQ][DUNE FAQ] on GitHub.
 [anaconda-faq-kinit]: https://github.com/DUNE/FAQ/issues/22
 [dunefaq]: https://github.com/DUNE/FAQ
 [DUNE FAQ]: https://github.com/DUNE/FAQ/projects/1
+
 
 

@@ -1,5 +1,12 @@
 # Contributing
 
+These pages make use of the Carpentries format but are not officially part of Carpentries.
+
+We strongly suggest that you do explore the HEP recommended training materials at:
+
+https://hsf-training.org/
+
+
 [The Carpentries][c-site] ([Software Carpentry][swc-site], [Data Carpentry][dc-site], and [Library Carpentry][lc-site]) are open source projects,
 and we welcome contributions of all kinds:
 new lessons,
