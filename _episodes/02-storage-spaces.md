@@ -135,9 +135,26 @@ This section will teach you the main tools and commands to display storage infor
 
 Another useful data handling command you will soon come across is ifdh. This stands for Intensity Frontier Data Handling. It is a tool suite that facilitates selecting the appropriate data transfer method from many possibilities while protecting shared resources from overload. You may see *ifdhc*, where *c* refers to *client*.
 
+> ## Note
+>  ifdh is much more efficient than NSF file access.  Please use it and/or xroot when accessing remote files. 
+{: .challenge}
+
 Here is an example to copy a file. Refer to the [Mission Setup]({{ site.baseurl }}/setup.html) for the setting up the `DUNESW_VERSION`.
+
+> ## Note
+> For now do this in the Apptainer
+{: .challenge}
+
 ~~~
-source ~/dune_presetup_202305.sh
+/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
+-B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid \
+/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
+~~~
+{: .language-bash}
+
+once in the Apptainer
+~~~
+source ~/dune_presetup_2024.sh
 dune_setup
 kx509
 export ROLE=Analysis

@@ -1,5 +1,5 @@
 ---
-title: Data Management
+title: Data Management (updated for metacat/justin/rucio)
 teaching: 40
 exercises: 0
 questions:
@@ -18,6 +18,7 @@ keypoints:
 - CVMFS distributes software and related files without installing them on the target computer (using a VM, Virtual Machine).
 ---
 
+<!--
 #### Session Video
 
 The session will be captured on video a placed here after the workshop for asynchronous study.
@@ -29,6 +30,8 @@ The session was video captured for your asynchronous review. The video from the 
 </center>
 -->
 
+<!--
+
 #### Live Notes
 
 Participants are encouraged to monitor and utilize the [Livedoc for May. 2023](https://docs.google.com/document/d/19XMQqQ0YV2AtR5OdJJkXoDkuRLWv30BnHY9C5N92uYs/edit?usp=sharing) to ask questions and learn.  For reference, the [Livedoc from Jan. 2023](https://docs.google.com/document/d/1sgRQPQn1OCMEUHAk28bTPhZoySdT5NUSDnW07aL-iQU/edit?usp=sharing) is provided.
@@ -38,6 +41,8 @@ Participants are encouraged to monitor and utilize the [Livedoc for May. 2023](h
 This lesson (03-data-management.md) was imported from the [Jan. 2023 lesson](https://github.com/DUNE/computing-training-basics-short/tree/gh-pages/_episodes) which was a shortened version of the training.
 
 Quiz blocks are added in this lesson and should be administered in the closing minutes of this lesson. Feel free to modify or add quiz questions. Some of these quiz questions might be more appropriate for 02-storage-spaces.md -->
+
+ 
 
 ## Introduction
 
@@ -82,7 +87,16 @@ rucio download protodune-sp:np04_raw_run005801_0001_dl1.root
 rucio list-rses
 ~~~
 
-## Finding data
+> ## Note
+> We are in the middle of a major transition to metacat/rucio -  we suggest using the [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) to learn about data catalogs while we update these pages.
+{: .challenge}
+
+# The [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) 
+
+
+<!--
+
+## Finding data (SAM)
 
 If you know a given file and want to locate it, e.g.:
 ~~~
@@ -174,7 +188,14 @@ When we are analyzing large numbers of files in a group of batch jobs, we use a 
 > * use the samweb take-snapshot command to make a snapshot of PDSPProd4_MC_1GeV_reco1_sce_datadriven_v1
 {: .challenge}
 
+-->
+
 ## What is UPS and why do we need it?
+
+> ## Note
+> UPS only works on SL7 - you need to be in the Apptainer to use it. It is being replaced by a new [spack][Spack Documentation] system for Alma9.  We will be adding a Spack tutorial.
+{: .challenge}
+
 An important requirement for making valid physics results is computational reproducibility. You need to be able to repeat the same calculations on the data and MC and get the same answers every time. You may be asked to produce a slightly different version of a plot for example, and the data that goes into it has to be the same every time you run the program. 
 
 This requirement is in tension with a rapidly-developing software environment, where many collaborators are constantly improving software and adding new features. We therefore require strict version control; the workflows must be stable and not constantly changing due to updates. 
@@ -355,4 +376,4 @@ More information on CVMFS is available [here](https://wiki.dunescience.org/wiki/
 [dune-data-fnal-how-works]: https://dune-data.fnal.gov/tutorial/howitworks.pdf
 [sam-data-control]: https://wiki.dunescience.org/wiki/Using_the_SAM_Data_Catalog_to_find_data
 [sam-longer]: https://dune.github.io/computing-basics/sam-by-schellman/index.html
-
+[Spack documentation]: https://fifewiki.fnal.gov/wiki/Spack
