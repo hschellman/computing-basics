@@ -1,5 +1,5 @@
 ---
-title: Data Management (updated for metacat/justin/rucio)
+title: Data Management (2024 updated for metacat/justin/rucio)
 teaching: 40
 exercises: 0
 questions:
@@ -12,7 +12,7 @@ objectives:
 keypoints:
 - SAM and Rucio are data handling systems used by the DUNE collaboration to retrieve data.
 - Staging is a necessary step to make sure files are on disk in dCache (as opposed to only on tape).
-- Xrootd allows user to stream data file. 
+- Xrootd allows user to stream data files. 
 - The Unix Product Setup (UPS) is a tool to ensure consistency between different software versions and reproducibility.
 - The multi-repository build (mrb) tool allows code modification in multiple repositories, which is relevant for a large project like LArSoft with different cases (end user and developers) demanding consistency between the builds.
 - CVMFS distributes software and related files without installing them on the target computer (using a VM, Virtual Machine).
@@ -56,7 +56,7 @@ You can find extensive documentation on metacat at:
 
 [General metacat documentation](https://metacat.readthedocs.io/en/latest/)
 
-[DUNE metacat examples](https://dune.github.io/DataCatalogDocs/related.html#metacat)
+[DUNE metacat examples](https://dune.github.io/DataCatalogDocs/index.html)
 
 ### What is(was) SAM?  
 Sequential Access with Metadata (SAM) is a data handling system developed at Fermilab.  It is designed to tracklocations of files and other file metadata.
@@ -75,9 +75,11 @@ Rucio has two functions:
 1. A rule-based system to get files to Rucio Storage Elements around the world and keep them there.
 2. To return the "nearest" replica of any data file for use either in interactive or batch file use.  It is expected that most DUNE users will not be regularly using direct Rucio commands, but other wrapper scripts that calls them indirectly.
 
-As of the date of this May 2023 tutorial:
+As of the date of the June 2024 tutorial:
 - The Rucio client is available in CVMFS
-- Most DUNE users are not yet enabled to use it.  But when we do, some of the commands will look like this:
+- Most DUNE users are now enabled to use it. New users may not automatically be added. 
+
+FIXME what is procedure for adding new users?
 
 ~~~
 rucio list-file-replicas protodune-sp:np04_raw_run005801_0001_dl1.root
@@ -88,7 +90,7 @@ rucio list-rses
 ~~~
 
 > ## Note
-> We are in the middle of a major transition to metacat/rucio -  we suggest using the [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) to learn about data catalogs while we update these pages.
+> We are in the middle of a major transition to metacat/rucio -  we suggest using the [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) to learn about data catalogs and rucio access while we update these pages.
 {: .challenge}
 
 # The [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) 
@@ -193,7 +195,9 @@ When we are analyzing large numbers of files in a group of batch jobs, we use a 
 ## What is UPS and why do we need it?
 
 > ## Note
-> UPS only works on SL7 - you need to be in the Apptainer to use it. It is being replaced by a new [spack][Spack Documentation] system for Alma9.  We will be adding a Spack tutorial.
+> UPS is going away and only works on SL7 - you need to be in the Apptainer to use it. It is being replaced by a new [spack][Spack Documentation] system for Alma9.  We will be adding a Spack tutorial soon but for now, you need to use SL7/UPS to use the full DUNE code stack.   
+> 
+> Go back and look at the [SL7/Apptainer]({{ site.baseurl }}setup.html#SL7_setup) instructions to get an SL7 container for this section. 
 {: .challenge}
 
 An important requirement for making valid physics results is computational reproducibility. You need to be able to repeat the same calculations on the data and MC and get the same answers every time. You may be asked to produce a slightly different version of a plot for example, and the data that goes into it has to be the same every time you run the program. 
@@ -361,7 +365,8 @@ More information on CVMFS is available [here](https://wiki.dunescience.org/wiki/
 
 
 ## Useful links to bookmark
-* Official dataset definitions: [dune-data.fnal.gov](https://dune-data.fnal.gov)
+* Metacat: [https://dune.github.io/DataCatalogDocs](https://dune.github.io/DataCatalogDocs/index.html)
+* Pre-2024 Official dataset definitions: [dune-data.fnal.gov](https://dune-data.fnal.gov)
 * [UPS reference manual](http://www.fnal.gov/docs/products/ups/ReferenceManual/)
 * [UPS documentation (redmine)](https://cdcvs.fnal.gov/redmine/projects/ups/wiki)
 * UPS qualifiers: [About Qualifiers (redmine)](https://cdcvs.fnal.gov/redmine/projects/cet-is-public/wiki/AboutQualifiers)

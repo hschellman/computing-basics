@@ -289,18 +289,19 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 {: .callout}
 
 
-Try testing ROOT to make certain things are working
+> ## Optional
+> > ## See if ROOT works
+> > Try testing ROOT to make certain things are working
+> >
+> > ~~~
+> > setup root v6_28_12 -q e26:p3915:prof # sets up root for you  
+> > root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
+> > ~~~
+> > {: .language-bash}
+> > You should see a plot that updates and then terminates.   
+> {: .solution}
+{: .callout}
 
-~~~
-setup root v6_28_12 -q e26:p3915:prof # sets up root for you  
-
-#  right now setup seems to spew out 1000's of lines of verbose output just doing its job. 
-
-root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
-~~~
-{: .language-bash}
-
-You should see a plot that updates and then terminates.   
 
 ### Caveats for later
 
@@ -341,18 +342,22 @@ export SAM_EXPERIMENT=dune
 ~~~
 {: .language-bash}
 
-Try testing ROOT to make certain things are working
-
-~~~
-root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
-~~~
+> ## Optional
+> > ## See if ROOT works
+> > Try testing ROOT to make certain things are working
+> >
+> > ~~~ 
+> > root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
+> > ~~~
+> > {: .language-bash}
+> > You should see a plot that updates and then terminates.   
+> {: .solution}
+{: .callout}
 {: .language-bash}
-
-You should see a plot that updates and then terminates. 
 
 ### Caveats
 
-We don't have a full ability to rebuild DUNE Software packages yet.  We will be adding more functionality here. 
+We don't have a full ability to rebuild DUNE Software packages yet.  We will be adding more functionality here.  Unless you are doing simple ROOT based analysis you will need to use the [SL7 Container](#SL7_setup) method for now. 
 
 
 ## 5. Exercise! (it's easy)
