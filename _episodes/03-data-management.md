@@ -4,18 +4,13 @@ teaching: 40
 exercises: 0
 questions:
 - What are the data management tools and software for DUNE? 
-- How are different software versions handled? 
-- What are the best data management practices? 
 objectives:
 - Learn how to access data from DUNE Data Catalog.
-- Understand the roles of the tools UPS, mrb and CVMFS. 
+- Learn a bit about the JustIN workflow system for submitting batch jobs.
 keypoints:
 - SAM and Rucio are data handling systems used by the DUNE collaboration to retrieve data.
 - Staging is a necessary step to make sure files are on disk in dCache (as opposed to only on tape).
 - Xrootd allows user to stream data files. 
-- The Unix Product Setup (UPS) is a tool to ensure consistency between different software versions and reproducibility.
-- The multi-repository build (mrb) tool allows code modification in multiple repositories, which is relevant for a large project like LArSoft with different cases (end user and developers) demanding consistency between the builds.
-- CVMFS distributes software and related files without installing them on the target computer (using a VM, Virtual Machine).
 ---
 
 <!--
@@ -79,94 +74,113 @@ As of the date of the June 2024 tutorial:
 - The Rucio client is available in CVMFS
 - Most DUNE users are now enabled to use it. New users may not automatically be added. 
 
-FIXME what is procedure for adding new users?
-
+### Let's find a file
 ~~~
 # get a kx509 proxy
 export RUCIO_ACCOUNT=$USER
-rucio:protodune-sp
-cern-eos:/eos/experiment/neutplatform/protodune/rawdata/np04/detector/None/raw/07/42/28/49
-castor:/neutplatform/protodune/rawdata/np04/detector/None/raw/07/42/28/49
-enstore:/pnfs/dune/tape_backed/dunepro/protodune/np04/beam/detector/None/raw/07/42/28/49(597@vr0337m8)
+rucio list-file-replicas pdsp_det_reco:np04_raw_run005141_0013_dl10_reco1_18127013_0_20210318T104043Z.root --pfns --protocols=root
+~~~
+{: .language-bash}
+
+returns 2 locations:
+
+~~~
+root://xrootd01.esc.qmul.ac.uk:1094//dune/RSE/pdsp_det_reco/dd/e5/np04_raw_run005141_0013_dl10_reco1_18127013_0_20210318T104043Z.root
+root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro//protodune-sp/full-reconstructed/2021/detector/physics/PDSPProd4/00/00/51/41/np04_raw_run005141_0013_dl10_reco1_18127013_0_20210318T104043Z.root
 ~~~
 {: .output}
 
-which is the locations of the file on disk and tape. We can use this to copy the file from tape to our local disk.
+which is the locations of the file on disk and tape. We can use this to copy the file to our local disk or access the file via xroot. 
+
+### Finding files by characteristics
 
 To list raw data files for a given run:
 ~~~
-samweb list-files "run_number 5758 and run_type protodune-sp and data_tier raw"
+metacat query "files where core.file_type=detector \
+ and core.run_type='protodune-sp' and core.data_tier=raw \
+ and core.data_stream=physics and core.runs[any] in (5141)"
 ~~~
-c
+{: .language-bash}
+
+- `core.run_type` tells you which of the many DAQ's this came from. 
+- `core.file_type` tells detector from mc
+- `core.data_tier` could be raw, full-reconstructed, root-tuple.  Same data different formats. 
 
 ~~~
-np04_raw_run005758_0001_dl3.root
-np04_raw_run005758_0002_dl2.root
+protodune-sp:np04_raw_run005141_0013_dl7.root
+protodune-sp:np04_raw_run005141_0005_dl3.root
+protodune-sp:np04_raw_run005141_0003_dl1.root
+protodune-sp:np04_raw_run005141_0004_dl7.root
 ...
-np04_raw_run005758_0065_dl10.root
-np04_raw_run005758_0065_dl4.root
+protodune-sp:np04_raw_run005141_0009_dl7.root
+protodune-sp:np04_raw_run005141_0014_dl11.root
+protodune-sp:np04_raw_run005141_0007_dl6.root
+protodune-sp:np04_raw_run005141_0011_dl8.root
 ~~~
 {: .output}
 
-What about a reconstructed version?
+Note the presence of both a *namespace* and a *filename* 
+
+What about some files from a reconstructed version?
 ~~~ 
-samweb list-files "run_number 5758 and run_type protodune-sp and data_tier full-reconstructed and version (v07_08_00_03,v07_08_00_04)"
+metacat query "files from dune:all where core.file_type=detector \
+ and core.run_type='protodune-sp' and core.data_tier=full-reconstructed  \
+ and core.data_stream=physics and core.runs[any] in (5141) and dune.campaign=PDSPProd4 limit 10" 
 ~~~
 {: .language-bash}
 
 ~~~
-np04_raw_run005758_0053_dl7_reco_12891068_0_20181101T222620.root
-np04_raw_run005758_0025_dl11_reco_12769309_0_20181101T213029.root
-np04_raw_run005758_0053_dl2_reco_12891066_0_20181101T222620.root
-...
-np04_raw_run005758_0061_dl8_reco_14670148_0_20190105T175536.root
-np04_raw_run005758_0044_dl6_reco_14669100_0_20190105T172046.root
+pdsp_det_reco:np04_raw_run005141_0013_dl10_reco1_18127013_0_20210318T104043Z.root
+pdsp_det_reco:np04_raw_run005141_0015_dl4_reco1_18126145_0_20210318T101646Z.root
+pdsp_det_reco:np04_raw_run005141_0008_dl12_reco1_18127279_0_20210318T104635Z.root
+pdsp_det_reco:np04_raw_run005141_0002_dl2_reco1_18126921_0_20210318T103516Z.root
+pdsp_det_reco:np04_raw_run005141_0002_dl14_reco1_18126686_0_20210318T102955Z.root
+pdsp_det_reco:np04_raw_run005141_0015_dl5_reco1_18126081_0_20210318T122619Z.root
+pdsp_det_reco:np04_raw_run005141_0017_dl10_reco1_18126384_0_20210318T102231Z.root
+pdsp_det_reco:np04_raw_run005141_0006_dl4_reco1_18127317_0_20210318T104702Z.root
+pdsp_det_reco:np04_raw_run005141_0007_dl9_reco1_18126730_0_20210318T102939Z.root
+pdsp_det_reco:np04_raw_run005141_0011_dl7_reco1_18127369_0_20210318T104844Z.root
 ~~~
 {: .output}
 
-The above is truncated output to show us the one reconstructed file that is the child of the raw data file above.
 
-To see the total number of files that match a certain query expression, then add the `--summary` option to `samweb list-files`.
+To see the total number of files that match a certain query expression, then add the `-s` option to `metacat query`.
 
-`samweb` allows you to select on a lot of parameters which are documented here:
+<!---`samweb` allows you to select on a lot of parameters which are documented here:
 
 * [Useful ProtoDUNE samweb parameters][useful-samweb]
 
 * [dune-data.fnal.gov](https://dune-data.fnal.gov) lists some official dataset definitions 
+
+-->
+
+See the metacat documentation for more information about queries.  [DataCatalogDocs][DataCatalogDocs]  and check out the glossary of common fields at: [MetaCatGlossary][MetaCatGlossary]
 
 ## Accessing data for use in your analysis
 To access data without copying it, `XRootD` is the tool to use. However it will work only if the file is staged to the disk.
 
 You can stream files worldwide if you have a DUNE VO certificate as described in the preparation part of this tutorial.
 
-### Where _is_ the file?
+To learn more about using Rucio and Metacat to run over large data samples go here:
 
-An example to find a given file:  
-~~~
-samweb get-file-access-url np04_raw_run005758_0001_dl3_reco_13600804_0_20181127T081955.root --schema=root
-~~~
-{: .language-bash}
-~~~
-root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune/np04/beam/output/detector/full-reconstructed/08/61/68/00/np04_raw_run005758_0001_dl3_reco_13600804_0_20181127T081955.root
-~~~
-{: .output}
-
-**Resources**: [Using the SAM Data Catalog][sam-data-control]. [More SAM documentation][sam-longer]
-> ## Exercise 1
-> * Use the `--location` argument to show the path of the file above on either `enstore`, `castor` or `cern-eos`.
-> * Use `get-metadata` to get SAM metadata for this file. Note that `--json` gives the output in json format.
+> # Full Justin/Rucio/Metacat Tutorial
+> The [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) 
 {: .challenge}
 
 
-When we are analyzing large numbers of files in a group of batch jobs, we use a SAM snapshot to describe the full set of files that we are going to analyze and create a SAM Project based on that. Each job will then come up and ask SAM to give it the next file in the list. SAM has some capability to grab the nearest copy of the file. For instance if you are running at CERN and analyzing this file it will automatically take it from the CERN storage space EOS.
+
+> ## Exercise 1
+> * Use `metacat file show -m namespace:filename` to get  metadata for this file. Note that `--json` gives the output in json format.
+{: .challenge}
+
+
+When we are analyzing large numbers of files in a group of batch jobs, we use a metacat dataset to describe the full set of files that we are going to analyze and use the JustIn system to run over that dataset. Each job will then come up and ask metacat and rucio to give it the next file in the list. It will try to find the nearest copy.  For instance if you are running at CERN and analyzing this file it will automatically take it from the CERN storage space EOS.
 
 > ## Exercise 2
-> * use the samweb describe-definition command to see the dimensions of data set PDSPProd4_MC_1GeV_reco1_sce_datadriven_v1
-> * use the samweb list-definition-files command with the --summary option to see the total size of PDSPProd4_MC_1GeV_reco1_sce_datadriven_v1
-> * use the samweb take-snapshot command to make a snapshot of PDSPProd4_MC_1GeV_reco1_sce_datadriven_v1
+FIXME Need to make an example of looking at a dataset
 {: .challenge}
 
--->
+**Resources**: [DataCatalogDocs][DataCatalogDocs]  The [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) 
 
 
 
@@ -198,7 +212,7 @@ When we are analyzing large numbers of files in a group of batch jobs, we use a 
 > How do we determine a DUNE data file location?
 > <ol type="A">
 > <li>Do `ls -R` on /pnfs/dune and grep</li>
-> <li>Use `rucio list-file-replicas` (namespace:filename)</li>
+> <li>Use `rucio list-file-replicas` (namespace:filename) --pnfs --protocols=root</li>
 > <li>Ask the data management group</li>
 > <li>None of the Above</li>
 > </ol>
@@ -229,3 +243,5 @@ When we are analyzing large numbers of files in a group of batch jobs, we use a 
 [sam-data-control]: https://wiki.dunescience.org/wiki/Using_the_SAM_Data_Catalog_to_find_data
 [sam-longer]: https://dune.github.io/computing-basics/sam-by-schellman/index.html
 [Spack documentation]: https://fifewiki.fnal.gov/wiki/Spack
+[DataCatalogDocs]: https://dune.github.io/DataCatalogDocs/index.html
+[MetaCatGlossary]: https://dune.github.io/DataCatalogDocs/glossary.html
