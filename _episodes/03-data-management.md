@@ -82,32 +82,8 @@ As of the date of the June 2024 tutorial:
 FIXME what is procedure for adding new users?
 
 ~~~
-rucio list-file-replicas protodune-sp:np04_raw_run005801_0001_dl1.root
-
-rucio download protodune-sp:np04_raw_run005801_0001_dl1.root
-
-rucio list-rses
-~~~
-
-> ## Note
-> We are in the middle of a major transition to metacat/rucio -  we suggest using the [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) to learn about data catalogs and rucio access while we update these pages.
-{: .challenge}
-
-# The [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) 
-
-
-<!--
-
-## Finding data (SAM)
-
-If you know a given file and want to locate it, e.g.:
-~~~
-samweb locate-file np04_raw_run005758_0001_dl3.root
-~~~
-{: .language-bash}
-
-This will give you output that looks like:
-~~~
+# get a kx509 proxy
+export RUCIO_ACCOUNT=$USER
 rucio:protodune-sp
 cern-eos:/eos/experiment/neutplatform/protodune/rawdata/np04/detector/None/raw/07/42/28/49
 castor:/neutplatform/protodune/rawdata/np04/detector/None/raw/07/42/28/49
@@ -121,7 +97,7 @@ To list raw data files for a given run:
 ~~~
 samweb list-files "run_number 5758 and run_type protodune-sp and data_tier raw"
 ~~~
-{: .language-bash}
+c
 
 ~~~
 np04_raw_run005758_0001_dl3.root
@@ -192,152 +168,9 @@ When we are analyzing large numbers of files in a group of batch jobs, we use a 
 
 -->
 
-## What is UPS and why do we need it?
-
-> ## Note
-> UPS is going away and only works on SL7 - you need to be in the Apptainer to use it. It is being replaced by a new [spack][Spack Documentation] system for Alma9.  We will be adding a Spack tutorial soon but for now, you need to use SL7/UPS to use the full DUNE code stack.   
-> 
-> Go back and look at the [SL7/Apptainer]({{ site.baseurl }}setup.html#SL7_setup) instructions to get an SL7 container for this section. 
-{: .challenge}
-
-An important requirement for making valid physics results is computational reproducibility. You need to be able to repeat the same calculations on the data and MC and get the same answers every time. You may be asked to produce a slightly different version of a plot for example, and the data that goes into it has to be the same every time you run the program. 
-
-This requirement is in tension with a rapidly-developing software environment, where many collaborators are constantly improving software and adding new features. We therefore require strict version control; the workflows must be stable and not constantly changing due to updates. 
-
-DUNE must provide installed binaries and associated files for every version of the software that anyone could be using. Users must then specify which version they want to run before they run it. All software dependencies must be set up with consistent versions in order for the whole stack to run and run reproducibly.
-
-The Unix Product Setup (UPS) is a tool to handle the software product setup operation. 
-
-UPS is set up when you setup DUNE:
-~~~
- source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-~~~
-{: .language-bash}
-
-This sourcing defines the UPS `setup` command. Now to get DUNE's LArSoft-based software, this is done through:
-~~~
- export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
- source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
- export DUNESW_VERSION=v09_90_01d00
- export DUNESW_QUALIFIER=e26:prof
- setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
-~~~
-{: .language-bash}
 
 
-`dunesw`: product name <br>
-`$DUNESW_VERSION` version tag <br>
-`$DUNESW_QUALIFIER` are "qualifiers". Qualifiers are separated with colons and may be specified in any order. The "e20" qualifier refers to a specific version of the gcc compiler suite, and "prof" means select the installed product that has been compiled with optimizations turned on. An alternative to "prof" is the "debug" qualifier. All builds of LArSoft and dunesw are compiled with debug symbols turned on, but the "debug" builds are made with optimizations turned off. Both kinds of software can be debugged, but it is easier to debug the debug builds (code executes in the proper order and variables aren't optimized away so they can be inspected).
 
-Another specifier of a product install is the "flavor". This refers to the operating system the program was compiled for. These days we only support SL7, but in the past we used to also support SL6 and various versions of macOS. The flavor is automatically selected when you set up a product using setup (unless you override it which is usually a bad idea). Some product are "unflavored" because they do not contain anything that depends on the operating system. Examples are products that only contain data files or text files.
-
-Setting up a UPS product defines many environment variables. Most products have an environment variable of the form `<productname>_DIR`, where `<productname>` is the name of the UPS product in all capital letters. This is the top-level directory and can be used when searching for installed source code or fcl files for example. `<productname>_FQ_DIR` is the one that specifies a particular qualifier and flavor.
-
-> ## Exercise 3
-> * show all the versions of dunesw that are currently available by using the "ups list -aK+ dunesw" command
-> * pick one version and substitute that for DUNESW_VERSION and DUNESW_QUALIFIER above and set up dunesw
-{: .challenge}
-
-Many products modify the following search path variables, prepending their pieces when set up. These search paths are needed by _art_ jobs.
-
-`PATH`: colon-separated list of directories the shell uses when searching for programs to execute when you type their names at the command line. The command "which" tells you which version of a program is found first in the PATH search list. Example:
-~~~
-which lar
-~~~
-c
-will tell you where the lar command you would execute is if you were to type "lar" at the command prompt. 
-The other paths are needed by _art_ for finding plug-in libraries, fcl files, and other components, like gdml files.  
-`CET_PLUGIN_PATH`  
-`LD_LIBRARY_PATH`  
-`FHICL_FILE_PATH`  
-`FW_SEARCH_PATH`  
-
-Also the PYTHONPATH describes where Python modules will be loaded from.
-
-Try 
-
-~~~
-which root
-~~~
-{: .language-bash}
-to see the version of root that dunesw sets up. Try it out!
-
-
-### UPS basic commands
-
-| Command                                        | Action                                                           |
-|------------------------------------------------|------------------------------------------------------------------|
-| `ups list -aK+ dunesw`                        | List the versions and flavors of dunesw that exist on this node |
-| `ups active`                                   | Displays what has been setup                                     |
-| `ups depend dunesw v09_48_01d00 -q e20:prof` | Displays the dependencies for this version of dunesw           |
-
-> ## Exercise 4
-> * show all the dependencies of dunesw by using "ups depend dunesw $DUNESW_VERSION -q $DUNESW_VERSION"
-{: .challenge}
-
->## UPS Documentation Links
->
-> * [UPS reference manual](http://www.fnal.gov/docs/products/ups/ReferenceManual/)
-> * [UPS documentation](https://cdcvs.fnal.gov/redmine/projects/ups/wiki)
-> * [UPS qualifiers](https://cdcvs.fnal.gov/redmine/projects/cet-is-public/wiki/AboutQualifiers)
-{: .callout}
-
-## mrb
-**What is mrb and why do we need it?**  
-Early on, the LArSoft team chose git and cmake as the software version manager and the build language, respectively, to keep up with industry standards and to take advantage of their new features. When we clone a git repository to a local copy and check out the code, we end up building it all. We would like LArSoft and DUNE code to be more modular, or at least the builds should reflect some of the inherent modularity of the code.
-
-Ideally, we would like to only have to recompile a fraction of the software stack when we make a change. The granularity of the build in LArSoft and other art-based projects is the repository. So LArSoft and DUNE have divided code up into multiple repositories (DUNE ought to divide more than it has, but there are a few repositories already with different purposes). Sometimes one needs to modify code in multiple repositories at the same time for a particular project. This is where mrb comes in. 
-
-**mrb** stands for "multi-repository build". mrb has features for cloning git repositories, setting up build and local products environments, building code, and checking for consistency (i.e. there are not two modules with the same name or two fcl files with the same name). mrb builds UPS products -- when it installs the built code into the localProducts directory, it also makes the necessasry UPS table files and .version directories. mrb also has a tool for making a tarball of a build product for distribution to the grid. The software build example later in this tutorial exercises some of the features of mrb. 
-
-| Command                  | Action                                              |
-|--------------------------|-----------------------------------------------------|
-| `mrb --help`             | prints list of all commands with brief descriptions |
-| `mrb \<command\> --help` | displays help for that command                      |
-| `mrb gitCheckout`        | clone a repository into working area                |
-| `mrbsetenv`              | set up build environment                            |
-| `mrb build -jN`          | builds local code with N cores                      |
-| `mrb b -jN`              | same as above                                       |
-| `mrb install -jN`        | installs local code with N cores                    |
-| `mrb i -jN`              | same as above (this will do a build also)           |
-| `mrbslp`                 | set up all products in localProducts...             |
-| `mrb z`                  | get rid of everything in build area                 |
-
-Link to the [mrb reference guide](https://cdcvs.fnal.gov/redmine/projects/mrb/wiki/MrbRefereceGuide)
-
-> ## Exercise 5
-> There is no exercise 5. mrb example exercises will be covered in Thursday afternoon session as any useful exercise with mrb takes more than 30 minutes on its own. Everyone gets 100% credit for this exercise!
-{: .challenge}
-
-
-## CVMFS  
-**What is CVMFS and why do we need it?**  
-DUNE has a need to distribute precompiled code to many different computers that collaborators may use. Installed products are needed for four things: 
-1. Running programs interactively
-2. Running programs on grid nodes
-3. Linking programs to installed libraries
-4. Inspection of source code and data files
-
-Results must be reproducible, so identical code and associated files must be distributed everywhere. DUNE does not own any batch resources -- we use CPU time on computers that participating institutions donate to the Open Science Grid. We are not allowed to install our software on these computers and must return them to their original state when our programs finish running so they are ready for the next job from another collaboration.
-
-CVMFS is a perfect tool for distributing software and related files. It stands for CernVM File System (VM is Virtual Machine). Local caches are provided on each target computer, and files are accessed via the `/cvmfs` mount point. DUNE software is in the directory `/cvmfs/dune.opensciencegrid.org`, and LArSoft code is in `/cvmfs/larsoft.opensciencegrid.org`. These directories are auto-mounted and need to be visible when one executes `ls /cvmfs` for the first time.  Some software is also in /cvmfs/fermilab.opensciencegrid.org.
-
-CVMFS also provides a de-duplication feature.  If a given file is the same in all 100 releases of dunetpc, it is only cached and transmitted once, not independently for every release.  So it considerably decreases the size of code that has to be transferred.
-
-When a file is accessed in `/cvmfs`, a daemon on the target computer wakes up and determines if the file is in the local cache, and delivers it if it is. If not, the daemon contacts the CVMFS repository server responsible for the directory, and fetches the file into local cache. In this sense, it works a lot like AFS. But it is a read-only filesystem on the target computers, and files must be published on special CVMFS publishing servers. Files may also be cached in a layer between the CVMFS host and the target node in a squid server, which helps facilities with many batch workers reduce the network load in fetching many copies of the same file, possibly over an international connection.
-
-CVMFS also has a feature known as "Stashcache" or "xCache".  Files that are in /cvmfs/dune.osgstorage.org are not actually transmitted 
-in their entirety, only pointers to them are, and then they are fetched from one of several regional cache servers or in the case of DUNE from Fermilab dCache directly.  DUNE uses this to distribute photon library files, for instance.  
-
-CVMFS is by its nature read-all so code is readable by anyone in the world with a CVMFS client.  CVMFS clients are available for download to desktops or laptops.  Sensitive code can not be stored in CVMFS.
-
-More information on CVMFS is available [here](https://wiki.dunescience.org/wiki/DUNE_Computing/Access_files_in_CVMFS)
-
-> ## Exercise 6
-> * cd /cvmfs and do an ls at top level
-> * What do you see--do you see the four subdirectories (dune.opensciencegrid.org, larsoft.opensciencegrid.org, fermilab.opensciencegrid.org, and dune.osgstorage.org)
-> * cd dune.osgstorage.org/pnfs/fnal.gov/usr/dune/persistent/stash/PhotonPropagation/LibraryData
-{: .challenge}
 
 
 ## Quiz
@@ -364,14 +197,14 @@ More information on CVMFS is available [here](https://wiki.dunescience.org/wiki/
 >
 > How do we determine a DUNE data file location?
 > <ol type="A">
-> <li>Do ls -R on /pnfs/dune and grep</li>
-> <li>Use samweb locate-file (file name)</li>
+> <li>Do `ls -R` on /pnfs/dune and grep</li>
+> <li>Use `rucio list-file-replicas` (namespace:filename)</li>
 > <li>Ask the data management group</li>
 > <li>None of the Above</li>
 > </ol>
 >
 > > ## Answer
-> > The correct answer is B - use samweb locate-file (file name).
+> > The correct answer is B - use `rucio list-file-replicas` (namespace:filename).
 > > {: .output}
 > > Comment here
 > {: .solution}

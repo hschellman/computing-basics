@@ -1,5 +1,5 @@
 ---
-title: Storage Spaces
+title: Storage Spaces (2024)
 teaching: 45
 exercises: 0
 questions:
@@ -170,21 +170,21 @@ Note, if the destination for an ifdh cp command is a directory instead of filena
 
 > ## Exercise 1
 > Using the ifdh command, complete the following tasks:
-* create a directory in your dCache scratch area (/pnfs/dune/scratch/users/${USER}/) called "DUNE_tutorial_Jan2023" 
+* create a directory in your dCache scratch area (/pnfs/dune/scratch/users/${USER}/) called "DUNE_tutorial_2024" 
 * copy /exp/dune/app/users/${USER}/my_first_login.txt file to that directory
-* copy the my_first_login.txt file from your dCache scratch directory (i.e. DUNE_tutorial_Jan2023) to /dev/null
-* remove the directory DUNE_tutorial_Jan2023
-* create the directory DUNE_tutorial_Jan2023_data_file
+* copy the my_first_login.txt file from your dCache scratch directory (i.e. DUNE_tutorial_2024) to /dev/null
+* remove the directory DUNE_tutorial_2024
+* create the directory DUNE_tutorial_2024_data_file
 > Note, if the destination for an ifdh cp command is a directory instead of filename with full path, you have to add the "-D" option to the command line. Also, for a directory to be deleted, it must be empty.
 {: .challenge}
 
 ~~~
-ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023
-ifdh cp -D /exp/dune/app/users/${USER}/my_first_login.txt /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023
-ifdh cp /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023/my_first_login.txt /dev/null
-ifdh rm /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023/my_first_login.txt
-ifdh rmdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023
-ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023_data_file
+ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024
+ifdh cp -D /exp/dune/app/users/${USER}/my_first_login.txt /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024
+ifdh cp /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024/my_first_login.txt /dev/null
+ifdh rm /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024/my_first_login.txt
+ifdh rmdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024
+ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024_data_file
 ~~~
 {: .language-bash}
 
@@ -195,7 +195,7 @@ XRootD is most suitable for read-only data access.
 [XRootD Man pages](https://xrootd.slac.stanford.edu/docs.html)
 
 
-Issue the following command. Please look at the input and output of the command, and recognize that this is a listing of /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023. Try and understand how the translation between a NFS path and an xrootd URI could be done by hand if you needed to do so.
+Issue the following command. Please look at the input and output of the command, and recognize that this is a listing of /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024. Try and understand how the translation between a NFS path and an xrootd URI could be done by hand if you needed to do so.
 
 ~~~
 xrdfs root://fndca1.fnal.gov:1094/ ls /pnfs/fnal.gov/usr/dune/scratch/users/${USER}/
@@ -227,7 +227,7 @@ thefile = ROOT.TFile.Open(<xrootd_uri>)
 > ## Exercise 2
 > Using a combination of `ifdh` and `xrootd` commands discussed previously:
 > * Use `ifdh locateFile <file> root` to find the directory for this file `PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root`
-> * Use `xrdcp` to copy that file to `/pnfs/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023_data_file`
+> * Use `xrdcp` to copy that file to `/pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024_data_file`
 > * Using `xrdfs` and the `ls` option, count the number of files in the same directory as `PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root`
 {: .challenge}
 
@@ -235,7 +235,7 @@ Note that redirecting the standard output of a command into the command `wc -l` 
 
 ~~~
 ifdh locateFile PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root root
-xrdcp root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/01/67/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/scratch/users/${USER}/DUNE_tutorial_Jan2023_data_file/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root
+xrdcp root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/01/67/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/scratch/users/${USER}/DUNE_tutorial_2024_data_file/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root
 xrdfs root://fndca1.fnal.gov:1094/ ls /pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/01/67/ | wc -l
 ~~~
 {: .language-bash}
