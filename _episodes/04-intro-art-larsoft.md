@@ -1,5 +1,5 @@
 ---
-title: Introduction to art and LArSoft
+title: Introduction to art and LArSoft (2023)
 teaching: 95
 exercises: 0
 questions:

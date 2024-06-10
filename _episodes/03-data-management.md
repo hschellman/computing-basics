@@ -216,14 +216,18 @@ UPS is set up when you setup DUNE:
 
 This sourcing defines the UPS `setup` command. Now to get DUNE's LArSoft-based software, this is done through:
 ~~~
- setup dunesw $DUNESW_VERSION -q e20:prof
+ export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
+ source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
+ export DUNESW_VERSION=v09_90_01d00
+ export DUNESW_QUALIFIER=e26:prof
+ setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
 ~~~
 {: .language-bash}
 
 
 `dunesw`: product name <br>
 `$DUNESW_VERSION` version tag <br>
-`e20:prof` are "qualifiers". Qualifiers are separated with colons and may be specified in any order. The "e20" qualifier refers to a specific version of the gcc compiler suite, and "prof" means select the installed product that has been compiled with optimizations turned on. An alternative to "prof" is the "debug" qualifier. All builds of LArSoft and dunesw are compiled with debug symbols turned on, but the "debug" builds are made with optimizations turned off. Both kinds of software can be debugged, but it is easier to debug the debug builds (code executes in the proper order and variables aren't optimized away so they can be inspected).
+`$DUNESW_QUALIFIER` are "qualifiers". Qualifiers are separated with colons and may be specified in any order. The "e20" qualifier refers to a specific version of the gcc compiler suite, and "prof" means select the installed product that has been compiled with optimizations turned on. An alternative to "prof" is the "debug" qualifier. All builds of LArSoft and dunesw are compiled with debug symbols turned on, but the "debug" builds are made with optimizations turned off. Both kinds of software can be debugged, but it is easier to debug the debug builds (code executes in the proper order and variables aren't optimized away so they can be inspected).
 
 Another specifier of a product install is the "flavor". This refers to the operating system the program was compiled for. These days we only support SL7, but in the past we used to also support SL6 and various versions of macOS. The flavor is automatically selected when you set up a product using setup (unless you override it which is usually a bad idea). Some product are "unflavored" because they do not contain anything that depends on the operating system. Examples are products that only contain data files or text files.
 
@@ -231,7 +235,7 @@ Setting up a UPS product defines many environment variables. Most products have 
 
 > ## Exercise 3
 > * show all the versions of dunesw that are currently available by using the "ups list -aK+ dunesw" command
-> * pick one version and substitute that for DUNESW_VERSION above and set up dunesw
+> * pick one version and substitute that for DUNESW_VERSION and DUNESW_QUALIFIER above and set up dunesw
 {: .challenge}
 
 Many products modify the following search path variables, prepending their pieces when set up. These search paths are needed by _art_ jobs.
@@ -240,7 +244,7 @@ Many products modify the following search path variables, prepending their piece
 ~~~
 which lar
 ~~~
-{: .language-bash}
+c
 will tell you where the lar command you would execute is if you were to type "lar" at the command prompt. 
 The other paths are needed by _art_ for finding plug-in libraries, fcl files, and other components, like gdml files.  
 `CET_PLUGIN_PATH`  
@@ -249,6 +253,15 @@ The other paths are needed by _art_ for finding plug-in libraries, fcl files, an
 `FW_SEARCH_PATH`  
 
 Also the PYTHONPATH describes where Python modules will be loaded from.
+
+Try 
+
+~~~
+which root
+~~~
+{: .language-bash}
+to see the version of root that dunesw sets up. Try it out!
+
 
 ### UPS basic commands
 
@@ -259,14 +272,15 @@ Also the PYTHONPATH describes where Python modules will be loaded from.
 | `ups depend dunesw v09_48_01d00 -q e20:prof` | Displays the dependencies for this version of dunesw           |
 
 > ## Exercise 4
-> * show all the dependencies of dunesw by using "ups depend dunesw $DUNESW_VERSION -q e20:prof"
+> * show all the dependencies of dunesw by using "ups depend dunesw $DUNESW_VERSION -q $DUNESW_VERSION"
 {: .challenge}
 
 >## UPS Documentation Links
-
+>
 > * [UPS reference manual](http://www.fnal.gov/docs/products/ups/ReferenceManual/)
 > * [UPS documentation](https://cdcvs.fnal.gov/redmine/projects/ups/wiki)
 > * [UPS qualifiers](https://cdcvs.fnal.gov/redmine/projects/cet-is-public/wiki/AboutQualifiers)
+{: .callout}
 
 ## mrb
 **What is mrb and why do we need it?**  
