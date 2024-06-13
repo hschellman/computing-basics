@@ -154,13 +154,15 @@ Here is an example to copy a file. Refer to the [Mission Setup]({{ site.baseurl 
 
 once in the Apptainer
 ~~~
-source ~/dune_presetup_2024.sh
-dune_setup
+#source ~/dune_presetup_2024.sh
+#dune_setup
+export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
+source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 kx509
 export ROLE=Analysis
 voms-proxy-init -rfc -noregen -voms=dune:/dune/Role=$ROLE -valid 120:00
 setup ifdhc
-ifdh cp root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/physics/full-reconstructed/2019/mc/out1/PDSPProd2/22/60/37/10/PDSPProd2_protoDUNE_sp_reco_35ms_sce_off_23473772_0_452d9f89-a2a1-4680-ab72-853a3261da5d.root /dev/null
+ifdh cp root://fndcadoor.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/physics/full-reconstructed/2023/mc/out1/MC_Winter2023_RITM1592444_reReco/54/05/35/65/NNBarAtm_hA_BR_dune10kt_1x2x6_54053565_607_20220331T192335Z_gen_g4_detsim_reco_65751406_0_20230125T150414Z_reReco.root /dev/null
 ~~~
 {: .language-bash}
 
