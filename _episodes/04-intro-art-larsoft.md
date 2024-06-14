@@ -445,20 +445,23 @@ lar -n 1 -c dump_mctruth.fcl $SAMPLE_FILE
 
 This command will make a file called `DumpMCTruth.log` which you can open in a text editor. Reminder: `MCTruth` are particles made by the generator(s), and MCParticles are those made by GEANT4, except for those owned by the `MCTruth` data products. Due to the showering nature of LArTPCs, there are usually many more MCParticles than MCTruths.
 
-### Examples and current workflows
+## Examples and current workflows
 
 The page with instructions on how to find and look at ProtoDUNE data has links to standard fcl configurations for simulating and reconstructing ProtoDUNE data: [https://wiki.dunescience.org/wiki/Look_at_ProtoDUNE_SP_data][look-at-protodune].
 
 Try it yourself! The workflow for ProtoDUNE-SP MC is given in the [Simulation Task Force web page](https://wiki.dunescience.org/wiki/ProtoDUNE-SP_Simulation_Task_Force).
 
 
-#### Running on a dunegpvm machine at Fermilab
+### Running on a dunegpvm machine at Fermilab
 
 ~~~
  export USER=`whoami`
  mkdir -p /exp/dune/data/users/$USER/tutorialtest
  cd /exp/dune/data/users/$USER/tutorialtest
+ export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
+ export DUNESW_VERSION=v09_90_01d00
+ export DUNESW_QUALIFIER=e26:prof
  setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
  TMPDIR=/tmp lar -n 1 -c mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl -o gen.root
  lar -n 1 -c protoDUNE_refactored_g4_stage1.fcl gen.root -o g4_stage1.root
@@ -474,11 +477,15 @@ Try it yourself! The workflow for ProtoDUNE-SP MC is given in the [Simulation Ta
 
 Note added November 22, 2023:  The construct "TMPDIR=/tmp lar ..." defines the environment variable TMPDIR only for the duration of the subsequent command on the line.  This is needed for the tutorial example because the mcc12 gen stage copies a 2.9 GB file (see below -- it's the one we had to copy over to CERN) to /var/tmp using ifdh's default temporary location.  But the dunegpvm machines as of November 2023 seem to rarely have 2.9 GB of space in /var/tmp and you get a "no space left on device" error.  The newer prod4 versions of the fcls point to a newer version of the beam particle generator that can stream this file using XRootD instead of copying it with ifdh.  But the streaming flag is turned off by default in the prod4 fcl for the version of dunesw used in this tutorial, and so this is the minimal solution.  Note for the next iteration:  the Prod4 fcls are here: https://wiki.dunescience.org/wiki/ProtoDUNE-SP_Production_IV
 
-#### Running at CERN
+### Running at CERN
 
 This example puts all files in a subdirectory of your home directory. There is an input file for the ProtoDUNE-SP beamline simulation that is copied over and you need to point the generation job at it. The above sequence of commands will work at CERN if you have a Fermilab grid proxy, but not everyone signed up for the tutorial can get one of these yet, so we copied the necessary file over and adjusted a fcl file to point at it. It also runs faster with the local copy of the input file than the above workflow which copies it.
 
 The apptainer command is slightly different as the mounts are different. Here we assume you are logged into an lxplus node running Alma9. 
+
+>#### Note
+> CERN Apptainer variant
+{: .challenge}
 
 ~~~
 /cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --she
@@ -500,6 +507,7 @@ physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023t
  cd ~
  mkdir 2024Tutorial
  cd 2024Tutorial
+ export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
  export DUNESW_VERSION=v09_90_01
  export LARSOFT_VERSION=${DUNESW_VERSION}
@@ -533,7 +541,7 @@ lar -c evd_protoDUNE.fcl reco_stage1.root
 but it will run very slowly over a tunneled X connection. A VNC session will be much faster. Tips: select the "Reconstructed" radio button at the bottom and click on "Unzoom Interest" on the left to see the reconstructed objects in the three views.
 
 
-### DUNE software documentation and how-to's
+## DUNE software documentation and how-to's
 
 The following legacy wiki page provides information on how to check out, build, and contribute to dune-specific larsoft plug-in code.
 
@@ -549,7 +557,7 @@ To work with pull requests, see the documentation at this link: [https://larsoft
 
 There are bi-weekly LArSoft coordination meetings [https://indico.fnal.gov/category/405/][larsoft-meetings] at which stakeholders, managers, and users discuss upcoming releases, plans, and new features to be added to LArSoft.
 
-### Useful tip: check out an inspection copy of larsoft  <a name="inspection_copy"></a>
+## Useful tip: check out an inspection copy of larsoft  <a name="inspection_copy"></a>
 
 A good old-fashioned `grep -r` or a find command can be effective if you are looking for an example of how to call something but I do not know where such an example might live. The copies of LArSoft source in CVMFS lack the CMakeLists.txt files and if that's what you're looking for to find examples, it's good to have a copy checked out. Here's a script that checks out all the LArSoft source and DUNE LArSoft code but does not compile it. Warning: it deletes a directory called "inspect" in your app area. Make sure `/exp/dune/app/users/<yourusername>` exists first:
 
@@ -565,6 +573,7 @@ A good old-fashioned `grep -r` or a find command can be effective if you are loo
  export LARSOFT_VERSION=${DUNESW_VERSION}
  export DUNESW_QUALIFIER=e26:prof
  export COMPILER=e26
+ export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
  cd /exp/dune/app/users/${USERNAME}
  rm -rf inspect
