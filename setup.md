@@ -34,7 +34,7 @@ go to [https://atwork.dunescience.org/tools/](https://atwork.dunescience.org/too
 
 
 > ## Note
-> The instructions below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#CERN_setup).
+> The instructions below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#setup_CERN).
 {: .challenge}
 
 ## 1. Kerberos business
@@ -535,6 +535,22 @@ Caution: the following instructions are for those of you who do not have a valid
 
 ### 1. Source the DUNE environment setup script
 CERN access is mainly for ProtoDUNE collaborators. If you have a valid CERN ID and access to lxplus via ssh, you can setup your environment for this tutorial as follow:
+
+log into `lxplus.cern.ch`
+
+fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightly different version as mounts are different.
+
+~~~
+/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash\
+-B /cvmfs,/afs,/opt,/run/user,/etc/hostname,/etc/krb5.conf --ipc --pid \
+/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
+~~~
+{: .language-bash}
+
+You may have to add some mounts - here I added `/afs/` but removed `/nashome/`, `/exp/` and `/pnfs/`.
+
+You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}03.3-cvmfs.html).
+
 ~~~
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 ~~~
