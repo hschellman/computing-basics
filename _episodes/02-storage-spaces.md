@@ -224,6 +224,46 @@ thefile = ROOT.TFile.Open(<xrootd_uri>)
 ~~~
 {: .language-python}
 
+### What is the right xroot path for a file.
+
+If a file is in `/pnfs/dune/tape_backed/dunepro/protodune-sp/reco-recalibrated/2021/detector/physics/PDSPProd4/00/00/51/41/np04_raw_run005141_0003_dl9_reco1_18127219_0_20210318T104440Z_reco2_51835174_0_20211231T143346Z.root`
+
+the command 
+
+~~~
+pnfs2xrootd /pnfs/dune/tape_backed/dunepro/protodune-sp/reco-recalibrated/2021/detector/physics/PDSPProd4/00/00/51/41/np04_raw_run005141_0003_dl9_reco1_18127219_0_20210318T104440Z_reco2_51835174_0_20211231T143346Z.root
+~~~
+{: .language-bash}
+
+
+will return the correct xrootd uri: 
+
+~~~
+root://fndca1.fnal.gov:1094//pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/reco-recalibrated/2021/detector/physics/PDSPProd4/00/00/51/41/np04_raw_run005141_0003_dl9_reco1_18127219_0_20210318T104440Z_reco2_51835174_0_20211231T143346Z.root
+~~~
+{: .output}
+
+you can then 
+
+~~~ 
+root -l <that long root: path>
+~~~ 
+{: .language-bash}
+
+to open the root file.  
+
+This even works if the file is in Europe - which you cannot do with a direct /pnfs!
+
+~~~
+root -l root://dune.dcache.nikhef.nl:1094/pnfs/nikhef.nl/data/dune/generic/rucio/usertests/b4/49/np04hd_raw_run026420_0000_dataflow0_datawriter_0_20240524T170759_20240604T204802_keepup_hists.root
+~~~
+{: .language-bash}
+
+See the next section on [data management](({{ site.baseurl }}/03-data-management)) for instructions on finding files worldwide. 
+
+> ## Note Files in /tape_backed/ may not be immediately accessible, those in /persistent/ and /scratch/ are. 
+{: .callout}
+
 ## Let's practice
 
 > ## Exercise 2
