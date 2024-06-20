@@ -222,6 +222,10 @@ Once you identify environment variables that might conflict with your DUNE work,
 
 A simpler solution would be to rename your login scripts (for instance .bashrc as .bashrc_save and/or .profile as .profile_bkp) so that your setup at login will be minimal and you will get the cleanest shell. For this to take into effect, you will need to exit and reconnect through ssh.
 
+> ## Note: Avoid putting experiment specific setups in `.bashrc` or `.profile`
+> You are going to be doing some setup for dune, which you will also need to  do when you submit batch jobs.  It is much easier to make a script `setup_dune.sh` which you execute every time you log in.  Then you can duplicate the contents of that script in the script you use to run batch jobs on remote machines.  It also makes it much easier for people to help you debug your setup. 
+{: .callout}
+
 ## 4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>
 
 See [SL7_to_Alma9][SL7_to_Alma9] for more information 
@@ -305,10 +309,13 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 
 ### Caveats for later
 
-You cannot submit jobs from the Container - you need to open a separate window, now do the [Apptainer](#SL7_setup) and submit your jobs from that window. 
+> ## Note: You cannot submit jobs from the Container
+> You cannot submit jobs from the Container - you need to open a separate window. In that window do the minimal [Alma9](#AL9_setup) setup below and submit your jobs from that window. 
+>
+>You may need to print your submit command to the screen or a file to do so if your submission is done from a script that uses ups. 
+{: .callout}
 
-
-## 4.2 Setting up DUNE software - Alma9 version
+## 4.2 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>
 
 We are moving to the Alma9 version of unix.  Not all DUNE code has been ported yet but if you are doing basic analysis work, try it out. 
 
