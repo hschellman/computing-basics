@@ -552,6 +552,7 @@ You may have to add some mounts - here I added `/afs/` but removed `/nashome/`, 
 You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}03.3-cvmfs.html).
 
 ~~~
+export UPS_OVERRIDE="-H Linux64bit+3.10-2.17" # makes certain you get the right UPS
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 ~~~
 {: .language-bash}
