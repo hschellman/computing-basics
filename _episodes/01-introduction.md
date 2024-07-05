@@ -60,7 +60,7 @@ The May 2023 DUNE computing training spanned two days: [Indico site](https://ind
 There will be live documents linked from [Indico][indico-event-link] for each [Zoom][zoom-link] session. You can write questions there, anonymously or not, and experts will reply. The chat on Zoom can quickly saturate so this is a more convenient solution and proved very successful at the previous training. We will collect all questions and release a Q&A after the event.
 -->
 
-You must be on the DUNE Collaboration member list and have a valid FNAL or CERN account. See the old [Indico Requirement page][indico-event-requirements] for more information. Windows users are invited to review the [Putty Setup page]({{ site.baseurl }}/putty.html).
+You must be on the DUNE Collaboration member list and have a valid FNAL or CERN account. See the old [Indico Requirement page][indico-event-requirements] for more information. Windows users are invited to review the [Windows Setup page]({{ site.baseurl }}/Windows.html).
 
 You should join the DUNE Slack instance and look in [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR) for help with this tutorial
 
