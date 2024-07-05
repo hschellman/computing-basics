@@ -1,7 +1,16 @@
 ---
 title: Windows Setup
 permalink: Windows.html
+keypoints:
+- Setting up Kerberos
+- Getting a terminal and XWindows emulator
 ---
+
+## Instructions for running remote terminal sessions on unix machines from Windows
+
+> ## Note You need to have administrator priviliges to do some of this
+> On Windows 11 type "Make Me " in the search area and it will pop up a "Make Me Adminstrator" window that allows you to be administrator for 30 minutes.  You will need to do this again after 30 minutes.  If something fails, it may be because the time ran out. 
+{: .callout}
 
 ## Kerberos Ticket Manager
 
@@ -14,7 +23,9 @@ Once this is installed, you can launch it as an app to manage your Kerberos tick
 Ask about site-specific configuration requirements. For Fermilab find it here [krb5conf](https://authentication.fnal.gov/krb5conf/)
 {: .callout}
 
-## MobaXterm
+## Terminal emulators
+
+### MobaXterm
 
 [MobaXterm](http://mobaxterm.mobatek.net/) is a replacement for Putty/Xming.  I found it easier to set up and install.
 
@@ -22,9 +33,14 @@ Just install from the website and get it to talk to MIT Kerberos (not the defaul
 
 One thing to remember in all of this is that your username may be different on your personal machine than on the remote system.  Remember to set it correctly.
 
+This was added in 2024 when we had trouble installing Xming
+
 <!--[Set MIT Kerberos](MobaXterm.png){: .image-with-shadow } -->
 
-### PuTTY
+### PuTTY/Xming
+
+#### PuTTY
+
 
 This is an alternate application to use in Windows as a terminal and to SSH into other systems. Download the appropriate Windows installer (MSI file) for your system from [here](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) (probably the 64-bit x86).
 
@@ -32,7 +48,7 @@ The default options for the installer should be fine.
 
 Once you start trying to use putty to access remote systems, you need to do some configuration.
 
-## Xming
+#### Xming with PuTTY
 
 This is used for X11 graphics forwarding. Download from [here](https://sourceforge.net/projects/xming/) (see also [official notes](http://www.straightrunning.com/XmingNotes/)). Run the installer (keeping all default options is fine).
 
@@ -40,7 +56,7 @@ Once installed, run XLaunch to check the settings. Follow the XLaunch configurat
 
 Once this is done, in the future when you need to use X11 graphics forwarding, simply launch Xming and let it run in the background.
 
-## Configuring PuTTY for remote use
+#### Configuring PuTTY for remote use
 
 Once all the previous components are installed, open up PuTTY and configure as follows:
 
@@ -49,8 +65,10 @@ Once all the previous components are installed, open up PuTTY and configure as f
 3. Under Session, Fill in the host name with [username]@<systemaddress>.
 4. Save this configuration by typing a name in the box labeled "Saved Sessions" and pressing "Save". You can load this configuration in the future to reuse these settings.
 
+## Done!
+
 This should allow you to SSH to the remote unix cluster and follow the rest of the tutorial.
 
 *Created on 20220508 using notes provided by Roger Huang.*
 
-[Go back to Setup]({{ site.baseurl }}/01_BasicSetup.html)
+[Go back to Setup]({{ site.baseurl }}/setup.html)
