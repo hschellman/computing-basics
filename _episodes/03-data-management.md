@@ -53,6 +53,126 @@ You can find extensive documentation on metacat at:
 
 [DUNE metacat examples](https://dune.github.io/DataCatalogDocs/index.html)
 
+### Find a file in metacat
+
+DUNE runs multiple experiments (far detectors, protodune-sp, protodune-dp hd-protodune, vd-protodune, iceberg, coldboxes... ) and produces various kinds of data (mc/detector) and process them through different phases.
+
+To find your data you need to specify at the minimum 
+
+- `core.run_type`  (the experiment)
+- `core.file_type` (mc or detecor)
+- `core.data_tier` (the level of processing raw, full-reconstructed, root-tuple)
+
+and when searching for specific types of data
+
+- `core.data_stream` (physics, calibration, cosmics)
+- `core.runs[any]=<runnumber>`
+
+ Here is an example of a metacat query that gets you raw files from a recent 'hd-protodune' cosmics run.
+
+First get metacat if you have not already done so
+
+~~~
+setup metacat # if using SL7
+spack load metacat # if using Alma9
+metacat auth login -m password $USER  # use your services password to authenticate
+METACAT_AUTH_SERVER_URL=https://metacat.fnal.gov:8143/auth/dune
+METACAT_SERVER_URL=https://metacat.fnal.gov:9443/dune_meta_prod/app 
+~~~
+{: .language-bash}
+
+>### Note: other means of authentication
+>Check out the [metacat documentation](https://metacat.readthedocs.io/en/latest/ui.html#user-authentication) for 
+kx509 and token authentication. 
+{: .callout}
+
+then do queries to find particular sets of files. 
+~~~
+metacat query "files from dune:all where core.file_type=detector \
+ and core.run_type=hd-protodune and core.data_tier=raw \
+ and core.data_stream=cosmics and core.runs[any]=27296 limit 2"
+~~~
+{: .language-bash}
+
+should give you 2 files:
+
+~~~
+hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+hd-protodune:np04hd_raw_run027296_0000_dataflow0_datawriter_0_20240619T110330.hdf5
+~~~
+{: .output}
+
+
+the string before the ':' is the namespace and the string after is the filename.
+
+You can find out more about your file by doing:
+
+~~~
+metacat file show -m -l hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+~~~
+{: .language-bash}
+
+which gives you a lot of information:
+
+~~~
+checksums:
+    adler32   : 6a191436
+created_timestamp   :	2024-06-19 11:08:24.398197+00:00
+creator             :	dunepro
+fid                 :	83302138
+name                :	np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+namespace           :	hd-protodune
+retired             :	False
+retired_by          :	None
+retired_timestamp   :	None
+size                :	4232017188
+updated_by          :	None
+updated_timestamp   :	1718795304.398197
+metadata:
+    core.data_stream    : cosmics
+    core.data_tier      : raw
+    core.end_time       : 1718795024.0
+    core.event_count    : 35
+    core.events         : [3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43, 47, 51, 55, 59, 63, 67, 71, 75, 79, 83, 87, 91, 95, 99, 103, 107, 111, 115, 119, 123, 127, 131, 135, 139]
+    core.file_content_status: good
+    core.file_format    : hdf5
+    core.file_type      : detector
+    core.first_event_number: 3
+    core.last_event_number: 139
+    core.run_type       : hd-protodune
+    core.runs           : [27296]
+    core.runs_subruns   : [2729600001]
+    core.start_time     : 1718795010.0
+    dune.daq_test       : False
+    retention.class     : physics
+    retention.status    : active
+children:
+   hd-protodune-det-reco:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330_reco_stage1_20240621T175057_keepup_hists.root (eywzUgkZRZ6llTsU)
+   hd-protodune-det-reco:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330_reco_stage1_reco_stage2_20240621T175057_keepup.root (GHSm3owITS20vn69)
+~~~
+{: .output}   
+
+look in the glossary to see what those fields mean. 
+
+### find out how much raw data there is in a run using the summary option
+
+~~~
+metacat query -s "files from dune:all where core.file_type=detector \
+ and core.run_type=hd-protodune and core.data_tier=raw \
+ and core.data_stream=cosmics and core.runs[any]=27296"
+~~~
+{: .language-bash}
+
+~~~
+Files:        963
+Total size:   4092539942264 (4.093 TB)
+~~~
+{: .output}
+
+To look at all the files in that run you need to use XRootD - **DO NOT TRY TO COPY 4 TB to your local area!!!***
+
+
+
 ### What is(was) SAM?  
 Sequential Access with Metadata (SAM) is a data handling system developed at Fermilab.  It is designed to tracklocations of files and other file metadata.
 
@@ -78,17 +198,19 @@ As of the date of the June 2024 tutorial:
 ~~~
 # get a kx509 proxy
 export RUCIO_ACCOUNT=$USER
-rucio list-file-replicas pdsp_det_reco:np04_raw_run005141_0013_dl10_reco1_18127013_0_20210318T104043Z.root --pfns --protocols=root
+rucio list-file-replicas rucio list-file-replicas hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5 --pfns --protocols=root
 ~~~
 {: .language-bash}
 
-returns 2 locations:
+returns 3 locations:
 
 ~~~
-root://xrootd01.esc.qmul.ac.uk:1094//dune/RSE/pdsp_det_reco/dd/e5/np04_raw_run005141_0013_dl10_reco1_18127013_0_20210318T104043Z.root
-root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro//protodune-sp/full-reconstructed/2021/detector/physics/PDSPProd4/00/00/51/41/np04_raw_run005141_0013_dl10_reco1_18127013_0_20210318T104043Z.root
+root://eospublic.cern.ch:1094//eos/experiment/neutplatform/protodune/dune/hd-protodune/e5/57/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro//hd-protodune/raw/2024/detector/cosmics/None/00/02/72/96/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+root://eosctapublic.cern.ch:1094//eos/ctapublic/archive/neutplatform/protodune/rawdata/np04//hd-protodune/raw/2024/detector/cosmics/None/00/02/72/96/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
 ~~~
 {: .output}
+
 
 which is the locations of the file on disk and tape. We can use this to copy the file to our local disk or access the file via xroot. 
 
@@ -170,6 +292,7 @@ To learn more about using Rucio and Metacat to run over large data samples go he
 
 
 > ## Exercise 1
+> * Use `metacat` to find a file from a particular experiment/run/processing stage 
 > * Use `metacat file show -m namespace:filename` to get  metadata for this file. Note that `--json` gives the output in json format.
 {: .challenge}
 

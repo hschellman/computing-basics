@@ -26,7 +26,7 @@ keypoints:
 
 ## Requirements
 
-You must be on the DUNE Collaboration member list and have a valid FNAL or CERN account. See the old [Indico Requirement page][indico-event-requirements] for more information. Windows users are invited to review the [Putty Setup page]({{ site.baseurl }}/putty.html).
+You must be on the DUNE Collaboration member list and have a valid FNAL or CERN account. See the old [Indico Requirement page][indico-event-requirements] for more information. Windows users are invited to review the [Windows Setup page]({{ site.baseurl }}/Windows.html).
 
 You should join the DUNE Slack instance and look in [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR) for help with this tutorial
 
