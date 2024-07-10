@@ -85,7 +85,7 @@ There is now a second persistent dCache volume that is dedicated for DUNE Physic
 physics group.  https://wiki.dunescience.org/wiki/DUNE_Computing/Using_the_Physics_Groups_Persistent_Space_at_Fermilab gives more details on how to get 
 access to these groups.  In general if you need to store more than 5TB in persistent dCache you should be working with the Physics Groups areas.
 
-**Scratch dCache**: large volume shared across all experiments. When a new file is written to scratch space, old files are removed in order to make room for the newer file. removal is based on Least Recently Utilized (LRU) policy
+**Scratch dCache**: large volume shared across all experiments. When a new file is written to scratch space, old files are removed in order to make room for the newer file. removal is based on Least Recently Utilized (LRU) policy.
 
 **Tape-backed dCache**: disk based storage areas that have their contents mirrored to permanent storage on Enstore tape.  
 Files are not available for immediate read on disk, but needs to be 'staged' from tape first ([see video of a tape storage robot](https://www.youtube.com/watch?v=kiNWOhl00Ao)).
