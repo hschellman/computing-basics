@@ -80,6 +80,10 @@ See the information about [Windows]({{ site.baseurl }}/Windows.html) terminal co
 
 To do Linux locally, many people like to run an instance of [Windows SubSystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/about).  But it is non-trivial to set up. 
 
+> # Note
+> You should now be ready to go for the ({{ site.baseurl }}/setup.html) 
+{: .callout}
+
 ## Extra - Get a compiler/code editor
 
 Although you will mainly be using python to code to begin with, most HEP code is actually C++ and it is good to have access to a C++ compiler.  Bonus is that you normally get a good editor as well.

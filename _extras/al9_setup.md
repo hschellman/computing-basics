@@ -20,15 +20,12 @@ source /cvmfs/larsoft.opensciencegrid.org/spack-v0.22.0-fermi/setup-env.sh
 spack load gcc@12.2.0 arch=linux-almalinux9-x86_64_v3
 spack load root@6.28.12 arch=linux-almalinux9-x86_64_v3
 spack load fife-utils@3.7.0
-spack load metacat@4.0.0
-spack load rucio-clients@33.3.0
-spack load sam-web-client@3.4%gcc@12.2.0 
+
+spack load sam-web-client@3.4%gcc@12.2.0    
+export SAM_EXPERIMENT=dune
+# this loads rucio and metacat
 spack load r-m-dd-config@1.0 experiment=dune
 export IFDH_CP_MAXRETRIES=0\0\0\0\0  # no retries
-export DATA_DISPATCHER_URL=https://metacat.fnal.gov:9443/dune/dd/data
-export DATA_DISPATCHER_AUTH_URL=https://metacat.fnal.gov:8143/auth/dune
-export METACAT_SERVER_URL=https://metacat.fnal.gov:9443/dune_meta_prod/app
-export METACAT_AUTH_SERVER_URL=https://metacat.fnal.gov:8143/auth/dune
 export RUCIO_ACCOUNT=$USER
 
 # access some disks

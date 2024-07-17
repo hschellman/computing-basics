@@ -8,6 +8,8 @@ keypoints:
 
 ## launch the Apptainer
 
+( I put this command in a file called apptainer.sh so I don't have to retype all the time.)
+
 ###  FNAL
 
 ~~~
