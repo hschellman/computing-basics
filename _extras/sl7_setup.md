@@ -27,17 +27,19 @@ keypoints:
 {: .language-bash}
 
 
-
-~~~
 ## then do the following 
 
+you can store this as
+
+`mysl7.sh` and run it every time you log in.  
+
+~~~
 # use ups to find programs
 
 export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 setup metacat
 setup rucio
-setup root v6_28_06b -q e26:p3915:prof -z /cvmfs/larsoft.opensciencegrid.org/products 
 
 
 # do some data access setup
@@ -67,5 +69,11 @@ htgettoken -i dune --vaultserver htvaultprod.fnal.gov
 
 export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 
+## you need to change these to match current versions
+
+export DUNESW_VERSION=v09_90_01d00
+export DUNESW_QUALIFIER=e26:prof
+
+setup -B dunesw ${DUNESW_VERSION} -q ${DUNESW_QUALIFIER}
 ~~~
 {: .language-bash}
