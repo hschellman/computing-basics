@@ -56,7 +56,7 @@ If you have trouble getting access, please reach out to the training team severa
 
 We ask that you have completed the setup work to verify your access to the DUNE servers. It is not complicated, and should take 10 - 20 min.
 
-If you are not familiar with Unix shell commands, here is a tutorial you can do on your own to be ready: The Unix Shell.
+If you are not familiar with Unix shell commands, here is a tutorial you can do on your own to be ready: [The Unix Shell](https://swcarpentry.github.io/shell-novice/)
 
 If you have any questions, contact us at `dune-computing-training@fnal.gov` or on DUNE Slack `#computing_training_basics`.
 
@@ -67,6 +67,12 @@ You should join the DUNE Slack instance and look in [#computing-training-basics]
 go to [https://atwork.dunescience.org/tools/](https://atwork.dunescience.org/tools/) scroll down to Slack and request an invite.  Please do not do this if you are already in DUNE Slack.
 
 Also check out our [Computing FAQ](https://github.com/DUNE/FAQ/projects/1) for help with connection and account issues. 
+
+
+
+## 0. Basic setup on your computer. 
+
+[Computer Setup]({{ site.baseurl }}ComputerSetup.html) goes through how to find a terminal and set up xwindows on MacOS and Windows.  You can skip this if already familiar with doing that. 
 
 > ## Note
 > The instructions directly below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#setup_CERN).
