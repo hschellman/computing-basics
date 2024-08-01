@@ -128,6 +128,10 @@ And to see the total volume usage at Rucio Storage Elements around the world:
 
 **Resource** [DUNE Rucio Storage](https://dune.monitoring.edi.scotgrid.ac.uk/app/dashboards#/view/7eb1cea0-ca5e-11ea-b9a5-15b75a959b33?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1d,to:now)))
 
+> ## Note - do not blindly copy files from personal machines to DUNE systems.
+> You may have files on your personal machine that contain personal information, licensed software or (god forbid) malware or pornography.  Do not transfer any files from your personal machine to DUNE machines unless they are directly related to work on DUNE.  You must be fully aware of any file's contents. We have seen it all and we do not want to. 
+{: .callout} 
+
 ## Commands and tools
 This section will teach you the main tools and commands to display storage information and access data.
 
@@ -337,7 +341,7 @@ df -h
 
 > ## Question 03
 >
-> You have written a shell script that sets up your environment for both DUNE and another FNAL experiment. What (missing text)?
+> You have written a shell script that sets up your environment for both DUNE and another FNAL experiment. Where should you put it?
 > <ol type="A">
 > <li>DUNE CVMFS repository</li>
 > <li>/pnfs/dune/scratch/</li>
@@ -365,7 +369,7 @@ df -h
 > </ol>
 >
 > > ## Answer
-> > The correct answer is C - Open it for streaming via xrootd.
+> > The correct answer is C - Open it for streaming via xrootd. Use `pnfs2xrootd` to generate the streaming path. 
 > > {: .output}
 > > Comment here
 > {: .solution}

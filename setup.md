@@ -572,7 +572,12 @@ With this done, you should be able to submit jobs and access remote DUNE storage
 
 ## Set up on CERN machines <a name="setup_CERN"></a>
 
-Caution: the following instructions are for those of you who do not have a valid FNAL account but have access to CERN machines. 
+<!-- Caution: the following instructions are for those of you who do not have a valid FNAL account but have access to CERN machines. -->
+
+> # Warning Some data access operations here still require a fermilab account. We are working on a solution.  
+{: .callout}
+
+See [https://github.com/DUNE/data-mgmt-ops/wiki/Using-Rucio-to-find-Protodune-files-at-CERN](https://github.com/DUNE/data-mgmt-ops/wiki/Using-Rucio-to-find-Protodune-files-at-CERN) for instructions on getting full access to DUNE data via metacat/rucio from lxplus. 
 
 ### 1. Source the DUNE environment setup script
 CERN access is mainly for ProtoDUNE collaborators. If you have a valid CERN ID and access to lxplus via ssh, you can setup your environment for this tutorial as follow:
@@ -580,6 +585,17 @@ CERN access is mainly for ProtoDUNE collaborators. If you have a valid CERN ID a
 log into `lxplus.cern.ch`
 
 fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightly different version as mounts are different.
+
+If you have a Fermilab account already do this to get access the data catalog worldwide
+
+~~~
+kdestroy
+kinit -f <fnalaccount>@FNAL.GOV
+kx509
+~~~
+{: .language-bash}
+
+but otherwise you can still proceed with local files. 
 
 ~~~
 /cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash\

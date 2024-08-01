@@ -22,16 +22,16 @@ Also turn off automatic updates.  Operating system updates can mess with your se
 
 First figure out how to open a terminal on your system.  The Carpentries Shell Training has a [section that explains this][New Shell]
 
-This should be easy on Linux and OSX but a bit more complicated in Windows.
+This should be easy on Linux and MacOS but a bit more complicated in Windows.
 
-<!---
-On Linux use xterm, on OSX go to Utilities and start a Terminal.
 
-On Windows it's a bit more complicated as the underlying operating system is not a unix variant.
+On Linux use xterm, on MacOS go to Utilities and start a Terminal.
+
+On Windows it's a bit more complicated as the underlying operating system is not a unix variant.  
 
 > We suggest using the [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/about) (WSL). That page has download instructions.
 
--->
+
 
 ## 2. Learn how to use the Unix Shell
 
@@ -42,10 +42,10 @@ There is a nice tutorial from the Carpentries at: [Unix Shell Basics][Unix Shell
 
 It tells you how to start a terminal session in Windows, Mac OSX and Unix systems.
 
-Please do the [unix shell tutorial][Unix Shell Basics] to learn about the basic command line.
+Please do that [unix shell tutorial][Unix Shell Basics] to learn about the basic command line.
 
 
-## 3. Get a terminal app and install an x-windows emulator
+## 3. Install an x-windows emulator
 
 #### MacOS
 
@@ -78,7 +78,9 @@ xterm &
 
 See the information about [Windows]({{ site.baseurl }}/Windows.html) terminal connections. 
 
-To do Linux locally, many people like to run an instance of [Windows SubSystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/about).  But it is non-trivial to set up. 
+- To do Linux locally, many people like to run an instance of [Windows SubSystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/about).  But it is non-trivial to set up. 
+
+- Alternatively, if you have access to a remote linux system through your institution you can use the Windows terminal/X-windows connections described in [Windows]({{ site.baseurl }}/Windows.html) to connect to that system and work there. 
 
 > # Note
 > You should now be ready to go for the ({{ site.baseurl }}/setup.html) 
