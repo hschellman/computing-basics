@@ -1,5 +1,5 @@
 ---
-title: Introduction to art and LArSoft
+title: Introduction to art and LArSoft (2024 - Apptainer version)
 teaching: 95
 exercises: 0
 questions:
@@ -13,6 +13,7 @@ keypoints:
 - LArSoft is a set of simulation and reconstruction tools shared among the liquid-argon TPC collaborations.
 ---
 
+<!--
 #### Session Video
 
 The session will be captured on video a placed here after the workshop for asynchronous study.
@@ -20,6 +21,8 @@ The session will be captured on video a placed here after the workshop for async
 #### Live Notes
 
 Participants are encouraged to monitor and utilize the [Livedoc for May. 2023](https://docs.google.com/document/d/19XMQqQ0YV2AtR5OdJJkXoDkuRLWv30BnHY9C5N92uYs/edit?usp=sharing) to ask questions and learn.  For reference, the [Livedoc from Jan. 2023](https://docs.google.com/document/d/1sgRQPQn1OCMEUHAk28bTPhZoySdT5NUSDnW07aL-iQU/edit?usp=sharing) is provided.
+
+-->
 
 <!--
 #### Temporary Instructor Note: 
@@ -30,7 +33,9 @@ This lesson (06-intro-art-larsoft.md) was imported from the [Jan. 2023 lesson](h
 
 This lesson includes collapsable quiz blocks which are encouraged, a blank quiz question block included at the end of the page. -->
 
-The official timetable for this training event is on the [Indico site](https://indico.fnal.gov/event/59762/timetable/#20230524).
+<!-- The official timetable for this training event is on the [Indico site](https://indico.fnal.gov/event/59762/timetable/#20230524).
+
+-->
 
 ## Introduction to *art*
 
@@ -59,13 +64,34 @@ The configuration storage is particularly useful if you receive a data file from
 
 Log in to a `dunegpvm*.fnal.gov` machine and set up your environment (This script is defined in Exercise 5 of https://dune.github.io/computing-training-basics/setup.html)
 
-```bash
-source ~/dune_presetup_202305.sh
-dune_setup
-setup dunesw $DUNESW_VERSION -q e20:prof
-setup_fnal_security
-```
+> ## Note
+> For now do this in the Apptainer
+{: .challenge}
 
+~~~
+/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
+-B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid \
+/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
+~~~
+{: .language-bash}
+
+once in the Apptainer
+
+~~~
+export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
+source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
+export DUNESW_VERSION=v09_90_01d00
+export DUNESW_QUALIFIER=e26:prof
+setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
+setup_fnal_security
+~~~
+{: .language-bash}
+
+~~~
+# define a sample file
+export SAMPLE_FILE=root://fndcadoor.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/physics/full-reconstructed/2023/mc/out1/MC_Winter2023_RITM1592444_reReco/54/05/35/65/NNBarAtm_hA_BR_dune10kt_1x2x6_54053565_607_20220331T192335Z_gen_g4_detsim_reco_65751406_0_20230125T150414Z_reReco.root
+~~~
+{: .language-bash}
 
 The examples below will refer to files in `dCache` at Fermilab which can best be accessed via `xrootd`. 
 
@@ -76,9 +102,10 @@ The follow-up of this tutorial provides help on how to find data and MC files in
 
 You can list available versions of `dunesw` installed in `CVMFS` with this command:
 
-```bash
+~~~
 ups list -aK+ dunesw
-```
+~~~
+{: .language-bash}
 
 The output is not sorted, although portions of it may look sorted. Do not depend on it being sorted. The string indicating the version is called the version tag (v09_72_01d00 here). The qualifiers are e20 and prof. Qualifiers can be entered in any order and are separated by colons.  "e20" corresponds to a specific version of the GNU compiler -- v9.3.0.   We also compile with `clang` -- the compiler qualifier for that is "c7".
 
@@ -90,21 +117,24 @@ There is a setup command provided by the operating system -- you usually don't w
 
 UPS's setup command (find out where it lives with this command):
 
-```bash
+~~~
 type setup
-```
+~~~
+{: .language-bash}
 
 will not only set up the product you specify (in the instructions above, dunesw), but also all dependent products with corresponding versions so that you get a consistent software environment. You can get a list of everything that's set up with this command
 
-```bash
+~~~
  ups active
-```
+~~~
+{: .language-bash}
 
 It is often useful to pipe the output through grep to find a particular product.
 
-```bash
+~~~
  ups active | grep geant4
-```
+~~~
+{: .language-bash}
 
 for example, to see what version of geant4 you have set up.
 
@@ -112,9 +142,10 @@ for example, to see what version of geant4 you have set up.
 
 All of these command-line tools have online help. Invoke the help feature with the `--help` command-line option. Example:
 
-```bash
+~~~
 config_dumper --help
- ```
+~~~
+{: .language-bash}
 
 Docmentation on art command-line tools is available on the [art wiki page][art-wiki].
 
@@ -122,21 +153,24 @@ Docmentation on art command-line tools is available on the [art wiki page][art-w
 
 Configuration information for a file can be printed with config_dumper. 
 
-```bash
+~~~
 config_dumper -P <artrootfile>
-```
+~~~
+{: .language-bash}
 
 Try it out:
-```bash
-config_dumper -P root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/06/50/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_18800650_2_20210414T012053Z.root
-```
+~~~
+config_dumper -P $SAMPLE_FILE
+~~~
+{: .language-bash}
 
 The output is an executable `fcl` file, sent to stdout. We recommend redirecting the output to a file that you can look at in a text editor:
 
 Try it out:
-```bash
-config_dumper -P root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/06/50/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_18800650_2_20210414T012053Z.root > tmp.fcl
-```
+~~~
+config_dumper -P $SAMPLE_FILE > tmp.fcl
+~~~
+{: .language-bash}
 
 Your shell may be configured with `noclobber`, meaning that if you already have a file called `tmp.fcl`, the shell will refuse to overwrite it. Just `rm tmp.fcl` and try again.
 
@@ -160,27 +194,31 @@ The `-P` option to `config_dumper` is needed to tell `config_dumper` to print ou
 You can parse a `FCL` file with `fhicl-dump`. 
 
 Try it out:
-```bash
+~~~
 fhicl-dump protoDUNE_refactored_g4_stage2.fcl
-```
+~~~
+{: .language-bash}
 
 See the section below on `FCL` files for more information on what you're looking at.
 
 #### count_events
 
 Try it out:
-```bash
-count_events root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/06/50/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_18800650_2_20210414T012053Z.root
-```
+~~~
+count_events $SAMPLE_FILE
+~~~
+{: .language-bash}
+
 
 #### product_sizes_dumper
 
 You can get a peek at what's inside an *art*ROOT file with `product_sizes_dumper`.
 
 Try it out:
-```bash
-product_sizes_dumper -f 0 root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/06/50/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_18800650_2_20210414T012053Z.root
-```
+~~~
+product_sizes_dumper -f 0 $SAMPLE_FILE
+~~~
+{: .language-bash}
 
 It is also useful to redirect the output of this command to a file so you can look at it with a text editor and search for items of interest. This command lists the sizes of the `TBranches` in the `Events TTree` in the *art*ROOT file. There is one `TBranch` per data product, and the name of the `TBranch` is the data product name, an "s" is appended (even if the plural of the data product name doesn't make sense with just an "s" on the end), an underscore, then the module label that made the data product, an underscore, the instance name, an underscore, and the process name and a period.
 
@@ -199,13 +237,16 @@ Quiz questions, looking at the output from above.
 You can open up an *art*ROOT file with `ROOT` and browse the `TTrees` in it with a `TBrowser`. Not all `TBranches` and leaves can be inspected easily this way, but enough can that it can save a lot of time programming if you just want to know something simple about a file such as whether it contains a particular data product and how many there are. 
 
 Try it out
-```bash
-root root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/06/50/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_18800650_2_20210414T012053Z.root
-```
+~~~
+root $SAMPLE_FILE
+~~~
+{: .language-bash}
+
 then at the `root` prompt, type:
-```bash
+~~~
 new TBrowser
-``` 
+~~~ 
+{: .language-bash}
 
 This will be faster with `VNC`. Navigate to the `Events TTree` in the file that is automatically opened, navigate to the `TBranch` with the Argon 39 MCTruths (it's near the bottom), click on the branch icon `simb::MCTruths_ar39__SinglesGen.obj`, and click on the `NParticles()` leaf (It's near the bottom. Yes, it has a red exclamation point on it, but go ahead and click on it). How many events are there? How many 39Ar decays are there per event on average?
 
@@ -215,23 +256,26 @@ The *art* main executable program is a very short stub that interprets command-l
 
 There is online help:
 
-```bash
+~~~
  lar --help
- ```
+~~~
+{: .language-bash}
 
 All programs in the art suite have a `--help` command-line option.
 
 Most *art* job invocations take the form 
 
-```bash
+~~~
 lar -n <nevents> -c fclfile.fcl artrootfile.root
-``` 
+~~~
+{: .language-bash}
 
 where the input file specification is just on the command line without a command-line option. Explicit examples follow below. The `-n <nevents>` is optional -- it specifies the number of events to process. If omitted, or if `<nevents>` is bigger than the number of events in the input file, the job processes all of the events in the input file. `-n <nevents>` is important for the generator stage. There's also a handy `--nskip <nevents_to_skip>` argument if you'd like the job to start processing partway through the input file. You can steer the output with
 
-```bash
+~~~
 lar -c fclfile.fcl artrootfile.root -o outputartrootfile.root -T outputhistofile.root
-```
+~~~
+{: .language-bash}
 
 
 The `outputhistofile.root` file contains `ROOT` objects that have been declared with the `TFileService` service in user-supplied art plug-in code (i.e. your code).
@@ -248,12 +292,14 @@ Parameters may be defined more than once. The last instance of a parameter defin
 #include "fcl_file_that_does_almost_what_I_want.fcl"
 block.subblock.parameter: new_value
 ~~~
+{: .source}
 
 To see what block and subblock a parameter is in, use `fhcl-dump` on the parent fcl file and look for the curly brackets. You can also use
 
-```bash
+~~~
 lar -c fclfile.fcl --debug-config tmp.txt --annotate
-``` 
+~~~ 
+{: .language-bash}
 
 which is equivalent to `fhicl-dump` with the --annotate option and piping the output to tmp.txt.
 
@@ -261,9 +307,10 @@ Entire blocks of parameters can be substituted in using `@local` and `@table` id
 
 
 Try it out:
-```bash
+~~~
 fhicl-dump protoDUNE_refactored_g4_stage2.fcl > tmp.txt
-``` 
+~~~ 
+{: .language-bash}
 
 Look for the parameter `ModBoxA`. It is one of the Modified Box Model ionization parameters. See what block it is in. Here are the contents of a modified g4 stage 2 fcl file that modifies just that parameter:
 
@@ -300,9 +347,10 @@ Tools are FHiCL-configurable software components that are not singletons, like s
 
 You can use cetskelgen to make empty skeletons of *art* plug-ins. See the art wiki for documentation, or use
 
-```bash
+~~~
 cetskelgen --help
-``` 
+~~~
+{: .language-bash}
 
 for instructions on how to invoke it.
 
@@ -384,33 +432,37 @@ There are a number of data product dumper fcl files. A non-exhaustive list of us
  dump_lartpcdetector_channelmap.fcl
  dump_lartpcdetector_geometry.fcl
 ~~~
-{: .source}
+{: .code}
 
 Some of these may require some configuration of input module labels so they can find the data products of interest.
 
 Some of these may require some configuration of input module labels so they can find the data products of interest. Try one of these yourself:
 
-```bash 
-lar -n 1 -c dump_mctruth.fcl root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/06/50/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_18800650_2_20210414T012053Z.root
-``` 
+~~~ 
+lar -n 1 -c dump_mctruth.fcl $SAMPLE_FILE
+~~~
+{: .language-bash}
 
 This command will make a file called `DumpMCTruth.log` which you can open in a text editor. Reminder: `MCTruth` are particles made by the generator(s), and MCParticles are those made by GEANT4, except for those owned by the `MCTruth` data products. Due to the showering nature of LArTPCs, there are usually many more MCParticles than MCTruths.
 
-### Examples and current workflows
+## Examples and current workflows
 
 The page with instructions on how to find and look at ProtoDUNE data has links to standard fcl configurations for simulating and reconstructing ProtoDUNE data: [https://wiki.dunescience.org/wiki/Look_at_ProtoDUNE_SP_data][look-at-protodune].
 
 Try it yourself! The workflow for ProtoDUNE-SP MC is given in the [Simulation Task Force web page](https://wiki.dunescience.org/wiki/ProtoDUNE-SP_Simulation_Task_Force).
 
 
-#### Running on a dunegpvm machine at Fermilab
+### Running on a dunegpvm machine at Fermilab
 
 ~~~
-export USER=`whoami`
+ export USER=`whoami`
  mkdir -p /exp/dune/data/users/$USER/tutorialtest
  cd /exp/dune/data/users/$USER/tutorialtest
+ export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
- setup dunesw v09_72_01d00 -q e20:prof
+ export DUNESW_VERSION=v09_90_01d00
+ export DUNESW_QUALIFIER=e26:prof
+ setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
  TMPDIR=/tmp lar -n 1 -c mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl -o gen.root
  lar -n 1 -c protoDUNE_refactored_g4_stage1.fcl gen.root -o g4_stage1.root
  lar -n 1 -c protoDUNE_refactored_g4_stage2_sce_datadriven.fcl g4_stage1.root -o g4_stage2.root
@@ -420,25 +472,51 @@ export USER=`whoami`
  lar -c eventdump.fcl reco_stage1.root >& eventdump_output.txt
  config_dumper -P reco_stage1.root >& config_output.txt
  product_sizes_dumper -f 0 reco_stage1.root >& productsizes.txt
-
 ~~~
-{: .source}
+{: .language-bash}
+
 Note added November 22, 2023:  The construct "TMPDIR=/tmp lar ..." defines the environment variable TMPDIR only for the duration of the subsequent command on the line.  This is needed for the tutorial example because the mcc12 gen stage copies a 2.9 GB file (see below -- it's the one we had to copy over to CERN) to /var/tmp using ifdh's default temporary location.  But the dunegpvm machines as of November 2023 seem to rarely have 2.9 GB of space in /var/tmp and you get a "no space left on device" error.  The newer prod4 versions of the fcls point to a newer version of the beam particle generator that can stream this file using XRootD instead of copying it with ifdh.  But the streaming flag is turned off by default in the prod4 fcl for the version of dunesw used in this tutorial, and so this is the minimal solution.  Note for the next iteration:  the Prod4 fcls are here: https://wiki.dunescience.org/wiki/ProtoDUNE-SP_Production_IV
 
-#### Running at CERN
+### Running at CERN
 
 This example puts all files in a subdirectory of your home directory. There is an input file for the ProtoDUNE-SP beamline simulation that is copied over and you need to point the generation job at it. The above sequence of commands will work at CERN if you have a Fermilab grid proxy, but not everyone signed up for the tutorial can get one of these yet, so we copied the necessary file over and adjusted a fcl file to point at it. It also runs faster with the local copy of the input file than the above workflow which copies it.
 
-```bash 
+The apptainer command is slightly different as the mounts are different. Here we assume you are logged into an lxplus node running Alma9. 
+
+>#### Note
+> CERN Apptainer variant
+{: .challenge}
+
+~~~
+/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --she
+ll=/bin/bash \
+-B /cvmfs,/afs,/opt,/run/user,/etc/hostname,/etc/krb5.conf --ipc --pid \
+/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
+~~~
+{: .language-bash}
+
+Make a fcl file:
+
+~~~
+#include "mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl"
+physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023tutorialfiles/H4_v34b_1GeV_-27.7_10M_1.root"
+~~~
+{: .code}
+
+~~~ 
  cd ~
- mkdir May2023Tutorial
- cd May2023Tutorial
+ mkdir 2024Tutorial
+ cd 2024Tutorial
+ export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
- setup dunesw v09_72_01d00 -q e20:prof
- cat > tmpgen.fcl << EOF
- #include "mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl"
- physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023tutorialfiles/H4_v34b_1GeV_-27.7_10M_1.root"
- EOF
+ export DUNESW_VERSION=v09_90_01
+ export LARSOFT_VERSION=${DUNESW_VERSION}
+ export DUNESW_QUALIFIER=e26:prof
+ setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
+ #cat > tmpgen.fcl << EOF
+ ##include "mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl"
+ #physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023tutorialfiles/H4_v34b_1GeV_-27.7_10M_1.root"
+ #EOF
  lar -n 1 -c tmpgen.fcl -o gen.root
  lar -n 1 -c protoDUNE_refactored_g4_stage1.fcl gen.root -o g4_stage1.root
  lar -n 1 -c protoDUNE_refactored_g4_stage2_sce_datadriven.fcl g4_stage1.root -o g4_stage2.root
@@ -448,20 +526,22 @@ This example puts all files in a subdirectory of your home directory. There is a
  lar -c eventdump.fcl reco_stage1.root >& eventdump_output.txt
  config_dumper -P reco_stage1.root >& config_output.txt
  product_sizes_dumper -f 0 reco_stage1.root >& productsizes.txt
- ``` 
+ ~~~ 
+ {: .language-bash}
 
 You can also browse the root files with a TBrowser or run other dumper fcl files on them. The dump example commands above redirect their outputs to text files which you can edit with a text editor or run grep on to look for things.
 
 You can run the event display with
 
-```bash 
+~~~ 
 lar -c evd_protoDUNE.fcl reco_stage1.root
-``` 
+~~~
+{: .language-bash}
 
 but it will run very slowly over a tunneled X connection. A VNC session will be much faster. Tips: select the "Reconstructed" radio button at the bottom and click on "Unzoom Interest" on the left to see the reconstructed objects in the three views.
 
 
-### DUNE software documentation and how-to's
+## DUNE software documentation and how-to's
 
 The following legacy wiki page provides information on how to check out, build, and contribute to dune-specific larsoft plug-in code.
 
@@ -477,15 +557,23 @@ To work with pull requests, see the documentation at this link: [https://larsoft
 
 There are bi-weekly LArSoft coordination meetings [https://indico.fnal.gov/category/405/][larsoft-meetings] at which stakeholders, managers, and users discuss upcoming releases, plans, and new features to be added to LArSoft.
 
-### Useful tip: check out an inspection copy of larsoft
+##w Useful tip: check out an inspection copy of larsoft  <a name="inspection_copy"></a>
 
 A good old-fashioned `grep -r` or a find command can be effective if you are looking for an example of how to call something but I do not know where such an example might live. The copies of LArSoft source in CVMFS lack the CMakeLists.txt files and if that's what you're looking for to find examples, it's good to have a copy checked out. Here's a script that checks out all the LArSoft source and DUNE LArSoft code but does not compile it. Warning: it deletes a directory called "inspect" in your app area. Make sure `/exp/dune/app/users/<yourusername>` exists first:
+
+
+> ## Note
+> Remember the Apptainer!
+{: .challenge}
 
 ~~~
  #!/bin/bash
  USERNAME=`whoami`
- LARSOFT_VERSION=v09_72_01
- COMPILER=e20
+ export DUNESW_VERSION=v09_90_01
+ export LARSOFT_VERSION=${DUNESW_VERSION}
+ export DUNESW_QUALIFIER=e26:prof
+ export COMPILER=e26
+ export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
  cd /exp/dune/app/users/${USERNAME}
  rm -rf inspect
@@ -506,16 +594,18 @@ A good old-fashioned `grep -r` or a find command can be effective if you are loo
 
 Putting it to use: A very common workflow in developing software is to look for an example of how to do something similar to what you want to do. Let's say you want to find some examples of how to use `FindManyP` -- it's an *art* method for retrieving associations between data products, and the art documentation isn't as good as the examples for learning how to use it. You can use a recursive grep through your checked-out version, or you can even look through the installed source in CVMFS. This example looks through the duneprototype product's source files for `FindManyP`:
 
-```bash 
+~~~ 
  cd $DUNEPROTOTYPES_DIR/source/duneprototypes
  grep -r -i findmanyp *
- ``` 
+~~~
+{: .language-bash}
  
 It is good to use the `-i` option to grep which tells it to ignore the difference between uppercase and lowercase string matches, in case you misremembered the case of what you are looking for. The list of matches is quite long -- you may want to pipe the output of that grep into another grep
 
-```bash 
+~~~ 
  grep -r -i findmanyp * | grep recob::Hit
-``` 
+~~~
+{: .language-bash}
  
 The checked-out versions of the software have the advantage of providing some files that don't get installed in CVMFS, notably CMakeLists.txt files and the UPS product_deps files, which you may want to examine when looking for examples of how to do things.
 
@@ -526,7 +616,7 @@ GArSoft is another art-based software package, designed to simulate the ND-GAr n
 ~~~
 ups list -aK+ garsoft
 ~~~
-{:. source}
+{: .language-bash}
 
 and you can check out the source and build it by following the instructions on the [GArSoft wiki](https://cdcvs.fnal.gov/redmine/projects/garsoft/wiki).
 

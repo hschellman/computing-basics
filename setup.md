@@ -26,13 +26,58 @@ keypoints:
 
 ## Requirements
 
-You must be on the DUNE Collaboration member list and have a valid FNAL or CERN account. See the old [Indico Requirement page][indico-event-requirements] for more information. Windows users are invited to review the [Putty Setup page]({{ site.baseurl }}/putty.html).
 
-You should join the DUNE Slack instance and look in #computing-training-basics for help with this tutorial
+You must be on the DUNE Collaboration member list and have a valid FNAL or CERN account. <!-- See the old [Indico Requirement page][indico-event-requirements] for more information.-->
 
+You should join the DUNE Slack instance and look in #computing-training-basics (see Mission Setup below)  for help with this tutorial
+
+Windows users are invited to review the [Windows Setup page]({{ site.baseurl }}/Windows.html).
+
+## Step 1: DUNE membership
+
+To follow most of this training, you must be on the DUNE Collaboration member list. If you are not, talk to your supervisor or representative to get on it.
+
+>### Note: Other experiments may find the setup and first few modules useful.
+> The first few modules on access and disk spaces should work for other Fermilab experiments if you substitute `dune --> other`. 
+{: .callout}
+
+## Step 2: Getting accounts
+
+### With FNAL
+If you have a valid FNAL computing account with DUNE, go to step 3.
+
+If you have a valid FNAL computing account but not on DUNE yet (say you have access to another experiment's resources), you can ask for a DUNE-specific account using the Service Now [Update my Affiliation/Experiment/Collaboration membership Request](https://fermi.servicenowservices.com/nav_to.do?uri=%2Fcom.glideapp.servicecatalog_cat_item_view.do%3Fv%3D1%26sysparm_id%3D9a35be8d1b42a550746aa82fe54bcb6f%26sysparm_link_parent%3Da5a8218af15014008638c2db58a72314%26sysparm_catalog%3De0d08b13c3330100c8b837659bba8fb4%26sysparm_catalog_view%3Dcatalog_default%26sysparm_view%3Dcatalog_default) form. 
+
+If you do not have any FNAL accounts yet, you need to contact  your supervisor and/or Institutional Board representative to obtain a Fermilab User Account. More info: [https://get-connected.fnal.gov/users/access/](https://get-connected.fnal.gov/users/access/).  This can take several weeks the first time. 
+
+### With CERN
+If you have a valid CERN account and access to CERN machines, you will be able to do many of the exercises as some data is available at CERN. The LArSoft tutorial has been designed to work from CERN. We strongly advise pursuing the FNAL computing account though.
+
+If you have trouble getting access, please reach out to the training team several days ahead of time.  Some issues take some time to resolve.  Please do not put this off.  We cannot help you the day of the tutorial as we are busy doing the tutorial.  
+
+## Step 3: Mission setup (rest of this page)
+
+We ask that you have completed the setup work to verify your access to the DUNE servers. It is not complicated, and should take 10 - 20 min.
+
+If you are not familiar with Unix shell commands, here is a tutorial you can do on your own to be ready: [The Unix Shell](https://swcarpentry.github.io/shell-novice/)
+
+If you have any questions, contact us at `dune-computing-training@fnal.gov` or on DUNE Slack `#computing_training_basics`.
+
+
+You should join the DUNE Slack instance and look in [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR) for help with this tutorial
+
+go to [https://atwork.dunescience.org/tools/](https://atwork.dunescience.org/tools/) scroll down to Slack and request an invite.  Please do not do this if you are already in DUNE Slack.
+
+Also check out our [Computing FAQ](https://github.com/DUNE/FAQ/projects/1) for help with connection and account issues. 
+
+
+
+## 0. Basic setup on your computer. 
+
+[Computer Setup]({{ site.baseurl }}ComputerSetup.html) goes through how to find a terminal and set up xwindows on MacOS and Windows.  You can skip this if already familiar with doing that. 
 
 > ## Note
-> The instructions below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the "Setup on CERN machines".
+> The instructions directly below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#setup_CERN).
 {: .challenge}
 
 ## 1. Kerberos business
@@ -220,10 +265,13 @@ Once you identify environment variables that might conflict with your DUNE work,
 
 A simpler solution would be to rename your login scripts (for instance .bashrc as .bashrc_save and/or .profile as .profile_bkp) so that your setup at login will be minimal and you will get the cleanest shell. For this to take into effect, you will need to exit and reconnect through ssh.
 
-## 4.1 Setting up DUNE software - Scientific Linux 7 version
+> ## Note: Avoid putting experiment specific setups in `.bashrc` or `.profile`
+> You are going to be doing some setup for dune, which you will also need to  do when you submit batch jobs.  It is much easier to make a script `setup_dune.sh` which you execute every time you log in.  Then you can duplicate the contents of that script in the script you use to run batch jobs on remote machines.  It also makes it much easier for people to help you debug your setup. 
+{: .callout}
 
-See [SL7_to_Alma9][SL7_to_Alma9] for more information
+## 4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>
 
+See [SL7_to_Alma9][SL7_to_Alma9] for more information 
 
 To set up your environment in SL7, the commands are:
 
@@ -286,7 +334,30 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 > {: .solution}
 {: .callout}
 
+> ## Optional
+> > ## See if ROOT works
+> > Try testing ROOT to make certain things are working
+> >
+> > ~~~
+> > setup root v6_28_12 -q e26:p3915:prof # sets up root for you  
+> > root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
+> > ~~~
+> > {: .language-bash}
+> > You should see a plot that updates and then terminates.   
+> {: .solution}
+{: .callout}
 
+
+### Caveats for later
+
+> ## Note: You cannot submit jobs from the Container
+> You cannot submit jobs from the Container - you need to open a separate window. In that window do the minimal [Alma9](#AL9_setup) setup below and submit your jobs from that window. 
+>
+>You may need to print your submit command to the screen or a file to do so if your submission is done from a script that uses ups. 
+{: .callout}
+
+## 4.2 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>
+=======
 Try testing ROOT to make certain things are working
 
 ~~~
@@ -306,6 +377,7 @@ You cannot submit jobs from the Container - you need to open a separate window, 
 
 
 ## 4.2 Setting up DUNE software - Alma9 version
+
 
 We are moving to the Alma9 version of unix.  Not all DUNE code has been ported yet but if you are doing basic analysis work, try it out. 
 
@@ -339,18 +411,23 @@ export SAM_EXPERIMENT=dune
 ~~~
 {: .language-bash}
 
-Try testing ROOT to make certain things are working
-
-~~~
-root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
-~~~
+> ## Optional
+> > ## See if ROOT works
+> > Try testing ROOT to make certain things are working
+> >
+> > ~~~ 
+> > root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
+> > ~~~
+> > {: .language-bash}
+> > You should see a plot that updates and then terminates.   
+> {: .solution}
+{: .callout}
 {: .language-bash}
-
-You should see a plot that updates and then terminates. 
 
 ### Caveats
 
-We don't have a full ability to rebuild DUNE Software packages yet.  We will be adding more functionality here. 
+We don't have a full ability to rebuild DUNE Software packages yet.  We will be adding more functionality here.  Unless you are doing simple ROOT based analysis you will need to use the [SL7 Container](#SL7_setup) method for now. 
+
 
 
 ## 5. Exercise! (it's easy)
@@ -358,11 +435,14 @@ This exercise will help organizers see if you reached this step or need help.
 
 1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2024.sh```.  
 
-Launch the Apptainer as described above in the SL7 version 
+
+Launch the *Apptainer* as described above in the [SL7 version](#SL7_setup) 
 
 Write in it the following:
 ~~~
-export DUNESW_VERSION=v09_72_01d00
+export DUNESW_VERSION=v09_90_01d00
+export DUNESW_QUALIFIER=e26:prof
+
 export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
 
 alias dune_setup='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
@@ -395,7 +475,9 @@ date >& /exp/dune/app/users/${USER}/my_first_login.txt
 4) With the above, we will check if you reach this point. However we want to tailor this tutorial to your preferences as much as possible. We will let you decide which animals you would like to see in future material, between: "puppy", "cat", "squirrel", "sloth", "unicorn pegasus llama" (or "prefer not to say" of course). Write your desired option on the second line of the file you just created above.
 
 > ## Note
-> If you experience difficulties, please ask for help in the Slack channel #computing-training-basics.  Please mention in your message this is about the Setup step 5. Thanks!
+
+> If you experience difficulties, please ask for help in the Slack channel [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR).  Please mention in your message this is about the Setup step 5. Thanks!
+
 {: .challenge}
 
 ## 6. Getting setup for streaming and grid access
@@ -416,7 +498,12 @@ Your certificate is valid until: Wed Jan 27 18:03:55 2021
 ~~~
 {: .output}
 
-To access the grid resources, you will need a proxy. More information on proxy is available [ here][proxy-info].
+To access the grid resources, you will need either need a proxy or a token. More information on proxy is available [here][proxy-info].
+
+
+
+## How to authorize with the KX509/Proxy method <a name="proxy"></a>
+
 This is to be done once every 24 hours per login machine you’re using to identify yourself:
 
 ~~~
@@ -426,21 +513,83 @@ voms-proxy-init -rfc -noregen -voms=dune:/dune/Role=$ROLE -valid 120:00
 {: .language-bash}
 
 ~~~
-Your identity: /DC=org/DC=cilogon/C=US/O=Fermi National Accelerator Laboratory/OU=People/CN=Claire David/CN=UID:cdavid
+Your identity: /DC=org/DC=cilogon/C=US/O=Fermi National Accelerator Laboratory/ OU=People/CN=Claire David/CN=UID:cdavid
 Contacting  voms1.fnal.gov:15042 [/DC=org/DC=incommon/C=US/ST=Illinois/L=Batavia/O=Fermi Research Alliance/OU=Fermilab/CN=voms1.fnal.gov] "dune" Done
 Creating proxy .................................... Done
 
 Your proxy is valid until Mon Jan 25 18:09:25 2021
 ~~~
 {: .output}
+
+You should be able to access files now
+
+> {: .solution}
+{: .callout}
+
 Report this by appending the output of `voms-proxy-info` to your first login file:
 ~~~
 voms-proxy-info >> /exp/dune/app/users/${USER}/my_first_login.txt
 ~~~
 {: .language-bash}
 
+With this done, you should be able to submit jobs and access remote DUNE storage systems via xroot. 
+
+
+
+### Tokens method <a name="tokens"></a>
+
+We are moving from proxies to tokens - these are a bit different.  
+
+#### 1. Get your token
+
+~~~
+ htgettoken -i dune --vaultserver htvaultprod.fnal.gov
+~~~
+{: .language-bash}
+
+the first time you do this (and once a month thereafter), it will ask you to open a web browser and 
+
+~~~
+Attempting OIDC authentication with https://htvaultprod.fnal.gov:8200
+
+Complete the authentication at:
+    https://cilogon.org/device/?user_code=ABC-D1E-FGH
+No web open command defined, please copy/paste the above to any web browser
+Waiting for response in web browser
+~~~
+{: .output}
+
+You will need to follow the instructions and copy and paste that link into your browser (can be any browser). There is a time limit on it so its best to do it right away. Choose Fermilab as the identity provider in the menu, even if your home institution is listed. After you hit log on with your service credentials, you'll get a message saying you approved the access request, and then after a short delay (may be several seconds) in the terminal you will see.
+
+
+~~~
+Saving credkey to /nashome/u/username/.config/htgettoken/credkey-dune-default
+Saving refresh token ... done
+Attempting to get token from https://htvaultprod.fnal.gov:8200 ... succeeded
+Storing bearer token in /tmp/bt_token_dune_Analysis_somenumber.othernumber
+Storing condor credentials for dune
+~~~
+{: .output}
+
+you only have to do the web thing once/month.
+
+#### 2. Tell the system where your token is
+
+
+~~~
+export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
+~~~
+{: .language-bash}
+
+the `id -u` just returns your numerical user ID 
+
+With this done, you should be able to submit jobs and access remote DUNE storage systems via xroot. 
+
+
+
 > ## Issues
-> If you have issues here, please ask #computing-training-basics in Slack to get support. Please mention in your message it is the Step 6 of the setup. Thanks!
+
+> If you have issues here, please ask [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR) in Slack to get support. Please mention in your message it is the Step 6 of the setup. Thanks!
 {: .challenge}
 
 > ## Success
@@ -448,13 +597,46 @@ voms-proxy-info >> /exp/dune/app/users/${USER}/my_first_login.txt
 {: .keypoints}
 
 
-## Set up on CERN machines
+## Set up on CERN machines <a name="setup_CERN"></a>
 
-Caution: the following instructions are for those of you who do not have a valid FNAL account but have access to CERN machines. 
+<!-- Caution: the following instructions are for those of you who do not have a valid FNAL account but have access to CERN machines. -->
+
+> # Warning Some data access operations here still require a fermilab account. We are working on a solution.  
+{: .callout}
+
+See [https://github.com/DUNE/data-mgmt-ops/wiki/Using-Rucio-to-find-Protodune-files-at-CERN](https://github.com/DUNE/data-mgmt-ops/wiki/Using-Rucio-to-find-Protodune-files-at-CERN) for instructions on getting full access to DUNE data via metacat/rucio from lxplus. 
 
 ### 1. Source the DUNE environment setup script
 CERN access is mainly for ProtoDUNE collaborators. If you have a valid CERN ID and access to lxplus via ssh, you can setup your environment for this tutorial as follow:
+
+log into `lxplus.cern.ch`
+
+fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightly different version as mounts are different.
+
+If you have a Fermilab account already do this to get access the data catalog worldwide
+
 ~~~
+kdestroy
+kinit -f <fnalaccount>@FNAL.GOV
+kx509
+~~~
+{: .language-bash}
+
+but otherwise you can still proceed with local files. 
+
+~~~
+/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash\
+-B /cvmfs,/afs,/opt,/run/user,/etc/hostname,/etc/krb5.conf --ipc --pid \
+/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
+~~~
+{: .language-bash}
+
+You may have to add some mounts - here I added `/afs/` but removed `/nashome/`, `/exp/` and `/pnfs/`.
+
+You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}03.3-cvmfs.html).
+
+~~~
+export UPS_OVERRIDE="-H Linux64bit+3.10-2.17" # makes certain you get the right UPS
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 ~~~
 {: .language-bash}
@@ -490,7 +672,7 @@ If however you are experiencing issues, please contact us as soon as possible. B
 {: .checklist}
 
 > ## Issues
-> If you have issues here, please refer to the [Indico event page][indico-event-page] to get support. Please note that you are on a CERN machine in your message. Thanks!
+> If you have issues here, please go to the [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR)Slack channel to get support. Please note that you are on a CERN machine in your message. Thanks!
 {: .discussion}
 
 ### Useful Links
@@ -521,4 +703,5 @@ The [DUNE FAQ][DUNE FAQ] on GitHub.
 [anaconda-faq-kinit]: https://github.com/DUNE/FAQ/issues/22
 [dunefaq]: https://github.com/DUNE/FAQ
 [DUNE FAQ]: https://github.com/DUNE/FAQ/projects/1
+s
 

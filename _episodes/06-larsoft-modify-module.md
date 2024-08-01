@@ -1,5 +1,5 @@
 ---
-title: Expert in the Room - LArSoft How to modify a module
+title: Expert in the Room - LArSoft How to modify a module - in progress
 teaching: 15
 exercises: 0
 questions:
@@ -22,6 +22,7 @@ keypoints:
 - mrb uses git and cmake, though aspects of both are exposed to the user.
 ---
 
+<!---
 #### Session Video
 
 The session will be captured on video a placed here after the workshop for asynchronous study.
@@ -29,6 +30,8 @@ The session will be captured on video a placed here after the workshop for async
 #### Live Notes
 
 Participants are encouraged to monitor and utilize the [Livedoc for May. 2023](https://docs.google.com/document/d/19XMQqQ0YV2AtR5OdJJkXoDkuRLWv30BnHY9C5N92uYs/edit?usp=sharing) to ask questions and learn.  For reference, the [Livedoc from Jan. 2023](https://docs.google.com/document/d/1sgRQPQn1OCMEUHAk28bTPhZoySdT5NUSDnW07aL-iQU/edit?usp=sharing) is provided.
+
+
 
 ## Set up your environment
 
@@ -41,8 +44,13 @@ Note: Pre-recorded microlectures via YouTube links are provided in this lesson, 
 ~~~
 {: .language-bash}
 
+
+
 Other common conflicting environments come from MINERvA and MicroBooNE, but you could have just about anything. You may have to adjust your login scripts to do experiment-specific setup only when logged in to a particular experiment's computers.  Or you can define aliases that run specific setups when requested, but not automatically on login.
 
+-->
+
+## getting set up
 
 You will need *three* login sessions.  These have different
 environments set up.
@@ -51,20 +59,27 @@ environments set up.
 * Session #2  For building (compiling) the software  
 * Session #3  For running the programs  
 
+## Session 1
+
 Start up session #1, editing code, on one of the dunegpvm*.fnal.gov
 interactive nodes.  These scripts have also been tested on the
-lxplus.cern.ch interactive nodes. Create two scripts in your home directory:
+lxplus.cern.ch interactive nodes. 
 
-`newDevMay2023Tutorial.sh` should have these contents:
+> ### Note
+> Remember the Apptainer!
+{: .challenge}
+
+Create two scripts in your home directory:
+
+`newDev2024Tutorial.sh` should have these contents:
 
 ~~~
 #!/bin/bash
-
-PROTODUNEANA_VERSION=v09_72_01d00
-
-QUALS=e20:prof
-DIRECTORY=may2023tutorial
-USERNAME=`whoami`
+export DUNESW_VERSION=v09_90_01d00
+export PROTODUNEANA_VERSION=$DUNESW_VERSION
+DUNESW_QUALIFIER=e26:prof
+DIRECTORY=2024tutorial
+USERNAME=`whoami'
 export WORKDIR=/exp/dune/app/users/${USERNAME}
 if [ ! -d "$WORKDIR" ]; then
   export WORKDIR=`echo ~`
@@ -77,7 +92,7 @@ touch ${DIRECTORY}
 rm -rf ${DIRECTORY}
 mkdir ${DIRECTORY}
 cd ${DIRECTORY}
-mrb newDev -q ${QUALS}
+mrb newDev -q ${DUNESW_QUALIFIER}
 source ${WORKDIR}/${DIRECTORY}/localProducts*/setup
 mkdir work
 cd srcs
@@ -89,10 +104,10 @@ mrb i -j16
 ~~~
 {: .language-bash}
 
-and `setupMay2023Tutorial.sh` should have these contents:
+and `setup2024Tutorial.sh` should have these contents:
 
 ~~~
-DIRECTORY=may2023tutorial
+DIRECTORY=2024tutorial
 USERNAME=`whoami`
 
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
@@ -104,7 +119,7 @@ fi
 cd $WORKDIR/$DIRECTORY
 source localProducts*/setup
 cd work
-setup dunesw v09_72_01d00 -q e20:prof
+setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
 mrbslp
 ~~~
 {: .language-bash}
@@ -112,7 +127,7 @@ mrbslp
 Execute this command to make the first script executable.
 
 ~~~
-  chmod +x newDevMay2023Tutorial.sh
+  chmod +x newDev2024Tutorial.sh
 ~~~
 {: .language-bash}
 
@@ -124,6 +139,8 @@ has been forwarded.
   klist
 ~~~
 {: .language-bash}
+
+## Session 2
 
 Start up session #2 by logging in to one of the build nodes,
 `dunebuild01.fnal.gov` or `dunebuild02.fnal.gov`.  They have 16 cores
@@ -139,7 +156,7 @@ to run programs (people need them to build code!)
 On the build node, execute the `newDev` script:
 
 ~~~
-  ./newDevMay2023Tutorial.sh
+  ./newDev2024Tutorial.sh
 ~~~
 {: .language-bash}
 
@@ -170,23 +187,23 @@ You can find the number of cores a machine has with
 
 The `mrb` system builds code in a directory distinct from the source code.  Source code is in `$MRB_SOURCE` and built code is in `$MRB_BUILDDIR`.  If the build succeeds (no error messages, and compiler warnings are treated as errors, and these will stop the build, forcing you to fix the problem), then the built artifacts are put in `$MRB_TOP/localProducts*`.  mrbslp directs ups to search in `$MRB_TOP/localProducts*` first for software and necessary components like `fcl` files.  It is good to separate the build directory from the install directory as a failed build will not prevent you from running the program from the last successful build.  But you have to look at the error messages from the build step before running a program.  If you edited source code, made a mistake, built it unsuccessfully, then running the program may run successfully with the last version which compiled.  You may be wondering why your code changes are having no effect.  You can look in `$MRB_TOP/localProducts*` to see if new code has been added (look for the "lib" directory under the architecture-specific directory of your product).
 
-Because you ran the `newDevMay2023Tutorial.sh` script instead of sourcing it, the environment it
+Because you ran the `newDev2024Tutorial.sh` script instead of sourcing it, the environment it
 set up within it is not retained in the login session you ran it from.  You will need to set up your environment again.
 You will need to do this when you log in anyway, so it is good to have
 that setup script.  In session #2, type this:
 
 ~~~
-  source setupMay2023Tutorial.sh
+  source setup2024Tutorial.sh
   cd $MRB_BUILDDIR
   mrbsetenv
 ~~~
 {: .language-bash}
 
-The shell command "source" instructs the command interpreter (bash) to read commands from the file `setupMay2023Tutorial.sh` as if they were typed at the terminal.  This way, environment variables set up by the script stay set up.
+The shell command "source" instructs the command interpreter (bash) to read commands from the file `setup2024Tutorial.sh` as if they were typed at the terminal.  This way, environment variables set up by the script stay set up.
 Do the following in session #1, the source editing session:
 
 ~~~
-source setupMay2023Tutorial.sh
+source setup2024Tutorial.sh
   cd $MRB_SOURCE
   mrbslp
 ~~~
@@ -198,7 +215,7 @@ source setupMay2023Tutorial.sh
 computer for session #3
 
 ~~~
-  source setupMay2023Tutorial.sh
+  source setup2024Tutorial.sh
   mrbslp
   setup_fnal_security
 ~~~
@@ -233,7 +250,7 @@ Now run the program with the input file accessed by that URL:
 lar -c analyzer_job.fcl root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/06/50/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_18800650_2_20210414T012053Z.root
 ~~~
 
-CERN Users without access to Fermilab's `dCache`: -- example input files for this tutorial have been copied to `/afs/cern.ch/work/t/tjunk/public/may2023tutorialfiles/`.
+CERN Users without access to Fermilab's `dCache`: -- example input files for this tutorial have been copied to `/afs/cern.ch/work/t/tjunk/public/2024tutorialfiles/`.
 
 After running the program, you should have an output file `tutorial_hist.root`.  Note -- please do not
 store large rootfiles in `/exp/dune/app`!  The disk is rather small, and we'd like to
@@ -477,7 +494,7 @@ For protoduneana and dunesw, this [wiki page][dunetpc-wiki-tutorial] is quite go
 
 #### Version mismatch between source code and installed products
 
-When you perform an mrbsetenv or a mrbslp, sometimes you get a version mismatch.  The most common reason for this is that you have set up an older version of the dependent products.  Dunesw depends on protoduneana, which depends on dunecore, which depends on larsoft, which depends on *art*, ROOT, GEANT4, and many other products.  This [picture][dunesw-dependency-tree] shows the software dependency tree for dunesw v09_72_01_d00.  If the source code is newer than the installed products, the versions may mismatch.  You can check out an older version of the source code (see the example above) with
+When you perform an mrbsetenv or a mrbslp, sometimes you get a version mismatch.  The most common reason for this is that you have set up an older version of the dependent products.  `Dunesw` depends on `protoduneana`, which depends on `dunecore`, which depends on `larsoft`, which depends on *art*, ROOT, GEANT4, and many other products.  This [picture][dunesw-dependency-tree] shows the software dependency tree for dunesw v09_72_01_d00.  If the source code is newer than the installed products, the versions may mismatch.  You can check out an older version of the source code (see the example above) with
 
 ~~~
   mrb g -t <tag> repository
@@ -502,7 +519,7 @@ Sometimes you may want to know what the version number is of a product way down 
 
 ~~~
   source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-  setup <product> -q <quals>
+  setup <product> $DUNESW_VERSION -q $DUNESW_QUALIFIER
   ups active
 ~~~
 {: .language-bash}
@@ -510,7 +527,7 @@ Sometimes you may want to know what the version number is of a product way down 
 It usually is a good idea to pipe the output through grep to find a particular product version.  You can get dependency information with
 
 ~~~
-  ups depend <product> -q <quals>
+  ups depend <product> $DUNESW_VERSION -q $DUNESW_QUALIFIER
 ~~~
 {: .language-bash}
 

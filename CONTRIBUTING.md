@@ -1,4 +1,18 @@
-# Contributing
+# DUNE COMPUTING TUTORIALS
+
+These pages make use of the Carpentries format but are not officially part of Carpentries.
+
+We strongly suggest that you do explore the HEP recommended training materials at:
+
+https://hsf-training.org/
+
+which has tutorials specific to High Energy Physics and pointers to more general Carpentries tutorials. 
+
+## Contributing to DUNE TUTORIALS
+
+Best place to start is in the [issues for this tutorial](https://github.com/DUNE/computing-basics/issues) and the `#computing-training-group` channel in DUNE Slack. 
+
+## The Carpentries themselves
 
 [The Carpentries][c-site] ([Software Carpentry][swc-site], [Data Carpentry][dc-site], and [Library Carpentry][lc-site]) are open source projects,
 and we welcome contributions of all kinds:

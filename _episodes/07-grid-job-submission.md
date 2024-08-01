@@ -5,7 +5,7 @@ exercises: 0
 questions:
 - How to submit grid jobs?
 objectives:
-- Submit a job and understand what's happening behind the scenes
+- Submit a basic batchjob and understand what's happening behind the scenes
 - Monitor the job and look at its outputs
 - Review best practices for submitting jobs (including what NOT to do)
 - Extension; submit a small job with POMS
@@ -16,6 +16,9 @@ keypoints:
 - Take care to follow best practices when setting up input and output file locations.
 - Always, always, always prestage input datasets. No exceptions.
 ---
+
+> ## Note: 
+> This section describes basic job submission. Large scale submission of jobs to read DUNE data files are described in the [next section]({{ site.baseurl }}/08-submit-jobs-w-justin/index.html).
 
 #### Session Video
 
@@ -43,12 +46,13 @@ Quiz blocks are added at the bottom of this page, and invite your review, modify
 
 The official timetable for this training event is on the [Indico site](https://indico.fnal.gov/event/59762/timetable/#20230524).
 
-## Notes on changes in the May 2023 version
+## Notes on changes in the 2023/2024 versions
 
 The past few months have seen significant changes in how DUNE (as well as other FNAL experiments) submits jobs and interacts with storage elements. While every effort was made to preserve backward compatibility a few things will be slightly different (and some are easier!) than what's been shown at previous versions. Therefore even if you've attended this tutorial multiple times in past and know the difference between copying and streaming, tokens vs. proxies, and know your schedds from your shadows, you are encouraged to attend this session. Here is a partial list of significant changes:
 
 * The jobsub_client product generally used for job submission has been replaced by the [jobsub_lite](https://fifewiki.fnal.gov/wiki/Jobsub_Lite)
  product, which is very similar to jobsub_client except there is no server on the other side (i.e. there is more direct HTCondor interaction). You no longer need to set up the jobsub_client product as part of your software setup; it is installed via RPM now on all DUNE interactive machines. See [this Wiki page](https://fifewiki.fnal.gov/wiki/Differences_between_jobsub_lite_and_legacy_jobsub_client/server) for some differences between jobsub_lite and legacy jobsub.
+* __As of May 2024 you cannot submit batch jobs from SL7 containers but many submission scripts only run on SL7. You need to record the submission command from SL7 and the open a separate window running Alma9 and execute that command.__
 * Authentication via tokens instead of proxies is now rolling out and is now the primary authentication method. Please note that not only are tokens used for job submission now, they are also used for storage element access.
 * It is no longer possible to write to certain directories from grid jobs as analysis users, namely the persistent area. Read access to the full /pnfs tree is still available. Bulk copies of job outputs from scratch to persistent have to be done outside of grid jobs.
 * Multiple `--tar_file_name` options are now supported (and will be unpacked) if you need things in multiple tarballs.

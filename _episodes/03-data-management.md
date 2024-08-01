@@ -1,23 +1,19 @@
 ---
-title: Data Management
+title: Data Management (2024 updated for metacat/justin/rucio)
 teaching: 40
 exercises: 0
 questions:
 - What are the data management tools and software for DUNE? 
-- How are different software versions handled? 
-- What are the best data management practices? 
 objectives:
 - Learn how to access data from DUNE Data Catalog.
-- Understand the roles of the tools UPS, mrb and CVMFS. 
+- Learn a bit about the JustIN workflow system for submitting batch jobs.
 keypoints:
 - SAM and Rucio are data handling systems used by the DUNE collaboration to retrieve data.
 - Staging is a necessary step to make sure files are on disk in dCache (as opposed to only on tape).
-- Xrootd allows user to stream data file. 
-- The Unix Product Setup (UPS) is a tool to ensure consistency between different software versions and reproducibility.
-- The multi-repository build (mrb) tool allows code modification in multiple repositories, which is relevant for a large project like LArSoft with different cases (end user and developers) demanding consistency between the builds.
-- CVMFS distributes software and related files without installing them on the target computer (using a VM, Virtual Machine).
+- Xrootd allows user to stream data files. 
 ---
 
+<!--
 #### Session Video
 
 The session will be captured on video a placed here after the workshop for asynchronous study.
@@ -29,6 +25,8 @@ The session was video captured for your asynchronous review. The video from the 
 </center>
 -->
 
+<!--
+
 #### Live Notes
 
 Participants are encouraged to monitor and utilize the [Livedoc for May. 2023](https://docs.google.com/document/d/19XMQqQ0YV2AtR5OdJJkXoDkuRLWv30BnHY9C5N92uYs/edit?usp=sharing) to ask questions and learn.  For reference, the [Livedoc from Jan. 2023](https://docs.google.com/document/d/1sgRQPQn1OCMEUHAk28bTPhZoySdT5NUSDnW07aL-iQU/edit?usp=sharing) is provided.
@@ -38,6 +36,8 @@ Participants are encouraged to monitor and utilize the [Livedoc for May. 2023](h
 This lesson (03-data-management.md) was imported from the [Jan. 2023 lesson](https://github.com/DUNE/computing-training-basics-short/tree/gh-pages/_episodes) which was a shortened version of the training.
 
 Quiz blocks are added in this lesson and should be administered in the closing minutes of this lesson. Feel free to modify or add quiz questions. Some of these quiz questions might be more appropriate for 02-storage-spaces.md -->
+
+ 
 
 ## Introduction
 
@@ -51,7 +51,127 @@ You can find extensive documentation on metacat at:
 
 [General metacat documentation](https://metacat.readthedocs.io/en/latest/)
 
-[DUNE metacat examples](https://dune.github.io/DataCatalogDocs/related.html#metacat)
+[DUNE metacat examples](https://dune.github.io/DataCatalogDocs/index.html)
+
+### Find a file in metacat
+
+DUNE runs multiple experiments (far detectors, protodune-sp, protodune-dp hd-protodune, vd-protodune, iceberg, coldboxes... ) and produces various kinds of data (mc/detector) and process them through different phases.
+
+To find your data you need to specify at the minimum 
+
+- `core.run_type`  (the experiment)
+- `core.file_type` (mc or detecor)
+- `core.data_tier` (the level of processing raw, full-reconstructed, root-tuple)
+
+and when searching for specific types of data
+
+- `core.data_stream` (physics, calibration, cosmics)
+- `core.runs[any]=<runnumber>`
+
+ Here is an example of a metacat query that gets you raw files from a recent 'hd-protodune' cosmics run.
+
+First get metacat if you have not already done so
+
+~~~
+setup metacat # if using SL7
+spack load metacat # if using Alma9
+metacat auth login -m password $USER  # use your services password to authenticate
+METACAT_AUTH_SERVER_URL=https://metacat.fnal.gov:8143/auth/dune
+METACAT_SERVER_URL=https://metacat.fnal.gov:9443/dune_meta_prod/app 
+~~~
+{: .language-bash}
+
+>### Note: other means of authentication
+>Check out the [metacat documentation](https://metacat.readthedocs.io/en/latest/ui.html#user-authentication) for 
+kx509 and token authentication. 
+{: .callout}
+
+then do queries to find particular sets of files. 
+~~~
+metacat query "files from dune:all where core.file_type=detector \
+ and core.run_type=hd-protodune and core.data_tier=raw \
+ and core.data_stream=cosmics and core.runs[any]=27296 limit 2"
+~~~
+{: .language-bash}
+
+should give you 2 files:
+
+~~~
+hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+hd-protodune:np04hd_raw_run027296_0000_dataflow0_datawriter_0_20240619T110330.hdf5
+~~~
+{: .output}
+
+
+the string before the ':' is the namespace and the string after is the filename.
+
+You can find out more about your file by doing:
+
+~~~
+metacat file show -m -l hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+~~~
+{: .language-bash}
+
+which gives you a lot of information:
+
+~~~
+checksums:
+    adler32   : 6a191436
+created_timestamp   :	2024-06-19 11:08:24.398197+00:00
+creator             :	dunepro
+fid                 :	83302138
+name                :	np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+namespace           :	hd-protodune
+retired             :	False
+retired_by          :	None
+retired_timestamp   :	None
+size                :	4232017188
+updated_by          :	None
+updated_timestamp   :	1718795304.398197
+metadata:
+    core.data_stream    : cosmics
+    core.data_tier      : raw
+    core.end_time       : 1718795024.0
+    core.event_count    : 35
+    core.events         : [3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43, 47, 51, 55, 59, 63, 67, 71, 75, 79, 83, 87, 91, 95, 99, 103, 107, 111, 115, 119, 123, 127, 131, 135, 139]
+    core.file_content_status: good
+    core.file_format    : hdf5
+    core.file_type      : detector
+    core.first_event_number: 3
+    core.last_event_number: 139
+    core.run_type       : hd-protodune
+    core.runs           : [27296]
+    core.runs_subruns   : [2729600001]
+    core.start_time     : 1718795010.0
+    dune.daq_test       : False
+    retention.class     : physics
+    retention.status    : active
+children:
+   hd-protodune-det-reco:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330_reco_stage1_20240621T175057_keepup_hists.root (eywzUgkZRZ6llTsU)
+   hd-protodune-det-reco:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330_reco_stage1_reco_stage2_20240621T175057_keepup.root (GHSm3owITS20vn69)
+~~~
+{: .output}   
+
+look in the glossary to see what those fields mean. 
+
+### find out how much raw data there is in a run using the summary option
+
+~~~
+metacat query -s "files from dune:all where core.file_type=detector \
+ and core.run_type=hd-protodune and core.data_tier=raw \
+ and core.data_stream=cosmics and core.runs[any]=27296"
+~~~
+{: .language-bash}
+
+~~~
+Files:        963
+Total size:   4092539942264 (4.093 TB)
+~~~
+{: .output}
+
+To look at all the files in that run you need to use XRootD - **DO NOT TRY TO COPY 4 TB to your local area!!!***
+
+
 
 ### What is(was) SAM?  
 Sequential Access with Metadata (SAM) is a data handling system developed at Fermilab.  It is designed to tracklocations of files and other file metadata.
@@ -70,235 +190,124 @@ Rucio has two functions:
 1. A rule-based system to get files to Rucio Storage Elements around the world and keep them there.
 2. To return the "nearest" replica of any data file for use either in interactive or batch file use.  It is expected that most DUNE users will not be regularly using direct Rucio commands, but other wrapper scripts that calls them indirectly.
 
-As of the date of this May 2023 tutorial:
+As of the date of the June 2024 tutorial:
 - The Rucio client is available in CVMFS
-- Most DUNE users are not yet enabled to use it.  But when we do, some of the commands will look like this:
+- Most DUNE users are now enabled to use it. New users may not automatically be added. 
 
+### Let's find a file
 ~~~
-rucio list-file-replicas protodune-sp:np04_raw_run005801_0001_dl1.root
-
-rucio download protodune-sp:np04_raw_run005801_0001_dl1.root
-
-rucio list-rses
-~~~
-
-## Finding data
-
-If you know a given file and want to locate it, e.g.:
-~~~
-samweb locate-file np04_raw_run005758_0001_dl3.root
+# get a kx509 proxy
+export RUCIO_ACCOUNT=$USER
+rucio list-file-replicas rucio list-file-replicas hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5 --pfns --protocols=root
 ~~~
 {: .language-bash}
 
-This will give you output that looks like:
+returns 3 locations:
+
 ~~~
-rucio:protodune-sp
-cern-eos:/eos/experiment/neutplatform/protodune/rawdata/np04/detector/None/raw/07/42/28/49
-castor:/neutplatform/protodune/rawdata/np04/detector/None/raw/07/42/28/49
-enstore:/pnfs/dune/tape_backed/dunepro/protodune/np04/beam/detector/None/raw/07/42/28/49(597@vr0337m8)
+root://eospublic.cern.ch:1094//eos/experiment/neutplatform/protodune/dune/hd-protodune/e5/57/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro//hd-protodune/raw/2024/detector/cosmics/None/00/02/72/96/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+root://eosctapublic.cern.ch:1094//eos/ctapublic/archive/neutplatform/protodune/rawdata/np04//hd-protodune/raw/2024/detector/cosmics/None/00/02/72/96/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
 ~~~
 {: .output}
 
-which is the locations of the file on disk and tape. We can use this to copy the file from tape to our local disk.
+
+which is the locations of the file on disk and tape. We can use this to copy the file to our local disk or access the file via xroot. 
+
+### Finding files by characteristics
 
 To list raw data files for a given run:
 ~~~
-samweb list-files "run_number 5758 and run_type protodune-sp and data_tier raw"
+metacat query "files where core.file_type=detector \
+ and core.run_type='protodune-sp' and core.data_tier=raw \
+ and core.data_stream=physics and core.runs[any] in (5141)"
 ~~~
 {: .language-bash}
 
+- `core.run_type` tells you which of the many DAQ's this came from. 
+- `core.file_type` tells detector from mc
+- `core.data_tier` could be raw, full-reconstructed, root-tuple.  Same data different formats. 
+
 ~~~
-np04_raw_run005758_0001_dl3.root
-np04_raw_run005758_0002_dl2.root
+protodune-sp:np04_raw_run005141_0013_dl7.root
+protodune-sp:np04_raw_run005141_0005_dl3.root
+protodune-sp:np04_raw_run005141_0003_dl1.root
+protodune-sp:np04_raw_run005141_0004_dl7.root
 ...
-np04_raw_run005758_0065_dl10.root
-np04_raw_run005758_0065_dl4.root
+protodune-sp:np04_raw_run005141_0009_dl7.root
+protodune-sp:np04_raw_run005141_0014_dl11.root
+protodune-sp:np04_raw_run005141_0007_dl6.root
+protodune-sp:np04_raw_run005141_0011_dl8.root
 ~~~
 {: .output}
 
-What about a reconstructed version?
+Note the presence of both a *namespace* and a *filename* 
+
+What about some files from a reconstructed version?
 ~~~ 
-samweb list-files "run_number 5758 and run_type protodune-sp and data_tier full-reconstructed and version (v07_08_00_03,v07_08_00_04)"
+metacat query "files from dune:all where core.file_type=detector \
+ and core.run_type='protodune-sp' and core.data_tier=full-reconstructed  \
+ and core.data_stream=physics and core.runs[any] in (5141) and dune.campaign=PDSPProd4 limit 10" 
 ~~~
 {: .language-bash}
 
 ~~~
-np04_raw_run005758_0053_dl7_reco_12891068_0_20181101T222620.root
-np04_raw_run005758_0025_dl11_reco_12769309_0_20181101T213029.root
-np04_raw_run005758_0053_dl2_reco_12891066_0_20181101T222620.root
-...
-np04_raw_run005758_0061_dl8_reco_14670148_0_20190105T175536.root
-np04_raw_run005758_0044_dl6_reco_14669100_0_20190105T172046.root
+pdsp_det_reco:np04_raw_run005141_0013_dl10_reco1_18127013_0_20210318T104043Z.root
+pdsp_det_reco:np04_raw_run005141_0015_dl4_reco1_18126145_0_20210318T101646Z.root
+pdsp_det_reco:np04_raw_run005141_0008_dl12_reco1_18127279_0_20210318T104635Z.root
+pdsp_det_reco:np04_raw_run005141_0002_dl2_reco1_18126921_0_20210318T103516Z.root
+pdsp_det_reco:np04_raw_run005141_0002_dl14_reco1_18126686_0_20210318T102955Z.root
+pdsp_det_reco:np04_raw_run005141_0015_dl5_reco1_18126081_0_20210318T122619Z.root
+pdsp_det_reco:np04_raw_run005141_0017_dl10_reco1_18126384_0_20210318T102231Z.root
+pdsp_det_reco:np04_raw_run005141_0006_dl4_reco1_18127317_0_20210318T104702Z.root
+pdsp_det_reco:np04_raw_run005141_0007_dl9_reco1_18126730_0_20210318T102939Z.root
+pdsp_det_reco:np04_raw_run005141_0011_dl7_reco1_18127369_0_20210318T104844Z.root
 ~~~
 {: .output}
 
-The above is truncated output to show us the one reconstructed file that is the child of the raw data file above.
 
-To see the total number of files that match a certain query expression, then add the `--summary` option to `samweb list-files`.
+To see the total number of files that match a certain query expression, then add the `-s` option to `metacat query`.
 
-`samweb` allows you to select on a lot of parameters which are documented here:
+<!---`samweb` allows you to select on a lot of parameters which are documented here:
 
 * [Useful ProtoDUNE samweb parameters][useful-samweb]
 
 * [dune-data.fnal.gov](https://dune-data.fnal.gov) lists some official dataset definitions 
+
+-->
+
+See the metacat documentation for more information about queries.  [DataCatalogDocs][DataCatalogDocs]  and check out the glossary of common fields at: [MetaCatGlossary][MetaCatGlossary]
 
 ## Accessing data for use in your analysis
 To access data without copying it, `XRootD` is the tool to use. However it will work only if the file is staged to the disk.
 
 You can stream files worldwide if you have a DUNE VO certificate as described in the preparation part of this tutorial.
 
-### Where _is_ the file?
+To learn more about using Rucio and Metacat to run over large data samples go here:
 
-An example to find a given file:  
-~~~
-samweb get-file-access-url np04_raw_run005758_0001_dl3_reco_13600804_0_20181127T081955.root --schema=root
-~~~
-{: .language-bash}
-~~~
-root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune/np04/beam/output/detector/full-reconstructed/08/61/68/00/np04_raw_run005758_0001_dl3_reco_13600804_0_20181127T081955.root
-~~~
-{: .output}
-
-**Resources**: [Using the SAM Data Catalog][sam-data-control]. [More SAM documentation][sam-longer]
-> ## Exercise 1
-> * Use the `--location` argument to show the path of the file above on either `enstore`, `castor` or `cern-eos`.
-> * Use `get-metadata` to get SAM metadata for this file. Note that `--json` gives the output in json format.
+> # Full Justin/Rucio/Metacat Tutorial
+> The [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) 
 {: .challenge}
 
 
-When we are analyzing large numbers of files in a group of batch jobs, we use a SAM snapshot to describe the full set of files that we are going to analyze and create a SAM Project based on that. Each job will then come up and ask SAM to give it the next file in the list. SAM has some capability to grab the nearest copy of the file. For instance if you are running at CERN and analyzing this file it will automatically take it from the CERN storage space EOS.
+
+> ## Exercise 1
+> * Use `metacat` to find a file from a particular experiment/run/processing stage 
+> * Use `metacat file show -m namespace:filename` to get  metadata for this file. Note that `--json` gives the output in json format.
+{: .challenge}
+
+
+When we are analyzing large numbers of files in a group of batch jobs, we use a metacat dataset to describe the full set of files that we are going to analyze and use the JustIn system to run over that dataset. Each job will then come up and ask metacat and rucio to give it the next file in the list. It will try to find the nearest copy.  For instance if you are running at CERN and analyzing this file it will automatically take it from the CERN storage space EOS.
 
 > ## Exercise 2
-> * use the samweb describe-definition command to see the dimensions of data set PDSPProd4_MC_1GeV_reco1_sce_datadriven_v1
-> * use the samweb list-definition-files command with the --summary option to see the total size of PDSPProd4_MC_1GeV_reco1_sce_datadriven_v1
-> * use the samweb take-snapshot command to make a snapshot of PDSPProd4_MC_1GeV_reco1_sce_datadriven_v1
+FIXME Need to make an example of looking at a dataset
 {: .challenge}
 
-## What is UPS and why do we need it?
-An important requirement for making valid physics results is computational reproducibility. You need to be able to repeat the same calculations on the data and MC and get the same answers every time. You may be asked to produce a slightly different version of a plot for example, and the data that goes into it has to be the same every time you run the program. 
-
-This requirement is in tension with a rapidly-developing software environment, where many collaborators are constantly improving software and adding new features. We therefore require strict version control; the workflows must be stable and not constantly changing due to updates. 
-
-DUNE must provide installed binaries and associated files for every version of the software that anyone could be using. Users must then specify which version they want to run before they run it. All software dependencies must be set up with consistent versions in order for the whole stack to run and run reproducibly.
-
-The Unix Product Setup (UPS) is a tool to handle the software product setup operation. 
-
-UPS is set up when you setup DUNE:
-~~~
- source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-~~~
-{: .language-bash}
-
-This sourcing defines the UPS `setup` command. Now to get DUNE's LArSoft-based software, this is done through:
-~~~
- setup dunesw $DUNESW_VERSION -q e20:prof
-~~~
-{: .language-bash}
+**Resources**: [DataCatalogDocs][DataCatalogDocs]  The [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) 
 
 
-`dunesw`: product name <br>
-`$DUNESW_VERSION` version tag <br>
-`e20:prof` are "qualifiers". Qualifiers are separated with colons and may be specified in any order. The "e20" qualifier refers to a specific version of the gcc compiler suite, and "prof" means select the installed product that has been compiled with optimizations turned on. An alternative to "prof" is the "debug" qualifier. All builds of LArSoft and dunesw are compiled with debug symbols turned on, but the "debug" builds are made with optimizations turned off. Both kinds of software can be debugged, but it is easier to debug the debug builds (code executes in the proper order and variables aren't optimized away so they can be inspected).
-
-Another specifier of a product install is the "flavor". This refers to the operating system the program was compiled for. These days we only support SL7, but in the past we used to also support SL6 and various versions of macOS. The flavor is automatically selected when you set up a product using setup (unless you override it which is usually a bad idea). Some product are "unflavored" because they do not contain anything that depends on the operating system. Examples are products that only contain data files or text files.
-
-Setting up a UPS product defines many environment variables. Most products have an environment variable of the form `<productname>_DIR`, where `<productname>` is the name of the UPS product in all capital letters. This is the top-level directory and can be used when searching for installed source code or fcl files for example. `<productname>_FQ_DIR` is the one that specifies a particular qualifier and flavor.
-
-> ## Exercise 3
-> * show all the versions of dunesw that are currently available by using the "ups list -aK+ dunesw" command
-> * pick one version and substitute that for DUNESW_VERSION above and set up dunesw
-{: .challenge}
-
-Many products modify the following search path variables, prepending their pieces when set up. These search paths are needed by _art_ jobs.
-
-`PATH`: colon-separated list of directories the shell uses when searching for programs to execute when you type their names at the command line. The command "which" tells you which version of a program is found first in the PATH search list. Example:
-~~~
-which lar
-~~~
-{: .language-bash}
-will tell you where the lar command you would execute is if you were to type "lar" at the command prompt. 
-The other paths are needed by _art_ for finding plug-in libraries, fcl files, and other components, like gdml files.  
-`CET_PLUGIN_PATH`  
-`LD_LIBRARY_PATH`  
-`FHICL_FILE_PATH`  
-`FW_SEARCH_PATH`  
-
-Also the PYTHONPATH describes where Python modules will be loaded from.
-
-### UPS basic commands
-
-| Command                                        | Action                                                           |
-|------------------------------------------------|------------------------------------------------------------------|
-| `ups list -aK+ dunesw`                        | List the versions and flavors of dunesw that exist on this node |
-| `ups active`                                   | Displays what has been setup                                     |
-| `ups depend dunesw v09_48_01d00 -q e20:prof` | Displays the dependencies for this version of dunesw           |
-
-> ## Exercise 4
-> * show all the dependencies of dunesw by using "ups depend dunesw $DUNESW_VERSION -q e20:prof"
-{: .challenge}
-
->## UPS Documentation Links
-
-> * [UPS reference manual](http://www.fnal.gov/docs/products/ups/ReferenceManual/)
-> * [UPS documentation](https://cdcvs.fnal.gov/redmine/projects/ups/wiki)
-> * [UPS qualifiers](https://cdcvs.fnal.gov/redmine/projects/cet-is-public/wiki/AboutQualifiers)
-
-## mrb
-**What is mrb and why do we need it?**  
-Early on, the LArSoft team chose git and cmake as the software version manager and the build language, respectively, to keep up with industry standards and to take advantage of their new features. When we clone a git repository to a local copy and check out the code, we end up building it all. We would like LArSoft and DUNE code to be more modular, or at least the builds should reflect some of the inherent modularity of the code.
-
-Ideally, we would like to only have to recompile a fraction of the software stack when we make a change. The granularity of the build in LArSoft and other art-based projects is the repository. So LArSoft and DUNE have divided code up into multiple repositories (DUNE ought to divide more than it has, but there are a few repositories already with different purposes). Sometimes one needs to modify code in multiple repositories at the same time for a particular project. This is where mrb comes in. 
-
-**mrb** stands for "multi-repository build". mrb has features for cloning git repositories, setting up build and local products environments, building code, and checking for consistency (i.e. there are not two modules with the same name or two fcl files with the same name). mrb builds UPS products -- when it installs the built code into the localProducts directory, it also makes the necessasry UPS table files and .version directories. mrb also has a tool for making a tarball of a build product for distribution to the grid. The software build example later in this tutorial exercises some of the features of mrb. 
-
-| Command                  | Action                                              |
-|--------------------------|-----------------------------------------------------|
-| `mrb --help`             | prints list of all commands with brief descriptions |
-| `mrb \<command\> --help` | displays help for that command                      |
-| `mrb gitCheckout`        | clone a repository into working area                |
-| `mrbsetenv`              | set up build environment                            |
-| `mrb build -jN`          | builds local code with N cores                      |
-| `mrb b -jN`              | same as above                                       |
-| `mrb install -jN`        | installs local code with N cores                    |
-| `mrb i -jN`              | same as above (this will do a build also)           |
-| `mrbslp`                 | set up all products in localProducts...             |
-| `mrb z`                  | get rid of everything in build area                 |
-
-Link to the [mrb reference guide](https://cdcvs.fnal.gov/redmine/projects/mrb/wiki/MrbRefereceGuide)
-
-> ## Exercise 5
-> There is no exercise 5. mrb example exercises will be covered in Thursday afternoon session as any useful exercise with mrb takes more than 30 minutes on its own. Everyone gets 100% credit for this exercise!
-{: .challenge}
 
 
-## CVMFS  
-**What is CVMFS and why do we need it?**  
-DUNE has a need to distribute precompiled code to many different computers that collaborators may use. Installed products are needed for four things: 
-1. Running programs interactively
-2. Running programs on grid nodes
-3. Linking programs to installed libraries
-4. Inspection of source code and data files
-
-Results must be reproducible, so identical code and associated files must be distributed everywhere. DUNE does not own any batch resources -- we use CPU time on computers that participating institutions donate to the Open Science Grid. We are not allowed to install our software on these computers and must return them to their original state when our programs finish running so they are ready for the next job from another collaboration.
-
-CVMFS is a perfect tool for distributing software and related files. It stands for CernVM File System (VM is Virtual Machine). Local caches are provided on each target computer, and files are accessed via the `/cvmfs` mount point. DUNE software is in the directory `/cvmfs/dune.opensciencegrid.org`, and LArSoft code is in `/cvmfs/larsoft.opensciencegrid.org`. These directories are auto-mounted and need to be visible when one executes `ls /cvmfs` for the first time.  Some software is also in /cvmfs/fermilab.opensciencegrid.org.
-
-CVMFS also provides a de-duplication feature.  If a given file is the same in all 100 releases of dunetpc, it is only cached and transmitted once, not independently for every release.  So it considerably decreases the size of code that has to be transferred.
-
-When a file is accessed in `/cvmfs`, a daemon on the target computer wakes up and determines if the file is in the local cache, and delivers it if it is. If not, the daemon contacts the CVMFS repository server responsible for the directory, and fetches the file into local cache. In this sense, it works a lot like AFS. But it is a read-only filesystem on the target computers, and files must be published on special CVMFS publishing servers. Files may also be cached in a layer between the CVMFS host and the target node in a squid server, which helps facilities with many batch workers reduce the network load in fetching many copies of the same file, possibly over an international connection.
-
-CVMFS also has a feature known as "Stashcache" or "xCache".  Files that are in /cvmfs/dune.osgstorage.org are not actually transmitted 
-in their entirety, only pointers to them are, and then they are fetched from one of several regional cache servers or in the case of DUNE from Fermilab dCache directly.  DUNE uses this to distribute photon library files, for instance.  
-
-CVMFS is by its nature read-all so code is readable by anyone in the world with a CVMFS client.  CVMFS clients are available for download to desktops or laptops.  Sensitive code can not be stored in CVMFS.
-
-More information on CVMFS is available [here](https://wiki.dunescience.org/wiki/DUNE_Computing/Access_files_in_CVMFS)
-
-> ## Exercise 6
-> * cd /cvmfs and do an ls at top level
-> * What do you see--do you see the four subdirectories (dune.opensciencegrid.org, larsoft.opensciencegrid.org, fermilab.opensciencegrid.org, and dune.osgstorage.org)
-> * cd dune.osgstorage.org/pnfs/fnal.gov/usr/dune/persistent/stash/PhotonPropagation/LibraryData
-{: .challenge}
 
 
 ## Quiz
@@ -325,14 +334,14 @@ More information on CVMFS is available [here](https://wiki.dunescience.org/wiki/
 >
 > How do we determine a DUNE data file location?
 > <ol type="A">
-> <li>Do ls -R on /pnfs/dune and grep</li>
-> <li>Use samweb locate-file (file name)</li>
+> <li>Do `ls -R` on /pnfs/dune and grep</li>
+> <li>Use `rucio list-file-replicas` (namespace:filename) --pnfs --protocols=root</li>
 > <li>Ask the data management group</li>
 > <li>None of the Above</li>
 > </ol>
 >
 > > ## Answer
-> > The correct answer is B - use samweb locate-file (file name).
+> > The correct answer is B - use `rucio list-file-replicas` (namespace:filename).
 > > {: .output}
 > > Comment here
 > {: .solution}
@@ -340,7 +349,8 @@ More information on CVMFS is available [here](https://wiki.dunescience.org/wiki/
 
 
 ## Useful links to bookmark
-* Official dataset definitions: [dune-data.fnal.gov](https://dune-data.fnal.gov)
+* Metacat: [https://dune.github.io/DataCatalogDocs](https://dune.github.io/DataCatalogDocs/index.html)
+* Pre-2024 Official dataset definitions: [dune-data.fnal.gov](https://dune-data.fnal.gov)
 * [UPS reference manual](http://www.fnal.gov/docs/products/ups/ReferenceManual/)
 * [UPS documentation (redmine)](https://cdcvs.fnal.gov/redmine/projects/ups/wiki)
 * UPS qualifiers: [About Qualifiers (redmine)](https://cdcvs.fnal.gov/redmine/projects/cet-is-public/wiki/AboutQualifiers)
@@ -355,4 +365,6 @@ More information on CVMFS is available [here](https://wiki.dunescience.org/wiki/
 [dune-data-fnal-how-works]: https://dune-data.fnal.gov/tutorial/howitworks.pdf
 [sam-data-control]: https://wiki.dunescience.org/wiki/Using_the_SAM_Data_Catalog_to_find_data
 [sam-longer]: https://dune.github.io/computing-basics/sam-by-schellman/index.html
-
+[Spack documentation]: https://fifewiki.fnal.gov/wiki/Spack
+[DataCatalogDocs]: https://dune.github.io/DataCatalogDocs/index.html
+[MetaCatGlossary]: https://dune.github.io/DataCatalogDocs/glossary.html

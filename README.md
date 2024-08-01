@@ -2,7 +2,7 @@
 DUNE Computing Training 2024 Draft update
 ========================================
 
-This repository holds the source code of the webpage that is rendered [here](https://dune.github.io/computing-basics/). 
+This repository holds the source code of the webpage that is rendered [here]({{ site.baseurl }}/index.html). 
 
 This training module is part of an initiative of the [DUNE Computing Consortium](https://dunescience.org/).
 
@@ -21,7 +21,10 @@ New! Lectures will be recorded.
 There will be hands-on, facilitated with a Q&A on a live doc.
 New! There will be quizzes and special sessions “expert in the room” to answer questions of beginners and not-so-beginner about their code.
 
-How to attend?
+How to do these tutorials.
+
+Participants must have a valid FNAL or CERN account. 
+
 
 Participants must have a valid FNAL or CERN account. The Indico site  will be announced is [https://indico.fnal.gov/event/59762/][indico-event]
 
