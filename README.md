@@ -1,5 +1,5 @@
 
-DUNE Computing Training 2024 Draft update
+DUNE Computing Training 2024 Update
 ========================================
 
 This repository holds the source code of the webpage that is rendered [here]({{ site.baseurl }}/index.html). 
