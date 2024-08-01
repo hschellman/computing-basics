@@ -45,6 +45,7 @@ Report [file an issue in this repository](https://github.com/DUNE/computing-trai
 Maintainers of this GitHub space are:
 
 * David DeMuth
+* Heidi Schellman
 
 ## Authors
 
