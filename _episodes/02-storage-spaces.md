@@ -181,6 +181,7 @@ Note, if the destination for an ifdh cp command is a directory instead of filena
 * copy the my_first_login.txt file from your dCache scratch directory (i.e. DUNE_tutorial_2024) to /dev/null
 * remove the directory DUNE_tutorial_2024
 * create the directory DUNE_tutorial_2024_data_file
+
 > Note, if the destination for an ifdh cp command is a directory instead of filename with full path, you have to add the "-D" option to the command line. Also, for a directory to be deleted, it must be empty.
 {: .challenge}
 

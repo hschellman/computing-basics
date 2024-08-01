@@ -26,7 +26,10 @@ keypoints:
 
 ## Requirements
 
+
 You must be on the DUNE Collaboration member list and have a valid FNAL or CERN account. <!-- See the old [Indico Requirement page][indico-event-requirements] for more information.-->
+
+You should join the DUNE Slack instance and look in #computing-training-basics (see Mission Setup below)  for help with this tutorial
 
 Windows users are invited to review the [Windows Setup page]({{ site.baseurl }}/Windows.html).
 
@@ -60,7 +63,6 @@ If you are not familiar with Unix shell commands, here is a tutorial you can do 
 
 If you have any questions, contact us at `dune-computing-training@fnal.gov` or on DUNE Slack `#computing_training_basics`.
 
- 
 
 You should join the DUNE Slack instance and look in [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR) for help with this tutorial
 
@@ -271,7 +273,6 @@ A simpler solution would be to rename your login scripts (for instance .bashrc a
 
 See [SL7_to_Alma9][SL7_to_Alma9] for more information 
 
-
 To set up your environment in SL7, the commands are:
 
 Log into a DUNE machine running Alma9
@@ -333,7 +334,6 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 > {: .solution}
 {: .callout}
 
-
 > ## Optional
 > > ## See if ROOT works
 > > Try testing ROOT to make certain things are working
@@ -357,6 +357,27 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 {: .callout}
 
 ## 4.2 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>
+=======
+Try testing ROOT to make certain things are working
+
+~~~
+setup root -v v6_28_12 -q e26:p3915:prof # sets up root for you  
+
+#  right now setup seems to spew out 1000's of lines of verbose output just doing its job. 
+
+root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
+~~~
+{: .language-bash}
+
+You should see a plot that updates and then terminates.   
+
+### Caveats for later
+
+You cannot submit jobs from the Container - you need to open a separate window, not do the apptainer and submit your jobs from that window. 
+
+
+## 4.2 Setting up DUNE software - Alma9 version
+
 
 We are moving to the Alma9 version of unix.  Not all DUNE code has been ported yet but if you are doing basic analysis work, try it out. 
 
@@ -408,10 +429,12 @@ export SAM_EXPERIMENT=dune
 We don't have a full ability to rebuild DUNE Software packages yet.  We will be adding more functionality here.  Unless you are doing simple ROOT based analysis you will need to use the [SL7 Container](#SL7_setup) method for now. 
 
 
+
 ## 5. Exercise! (it's easy)
 This exercise will help organizers see if you reached this step or need help.
 
 1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2024.sh```.  
+
 
 Launch the *Apptainer* as described above in the [SL7 version](#SL7_setup) 
 
@@ -419,6 +442,7 @@ Write in it the following:
 ~~~
 export DUNESW_VERSION=v09_90_01d00
 export DUNESW_QUALIFIER=e26:prof
+
 export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
 
 alias dune_setup='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
@@ -451,7 +475,9 @@ date >& /exp/dune/app/users/${USER}/my_first_login.txt
 4) With the above, we will check if you reach this point. However we want to tailor this tutorial to your preferences as much as possible. We will let you decide which animals you would like to see in future material, between: "puppy", "cat", "squirrel", "sloth", "unicorn pegasus llama" (or "prefer not to say" of course). Write your desired option on the second line of the file you just created above.
 
 > ## Note
+
 > If you experience difficulties, please ask for help in the Slack channel [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR).  Please mention in your message this is about the Setup step 5. Thanks!
+
 {: .challenge}
 
 ## 6. Getting setup for streaming and grid access
@@ -562,6 +588,7 @@ With this done, you should be able to submit jobs and access remote DUNE storage
 
 
 > ## Issues
+
 > If you have issues here, please ask [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR) in Slack to get support. Please mention in your message it is the Step 6 of the setup. Thanks!
 {: .challenge}
 
@@ -676,6 +703,5 @@ The [DUNE FAQ][DUNE FAQ] on GitHub.
 [anaconda-faq-kinit]: https://github.com/DUNE/FAQ/issues/22
 [dunefaq]: https://github.com/DUNE/FAQ
 [DUNE FAQ]: https://github.com/DUNE/FAQ/projects/1
-
-
+s
 

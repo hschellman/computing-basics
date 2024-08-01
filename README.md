@@ -25,7 +25,8 @@ How to do these tutorials.
 
 Participants must have a valid FNAL or CERN account. 
 
-For live events, the Indico site  will be announced is [https://indico.fnal.gov/event/59762/][indico-event]
+
+Participants must have a valid FNAL or CERN account. The Indico site  will be announced is [https://indico.fnal.gov/event/59762/][indico-event]
 
 Apply immediately if you do not yet have accounts at either lab (info).
 
