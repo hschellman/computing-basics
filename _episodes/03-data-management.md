@@ -174,15 +174,16 @@ To look at all the files in that run you need to use XRootD - **DO NOT TRY TO CO
 
 
 ### What is(was) SAM?  
-Sequential Access with Metadata (SAM) is a data handling system developed at Fermilab.  It is designed to tracklocations of files and other file metadata.
+Sequential Access with Metadata (SAM) is/was a data handling system developed at Fermilab.  It is designed to tracklocations of files and other file metadata.  It has been replaced by metacat.  
 
-This lecture will show you how to access data files that have been defined to the DUNE Data Catalog. Execute the following commands after logging in to the DUNE interactive node, and sourcing the main dune setups.
+<!--This lecture will show you how to access data files that have been defined to the DUNE Data Catalog. Execute the following commands after logging in to the DUNE interactive node, and sourcing the main dune setups.
 
 Once per session:
 ~~~
 setup sam_web_client
 export SAM_EXPERIMENT=dune
 ~~~
+-->
 
 ### What is Rucio?
 Rucio is the next-generation Data Replica service and is part of DUNE's new Distributed Data Management (DDM) system that is currently in deployment. 
@@ -196,9 +197,10 @@ As of the date of the June 2024 tutorial:
 
 ### Let's find a file
 ~~~
-# get a kx509 proxy
+# first get a kx509 proxy, then
+
 export RUCIO_ACCOUNT=$USER
-rucio list-file-replicas rucio list-file-replicas hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5 --pfns --protocols=root
+rucio list-file-replicas hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5 --pfns --protocols=root
 ~~~
 {: .language-bash}
 
@@ -214,7 +216,7 @@ root://eosctapublic.cern.ch:1094//eos/ctapublic/archive/neutplatform/protodune/r
 
 which is the locations of the file on disk and tape. We can use this to copy the file to our local disk or access the file via xroot. 
 
-### Finding files by characteristics
+### Finding files by characteristics using metacat
 
 To list raw data files for a given run:
 ~~~
@@ -287,8 +289,8 @@ To learn more about using Rucio and Metacat to run over large data samples go he
 
 > # Full Justin/Rucio/Metacat Tutorial
 > The [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) 
+>  and [justin tutorial](https://justin.dune.hep.ac.uk/docs/tutorials.dune.md)
 {: .challenge}
-
 
 
 > ## Exercise 1
@@ -303,7 +305,11 @@ When we are analyzing large numbers of files in a group of batch jobs, we use a 
 FIXME Need to make an example of looking at a dataset
 {: .challenge}
 
-**Resources**: [DataCatalogDocs][DataCatalogDocs]  The [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) 
+**Resources**: 
+
+- [DataCatalogDocs][DataCatalogDocs]  
+- The [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) 
+- [justin tutorial](https://justin.dune.hep.ac.uk/docs/tutorials.dune.md)
 
 
 
