@@ -65,9 +65,9 @@ Start up session #1, editing code, on one of the dunegpvm*.fnal.gov
 interactive nodes.  These scripts have also been tested on the
 lxplus.cern.ch interactive nodes. 
 
-> ### Note
-> Remember the Apptainer!
-{: .challenge}
+> ## Note Remember the Apptainer!  
+> see below for special Apptainers for CERN and build machines.
+{: .callout}
 
 Create two scripts in your home directory:
 
@@ -79,7 +79,7 @@ export DUNESW_VERSION=v09_90_01d00
 export PROTODUNEANA_VERSION=$DUNESW_VERSION
 DUNESW_QUALIFIER=e26:prof
 DIRECTORY=2024tutorial
-USERNAME=`whoami'
+USERNAME=`whoami`
 export WORKDIR=/exp/dune/app/users/${USERNAME}
 if [ ! -d "$WORKDIR" ]; then
   export WORKDIR=`echo ~`
@@ -150,6 +150,27 @@ building all at once, the build nodes may become very slow or run
 out of memory.  The `lxplus` nodes are generally big enough to build
 sufficiently quickly.  The Fermilab build nodes should not be used
 to run programs (people need them to build code!)
+
+> ## Note you need a modified container on the build machines and at CERN as they don't mount /pnfs
+> This is done to prevent people from running interactive jobs on the dedicated build machines. 
+{: .callout}
+
+### FNAL build machines
+~~~
+# remove /pnfs/ for build machines
+/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
+-B /cvmfs,/exp,/nashome,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid \
+/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
+~~~
+{: .language-bash}
+
+### CERN
+~~~
+/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash\
+-B /cvmfs,/afs,/opt,/run/user,/etc/hostname,/etc/krb5.conf --ipc --pid \
+/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
+~~~
+{: .language-bash}
 
 ### Download source code and build it
 
