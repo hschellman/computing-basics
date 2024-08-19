@@ -404,6 +404,7 @@ spack load fife-utils@3.7.0
 spack load metacat@4.0.0
 spack load rucio-clients@33.3.0
 spack load sam-web-client@3.4%gcc@12.2.0 
+spack load kx509
 
 # config for dune
 spack load r-m-dd-config@1.0 experiment=dune
@@ -504,9 +505,16 @@ To access the grid resources, you will need either need a proxy or a token. More
 
 ## How to authorize with the KX509/Proxy method <a name="proxy"></a>
 
+On Alma9 you may need to do this first 
+
+~~~
+spack load kx509
+~~~
+
 This is to be done once every 24 hours per login machine you’re using to identify yourself:
 
 ~~~
+kx509
 export ROLE=Analysis
 voms-proxy-init -rfc -noregen -voms=dune:/dune/Role=$ROLE -valid 120:00
 ~~~
@@ -613,31 +621,23 @@ log into `lxplus.cern.ch`
 
 fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightly different version as mounts are different.
 
-If you have a Fermilab account already do this to get access the data catalog worldwide
-
-~~~
-kdestroy
-kinit -f <fnalaccount>@FNAL.GOV
-kx509
-~~~
-{: .language-bash}
-
-but otherwise you can still proceed with local files. 
-
 ~~~
 /cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash\
--B /cvmfs,/afs,/opt,/run/user,/etc/hostname,/etc/krb5.conf --ipc --pid \
+-B /cvmfs,/afs,/opt,/run/user,/etc/hostname --ipc --pid \
 /cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
 ~~~
 {: .language-bash}
 
-You may have to add some mounts - here I added `/afs/` but removed `/nashome/`, `/exp/` and `/pnfs/`.
+You may have to add some mounts - here I added `/afs/` but removed `/nashome/`, `/exp/`, `/etc/krb5.conf` and `/pnfs/`.
 
 You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}03.3-cvmfs.html).
+
+Set up the DUNE software 
 
 ~~~
 export UPS_OVERRIDE="-H Linux64bit+3.10-2.17" # makes certain you get the right UPS
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
+setup kx509
 ~~~
 {: .language-bash}
 
@@ -646,6 +646,29 @@ Setting up larsoft UPS area... /cvmfs/larsoft.opensciencegrid.org/products/
 Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 ~~~
 {: .output}
+
+If you have a Fermilab account already do this to get access the data catalog worldwide
+
+~~~
+kdestroy
+kinit -f <fnalaccount>@FNAL.GOV
+kx509
+export ROLE=Analysis
+voms-proxy-init -rfc -noregen -voms=dune:/dune/Role=$ROLE -valid 120:00
+~~~
+{: .language-bash}
+
+~~~
+Checking if /tmp/x509up_u79129 can be reused ... yes
+Your identity: /DC=org/DC=cilogon/C=US/O=Fermi National Accelerator Laboratory/OU=People/CN=Heidi <fnalusername>n/CN=UID:<fnalusername>
+Contacting  voms1.fnal.gov:15042 [/DC=org/DC=incommon/C=US/ST=Illinois/O=Fermi Research Alliance/CN=voms1.fnal.gov] "dune" Done
+Creating proxy .......................................................................................... Done
+
+Your proxy is valid until Sat Aug 24 17:11:41 2024
+~~~
+{: .output}
+
+
 
 ### 2. Access tutorial datasets
 Normally, the datasets are accessible through the grid resource. But with your CERN account, you may not be part of the DUNE VO yet (more on this during the tutorial). We found a workaround: some datasets have been copied locally for you. You can check them here:
