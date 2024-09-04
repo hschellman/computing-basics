@@ -68,7 +68,7 @@ You should join the DUNE Slack instance and look in [#computing-training-basics]
 
 go to [https://atwork.dunescience.org/tools/](https://atwork.dunescience.org/tools/) scroll down to Slack and request an invite.  Please do not do this if you are already in DUNE Slack.
 
-Also check out our [Computing FAQ](https://github.com/DUNE/FAQ/projects/1) for help with connection and account issues. 
+Also check out our [Computing FAQ](https://github.com/orgs/DUNE/projects/19/views/1) for help with connection and account issues. 
 
 
 
@@ -725,6 +725,6 @@ The [DUNE FAQ][DUNE FAQ] on GitHub.
 [dune-wiki-interactive-resources]: https://wiki.dunescience.org/wiki/DUNE_Computing/DUNE_Interactive_Computing_Resources
 [anaconda-faq-kinit]: https://github.com/DUNE/FAQ/issues/22
 [dunefaq]: https://github.com/DUNE/FAQ
-[DUNE FAQ]: https://github.com/DUNE/FAQ/projects/1
+[DUNE FAQ]: https://github.com/orgs/DUNE/projects/19/views/1
 s
 

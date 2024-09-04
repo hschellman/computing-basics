@@ -10,6 +10,6 @@ How to use the Justin Workflow system to submit jobs and access data.  [Metacat/
 ## [LArTPC Reconstruction Training](https://indico.ph.ed.ac.uk/event/268/)
 Annual training on LArTPC reconstruction and simulation methods.
 
-## [FAQ](https://github.com/DUNE/FAQ/projects/1)
+## [FAQ](https://github.com/orgs/DUNE/projects/19/views/1)
 Common error messages and frequently asked questions about DUNE Computing. 
 
