@@ -68,13 +68,13 @@ You should join the DUNE Slack instance and look in [#computing-training-basics]
 
 go to [https://atwork.dunescience.org/tools/](https://atwork.dunescience.org/tools/) scroll down to Slack and request an invite.  Please do not do this if you are already in DUNE Slack.
 
-Also check out our [Computing FAQ](https://github.com/DUNE/FAQ/projects/1) for help with connection and account issues. 
+Also check out our [Computing FAQ](https://github.com/orgs/DUNE/projects/19/views/1) for help with connection and account issues. 
 
 
 
 ## 0. Basic setup on your computer. 
 
-[Computer Setup]({{ site.baseurl }}ComputerSetup.html) goes through how to find a terminal and set up xwindows on MacOS and Windows.  You can skip this if already familiar with doing that. 
+[Computer Setup]({{ site.baseurl }}/ComputerSetup.html) goes through how to find a terminal and set up xwindows on MacOS and Windows.  You can skip this if already familiar with doing that. 
 
 > ## Note
 > The instructions directly below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#setup_CERN).
@@ -343,7 +343,7 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 > > root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
 > > ~~~
 > > {: .language-bash}
-> > You should see a plot that updates and then terminates.   
+> > You should see a plot that updates and then terminates.  You may need to `export DISPLAY=0:0`.
 > {: .solution}
 {: .callout}
 
@@ -369,7 +369,7 @@ root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
 ~~~
 {: .language-bash}
 
-You should see a plot that updates and then terminates.   
+You should see a plot that updates and then terminates.   You may need to `export DISPLAY=0:0` .
 
 ### Caveats for later
 
@@ -630,7 +630,7 @@ fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightl
 
 You may have to add some mounts - here I added `/afs/` but removed `/nashome/`, `/exp/`, `/etc/krb5.conf` and `/pnfs/`.
 
-You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}03.3-cvmfs.html).
+You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}/03.3-cvmfs.html).
 
 Set up the DUNE software 
 
@@ -725,6 +725,6 @@ The [DUNE FAQ][DUNE FAQ] on GitHub.
 [dune-wiki-interactive-resources]: https://wiki.dunescience.org/wiki/DUNE_Computing/DUNE_Interactive_Computing_Resources
 [anaconda-faq-kinit]: https://github.com/DUNE/FAQ/issues/22
 [dunefaq]: https://github.com/DUNE/FAQ
-[DUNE FAQ]: https://github.com/DUNE/FAQ/projects/1
+[DUNE FAQ]: https://github.com/orgs/DUNE/projects/19/views/1
 s
 
