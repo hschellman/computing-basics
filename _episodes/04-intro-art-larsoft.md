@@ -107,7 +107,7 @@ ups list -aK+ dunesw
 ~~~
 {: .language-bash}
 
-The output is not sorted, although portions of it may look sorted. Do not depend on it being sorted. The string indicating the version is called the version tag (v09_72_01d00 here). The qualifiers are e20 and prof. Qualifiers can be entered in any order and are separated by colons.  "e20" corresponds to a specific version of the GNU compiler -- v9.3.0.   We also compile with `clang` -- the compiler qualifier for that is "c7".
+The output is not sorted, although portions of it may look sorted. Do not depend on it being sorted. The string indicating the version is called the version tag (v09_72_01d00 here). The qualifiers are e26 and prof. Qualifiers can be entered in any order and are separated by colons.  "e26" corresponds to a specific version of the GNU compiler -- v9.3.0.   We also compile with `clang` -- the compiler qualifier for that is "c7".
 
 "prof" means "compiled with optimizations turned on." "debug" means "compiled with optimizations turned off". More information on qualifiers is [here][about-qualifiers].
 
