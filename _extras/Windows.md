@@ -8,8 +8,8 @@ keypoints:
 
 ## Instructions for running remote terminal sessions on unix machines from Windows
 
-> ## Note You need to have administrator priviliges to do some of this
-> On Windows 11 type "Make Me " in the search area and it will pop up a "Make Me Adminstrator" window that allows you to be administrator for 30 minutes.  You will need to do this again after 30 minutes.  If something fails, it may be because the time ran out. 
+> ## Note You need to have administrator privileges to do some of this
+> On Windows 11 type "Make Me " in the search area and it should pop up a "Make Me Adminstrator" window that allows you to be administrator for 30 minutes.  You will need to do this again after 30 minutes.  If something fails, it may be because the time ran out. 
 {: .callout}
 
 ## Kerberos Ticket Manager
