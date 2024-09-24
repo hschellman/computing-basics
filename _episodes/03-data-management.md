@@ -76,8 +76,8 @@ First get metacat if you have not already done so
 setup metacat # if using SL7
 spack load metacat # if using Alma9
 metacat auth login -m password $USER  # use your services password to authenticate
-METACAT_AUTH_SERVER_URL=https://metacat.fnal.gov:8143/auth/dune
-METACAT_SERVER_URL=https://metacat.fnal.gov:9443/dune_meta_prod/app 
+export METACAT_AUTH_SERVER_URL=https://metacat.fnal.gov:8143/auth/dune
+export METACAT_SERVER_URL=https://metacat.fnal.gov:9443/dune_meta_prod/app 
 ~~~
 {: .language-bash}
 
@@ -196,10 +196,18 @@ As of the date of the June 2024 tutorial:
 - Most DUNE users are now enabled to use it. New users may not automatically be added. 
 
 ### Let's find a file
+
+If you haven't already done this earlier in setup
+
+- On sl7 type `setup rucio`
+- On al9 type `spack load rucio-clients@33.3.0`  # may need to update that version #
+
 ~~~
 # first get a kx509 proxy, then
 
 export RUCIO_ACCOUNT=$USER
+
+
 rucio list-file-replicas hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5 --pfns --protocols=root
 ~~~
 {: .language-bash}
