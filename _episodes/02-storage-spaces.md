@@ -95,7 +95,7 @@ Files are not available for immediate read on disk, but needs to be 'staged' fro
 **Rucio Storage Elements**: Rucio Storage Elements (or RSEs) are storage elements provided by collaborating institution for official DUNE datasets.  Data stored in DUNE RSE's must be fully cataloged in the [metacat][metacat] catalog and is managed by the DUNE data management team. This is where you find the big official data samples. 
 
 > ## Note - When reading from dcache always use the root: syntax, not direct /pnfs
-> The Fermilab dcache areas have NFS mounts.  These are for your convenience, they allow you to look at the directory structure and, for example, remove files.  However, NFS access is slow and can hang the machine if I/O heavy processes use it.  Always use the `xroot root://<site>` ... when reading accessing files instead of `/pnfs/` directly.  Once you have your dune environment set up the `pnfs2xrootd` command can do the conversion to `root:` format for you. 
+> The Fermilab dcache areas have NFS mounts.  These are for your convenience, they allow you to look at the directory structure and, for example, remove files.  However, NFS access is slow and can hang the machine if I/O heavy processes use it.  Always use the `xroot root://<site>` ... when reading/accessing files instead of `/pnfs/` directly.  Once you have your dune environment set up the `pnfs2xrootd` command can do the conversion to `root:` format for you. 
 {: .callout} 
 
 ## Summary on storage spaces
