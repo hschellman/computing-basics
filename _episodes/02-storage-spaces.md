@@ -201,7 +201,6 @@ The eXtended ROOT daemon is software framework designed for accessing data from 
 XRootD is most suitable for read-only data access.
 [XRootD Man pages](https://xrootd.slac.stanford.edu/docs.html)
 
-
 Issue the following command. Please look at the input and output of the command, and recognize that this is a listing of /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024. Try and understand how the translation between a NFS path and an xrootd URI could be done by hand if you needed to do so.
 
 ~~~
@@ -286,6 +285,28 @@ xrdcp root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/pro
 xrdfs root://fndca1.fnal.gov:1094/ ls /pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/01/67/ | wc -l
 ~~~
 {: .language-bash}
+
+
+> ## Is my file available or stuck on tape?
+> /tape_backed/ storage at Fermilab is migrated to tape and may not be on disk?
+> You can check this by doing the following **in an AL9 window**
+> ~~~
+> gfal-xattr  <xrootpath> user.status
+> ~~~
+> {: .language-bash}
+> if it is on disk you get
+> ~~~
+> ONLINE
+> ~~~
+> {: .output}
+> if it is only on tape you get
+> ~~~
+> NEARLINE
+> ~~~
+> {: .output}
+>  (This command doesn't work on SL7 so use an AL9 window)
+{: .challenge}
+
 
 ### The df command
 
