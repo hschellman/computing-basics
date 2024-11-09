@@ -407,7 +407,7 @@ spack load sam-web-client@3.4%gcc@12.2.0
 spack load kx509
 
 # config for dune
-spack load r-m-dd-config@1.0 experiment=dune
+spack load r-m-dd-config experiment=dune
 export SAM_EXPERIMENT=dune
 ~~~
 {: .language-bash}
@@ -517,6 +517,7 @@ This is to be done once every 24 hours per login machine you’re using to ident
 ~~~
 kx509
 export ROLE=Analysis
+export X509_USER_PROXY=/tmp/x509up_dune_Analysis_`id -u`
 voms-proxy-init -rfc -noregen -voms=dune:/dune/Role=$ROLE -valid 120:00
 ~~~
 {: .language-bash}
