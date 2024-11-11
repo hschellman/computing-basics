@@ -23,15 +23,13 @@ The session will be captured on video a placed here after the workshop for async
 
 ## Two Days of Training
 
-The instruction in this two day version of the DUNE computing workshop was provided by several experienced physicists and is based on years of experience. 
+The instruction in this one day version of the DUNE computing workshop was provided by several experienced physicists and is based on years of experience. 
 
 The secure access to Fermilab computing systems and a familiarity with data storage are key components.
 
 Data management and event processing tools were described and modeled. 
 
-Art and LArSoft were introduced, with an examples of workflows so analyzers can know how to make their own module. 
-
-Protocols for efficient job submission and monitoring has been demonstrated.
+Art and LArSoft were introduced
 
 We are thankful for the instructor's hard work, and for the numerous participants who joined.
 

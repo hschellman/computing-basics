@@ -1,6 +1,6 @@
 ---
 title: Introduction to art and LArSoft (2024 - Apptainer version)
-teaching: 95
+teaching: 50
 exercises: 0
 questions:
 - Why do we need a complicated software framework? Can't I just write standalone code?
@@ -509,7 +509,7 @@ physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023t
  cd 2024Tutorial
  export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
- export DUNESW_VERSION=v09_90_01
+ export DUNESW_VERSION=v09_90_01d00
  export LARSOFT_VERSION=${DUNESW_VERSION}
  export DUNESW_QUALIFIER=e26:prof
  setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
@@ -569,7 +569,7 @@ A good old-fashioned `grep -r` or a find command can be effective if you are loo
 ~~~
  #!/bin/bash
  USERNAME=`whoami`
- export DUNESW_VERSION=v09_90_01
+ export DUNESW_VERSION=v09_90_01d00
  export LARSOFT_VERSION=${DUNESW_VERSION}
  export DUNESW_QUALIFIER=e26:prof
  export COMPILER=e26
