@@ -1,6 +1,6 @@
 ---
 title: Introduction to art and LArSoft (2024 - Apptainer version)
-teaching: 95
+teaching: 60
 exercises: 0
 questions:
 - Why do we need a complicated software framework? Can't I just write standalone code?
