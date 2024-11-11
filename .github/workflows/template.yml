@@ -45,7 +45,7 @@ jobs:
       RSPM: 'https://packagemanager.rstudio.com/cran/__linux__/focal/latest'
     steps:
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@v2
         with:
           ruby-version: '2.7'
           bundler-cache: true
@@ -155,7 +155,7 @@ jobs:
 
       - name: Cache R packages
         if: runner.os != 'Windows' && steps.check-rmd.outputs.count != 0
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
