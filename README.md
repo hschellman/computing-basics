@@ -2,6 +2,8 @@
 DUNE Computing Training 2024 Update
 ========================================
 
+The branch Nov2024-release archives the version that was DUNE/computing-basics in early November. It used the old carpentries template. 
+
 This repository holds the source code of the webpage that is rendered [here]({{ site.baseurl }}/index.html). 
 
 This training module is part of an initiative of the [DUNE Computing Consortium](https://dunescience.org/).
