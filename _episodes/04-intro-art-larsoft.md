@@ -77,10 +77,18 @@ alias dunesetups="source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dun
 ~~~
 {: .language-bash}
 
-Then you can use the appropriate alias to start the SL7 container on either the build node or the gpvms.
+Then you can use the appropriate alias to start the SL7 container on either the build node or the gpvms.  Starting a container gives you a very bare environment -- it does not source your .profile for you; you have to do that yourself.  The examples below assume you put the aliases above in your .profile or in a script sourced by your .profile.  I always set the prompt variable PS1 in my profile so I can tell that I've sourced it.
 
 ~~~
-source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
+PS1="<`hostname`> "; export PS1
+~~~
+{: .language-bash}
+
+Then when you log in, you can type these commands to set up your environment in a container:
+~~~
+dunesl7
+source .profile
+dunesetups
 export DUNESW_VERSION=v10_00_04d00
 export DUNESW_QUALIFIER=e26:prof
 setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
@@ -459,9 +467,8 @@ Try it yourself! The workflow for ProtoDUNE-SP MC is given in the [Simulation Ta
  export USER=`whoami`
  mkdir -p /exp/dune/data/users/$USER/tutorialtest
  cd /exp/dune/data/users/$USER/tutorialtest
- export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
- export DUNESW_VERSION=v09_90_01d00
+ export DUNESW_VERSION=v10_00_04d00
  export DUNESW_QUALIFIER=e26:prof
  setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
  TMPDIR=/tmp lar -n 1 -c mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl -o gen.root
@@ -510,7 +517,7 @@ physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023t
  cd 2024Tutorial
  export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
- export DUNESW_VERSION=v09_90_01
+ export DUNESW_VERSION=v10_00_04
  export LARSOFT_VERSION=${DUNESW_VERSION}
  export DUNESW_QUALIFIER=e26:prof
  setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
@@ -564,25 +571,19 @@ A good old-fashioned `grep -r` or a find command can be effective if you are loo
 
 
 > ## Note
-> Remember the Apptainer!
+> Remember the Apptainer!  You can use your dunesl7 alias defined at the top of this page.
 {: .challenge}
 
 ~~~
  #!/bin/bash
  USERNAME=`whoami`
- export DUNESW_VERSION=v09_90_01
- export LARSOFT_VERSION=${DUNESW_VERSION}
- export DUNESW_QUALIFIER=e26:prof
- export COMPILER=e26
- export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
  cd /exp/dune/app/users/${USERNAME}
  rm -rf inspect
  mkdir inspect
  cd inspect
- setup larsoft ${LARSOFT_VERSION} -q debug:${COMPILER}
  mrb newDev
- source /exp/dune/app/users/${USERNAME}/inspect/localProducts_larsoft_${LARSOFT_VERSION}_debug_${COMPILER}/setup
+ source /exp/dune/app/users/${USERNAME}/inspect/localProducts*/setup
  cd srcs
  mrb g larsoft_suite
  mrb g larsoftobj_suite
