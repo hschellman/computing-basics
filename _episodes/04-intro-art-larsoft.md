@@ -65,22 +65,23 @@ The configuration storage is particularly useful if you receive a data file from
 Log in to a `dunegpvm*.fnal.gov` machine and set up your environment (This script is defined in Exercise 5 of https://dune.github.io/computing-training-basics/setup.html)
 
 > ## Note
-> For now do this in the Apptainer
+> For now do this in the Apptainer.  Due to the need to set up the container separately on the build nodes and the gpvms due to /pnfs mounts being different, and the need to keep your environment clean for use on other experiments, it is best to define aliases in your .profile or .bashrc or other login script you use to define aliases.  A set of convenient aliases is
 {: .challenge}
 
 ~~~
-/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
--B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid \
-/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
+alias dunesl7="/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash -B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid /cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest"
+
+alias dunesl7build="/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash -B /cvmfs,/exp,/build,/nashome,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid /cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest"
+
+alias dunesetups="source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh"
 ~~~
 {: .language-bash}
 
-once in the Apptainer
+Then you can use the appropriate alias to start the SL7 container on either the build node or the gpvms.
 
 ~~~
-export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-export DUNESW_VERSION=v09_90_01d00
+export DUNESW_VERSION=v10_00_04d00
 export DUNESW_QUALIFIER=e26:prof
 setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
 setup_fnal_security
