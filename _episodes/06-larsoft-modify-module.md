@@ -75,9 +75,9 @@ Create two scripts in your home directory:
 
 ~~~
 #!/bin/bash
-export DUNESW_VERSION=v09_90_01d00
-export PROTODUNEANA_VERSION=$DUNESW_VERSION
-DUNESW_QUALIFIER=e26:prof
+export DUNELAR_VERSION=v09_90_01d00
+export PROTODUNEANA_VERSION=$DUNELAR_VERSION
+DUNELAR_QUALIFIER=e26:prof
 DIRECTORY=2024tutorial
 USERNAME=`whoami`
 export WORKDIR=/exp/dune/app/users/${USERNAME}
@@ -92,7 +92,7 @@ touch ${DIRECTORY}
 rm -rf ${DIRECTORY}
 mkdir ${DIRECTORY}
 cd ${DIRECTORY}
-mrb newDev -q ${DUNESW_QUALIFIER}
+mrb newDev -q ${DUNELAR_QUALIFIER}
 source ${WORKDIR}/${DIRECTORY}/localProducts*/setup
 mkdir work
 cd srcs
@@ -119,7 +119,7 @@ fi
 cd $WORKDIR/$DIRECTORY
 source localProducts*/setup
 cd work
-setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
+setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
 mrbslp
 ~~~
 {: .language-bash}
@@ -540,7 +540,7 @@ Sometimes you may want to know what the version number is of a product way down 
 
 ~~~
   source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-  setup <product> $DUNESW_VERSION -q $DUNESW_QUALIFIER
+  setup <product> $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
   ups active
 ~~~
 {: .language-bash}
@@ -548,7 +548,7 @@ Sometimes you may want to know what the version number is of a product way down 
 It usually is a good idea to pipe the output through grep to find a particular product version.  You can get dependency information with
 
 ~~~
-  ups depend <product> $DUNESW_VERSION -q $DUNESW_QUALIFIER
+  ups depend <product> $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
 ~~~
 {: .language-bash}
 

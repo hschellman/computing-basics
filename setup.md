@@ -441,11 +441,11 @@ Launch the *Apptainer* as described above in the [SL7 version](#SL7_setup)
 
 Write in it the following:
 ~~~
-export DUNESW_VERSION=v09_90_01d00
-export DUNESW_QUALIFIER=e26:prof
+export DUNELAR_VERSION=v09_90_01d00
+export DUNELAR_QUALIFIER=e26:prof
 
 export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
-setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
+setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
 
 alias dune_setup='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
 ~~~

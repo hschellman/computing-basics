@@ -146,7 +146,7 @@ Another useful data handling command you will soon come across is ifdh. This sta
 >  ifdh is much more efficient than NSF file access.  Please use it and/or xroot when accessing remote files. 
 {: .challenge}
 
-Here is an example to copy a file. Refer to the [Mission Setup]({{ site.baseurl }}/setup.html) for the setting up the `DUNESW_VERSION`.
+Here is an example to copy a file. Refer to the [Mission Setup]({{ site.baseurl }}/setup.html) for the setting up the `DUNELAR_VERSION`.
 
 > ## Note
 > For now do this in the Apptainer

@@ -1,6 +1,6 @@
 ---
 title: Introduction to art and LArSoft (2024 - Apptainer version)
-teaching: 50
+teaching: 95
 exercises: 0
 questions:
 - Why do we need a complicated software framework? Can't I just write standalone code?
@@ -65,24 +65,33 @@ The configuration storage is particularly useful if you receive a data file from
 Log in to a `dunegpvm*.fnal.gov` machine and set up your environment (This script is defined in Exercise 5 of https://dune.github.io/computing-training-basics/setup.html)
 
 > ## Note
-> For now do this in the Apptainer
+> For now do this in the Apptainer.  Due to the need to set up the container separately on the build nodes and the gpvms due to /pnfs mounts being different, and the need to keep your environment clean for use on other experiments, it is best to define aliases in your .profile or .bashrc or other login script you use to define aliases.  A set of convenient aliases is
 {: .challenge}
 
 ~~~
-/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
--B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid \
-/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
+alias dunesl7="/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash -B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid /cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest"
+
+alias dunesl7build="/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash -B /cvmfs,/exp,/build,/nashome,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid /cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest"
+
+alias dunesetups="source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh"
 ~~~
 {: .language-bash}
 
-once in the Apptainer
+Then you can use the appropriate alias to start the SL7 container on either the build node or the gpvms.  Starting a container gives you a very bare environment -- it does not source your .profile for you; you have to do that yourself.  The examples below assume you put the aliases above in your .profile or in a script sourced by your .profile.  I always set the prompt variable PS1 in my profile so I can tell that I've sourced it.
 
 ~~~
-export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
-source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-export DUNESW_VERSION=v09_90_01d00
-export DUNESW_QUALIFIER=e26:prof
-setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
+PS1="<`hostname`> "; export PS1
+~~~
+{: .language-bash}
+
+Then when you log in, you can type these commands to set up your environment in a container:
+~~~
+dunesl7
+source .profile
+dunesetups
+export DUNELAR_VERSION=v10_00_04d00
+export DUNELAR_QUALIFIER=e26:prof
+setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
 setup_fnal_security
 ~~~
 {: .language-bash}
@@ -458,11 +467,10 @@ Try it yourself! The workflow for ProtoDUNE-SP MC is given in the [Simulation Ta
  export USER=`whoami`
  mkdir -p /exp/dune/data/users/$USER/tutorialtest
  cd /exp/dune/data/users/$USER/tutorialtest
- export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
- export DUNESW_VERSION=v09_90_01d00
- export DUNESW_QUALIFIER=e26:prof
- setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
+ export DUNELAR_VERSION=v10_00_04d00
+ export DUNELAR_QUALIFIER=e26:prof
+ setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
  TMPDIR=/tmp lar -n 1 -c mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl -o gen.root
  lar -n 1 -c protoDUNE_refactored_g4_stage1.fcl gen.root -o g4_stage1.root
  lar -n 1 -c protoDUNE_refactored_g4_stage2_sce_datadriven.fcl g4_stage1.root -o g4_stage2.root
@@ -509,10 +517,10 @@ physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023t
  cd 2024Tutorial
  export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
- export DUNESW_VERSION=v09_90_01d00
- export LARSOFT_VERSION=${DUNESW_VERSION}
- export DUNESW_QUALIFIER=e26:prof
- setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
+ export DUNELAR_VERSION=v10_00_04
+ export LARSOFT_VERSION=${DUNELAR_VERSION}
+ export DUNELAR_QUALIFIER=e26:prof
+ setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
  #cat > tmpgen.fcl << EOF
  ##include "mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl"
  #physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023tutorialfiles/H4_v34b_1GeV_-27.7_10M_1.root"
@@ -563,25 +571,19 @@ A good old-fashioned `grep -r` or a find command can be effective if you are loo
 
 
 > ## Note
-> Remember the Apptainer!
+> Remember the Apptainer!  You can use your dunesl7 alias defined at the top of this page.
 {: .challenge}
 
 ~~~
  #!/bin/bash
  USERNAME=`whoami`
- export DUNESW_VERSION=v09_90_01d00
- export LARSOFT_VERSION=${DUNESW_VERSION}
- export DUNESW_QUALIFIER=e26:prof
- export COMPILER=e26
- export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
  cd /exp/dune/app/users/${USERNAME}
  rm -rf inspect
  mkdir inspect
  cd inspect
- setup larsoft ${LARSOFT_VERSION} -q debug:${COMPILER}
  mrb newDev
- source /exp/dune/app/users/${USERNAME}/inspect/localProducts_larsoft_${LARSOFT_VERSION}_debug_${COMPILER}/setup
+ source /exp/dune/app/users/${USERNAME}/inspect/localProducts*/setup
  cd srcs
  mrb g larsoft_suite
  mrb g larsoftobj_suite
