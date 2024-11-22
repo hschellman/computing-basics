@@ -89,9 +89,11 @@ Then when you log in, you can type these commands to set up your environment in 
 dunesl7
 source .profile
 dunesetups
-export DUNESW_VERSION=v10_00_04d00
-export DUNESW_QUALIFIER=e26:prof
-setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
+
+export DUNELAR_VERSION=v10_00_04d00
+export DUNELAR_QUALIFIER=e26:prof
+setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
+
 setup_fnal_security
 ~~~
 {: .language-bash}
@@ -468,9 +470,11 @@ Try it yourself! The workflow for ProtoDUNE-SP MC is given in the [Simulation Ta
  mkdir -p /exp/dune/data/users/$USER/tutorialtest
  cd /exp/dune/data/users/$USER/tutorialtest
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
- export DUNESW_VERSION=v10_00_04d00
- export DUNESW_QUALIFIER=e26:prof
- setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
+
+ export DUNELAR_VERSION=v10_00_04d00
+ export DUNELAR_QUALIFIER=e26:prof
+ setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
+
  TMPDIR=/tmp lar -n 1 -c mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl -o gen.root
  lar -n 1 -c protoDUNE_refactored_g4_stage1.fcl gen.root -o g4_stage1.root
  lar -n 1 -c protoDUNE_refactored_g4_stage2_sce_datadriven.fcl g4_stage1.root -o g4_stage2.root
@@ -517,10 +521,12 @@ physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023t
  cd 2024Tutorial
  export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
- export DUNESW_VERSION=v10_00_04
- export LARSOFT_VERSION=${DUNESW_VERSION}
- export DUNESW_QUALIFIER=e26:prof
- setup dunesw $DUNESW_VERSION -q $DUNESW_QUALIFIER
+
+ export DUNELAR_VERSION=v10_00_04
+ export LARSOFT_VERSION=${DUNELAR_VERSION}
+ export DUNELAR_QUALIFIER=e26:prof
+ setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
+
  #cat > tmpgen.fcl << EOF
  ##include "mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl"
  #physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023tutorialfiles/H4_v34b_1GeV_-27.7_10M_1.root"
