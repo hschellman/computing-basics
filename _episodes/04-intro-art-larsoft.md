@@ -494,7 +494,11 @@ Note added November 22, 2023:  The construct "TMPDIR=/tmp lar ..." defines the e
  lar -c evd_protoDUNE_data.fcl reco_stage1.root
 ~~~
 {: .language-bash}
-and push the "Reconstructed" radio button at the bottom of the display.  To look at some raw digits in the event display, you need to decode a DAQ file or find one that's already been decoded.  The decoder fcl for ProtoDUNE-HD data taken in 2024 is run_pdhd_wibeth3_tpc_decoder.fcl.  An event display of an example decoded file is
+and push the "Reconstructed" radio button at the bottom of the display.  
+
+### Display decoded raw digits
+
+To look at some raw digits in the event display, you need to decode a DAQ file or find one that's already been decoded.  The decoder fcl for ProtoDUNE-HD data taken in 2024 is run_pdhd_wibeth3_tpc_decoder.fcl.  An event display of an example decoded file is
 ~~~
  lar -c evd_protoDUNE_data.fcl /exp/dune/data/users/trj/nov2024tutorial/np04hd_raw_run028707_0075_dataflow5_datawriter_0_20240815T154544_decode.root
 ~~~
