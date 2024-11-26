@@ -489,6 +489,17 @@ Try it yourself! The workflow for ProtoDUNE-SP MC is given in the [Simulation Ta
 
 Note added November 22, 2023:  The construct "TMPDIR=/tmp lar ..." defines the environment variable TMPDIR only for the duration of the subsequent command on the line.  This is needed for the tutorial example because the mcc12 gen stage copies a 2.9 GB file (see below -- it's the one we had to copy over to CERN) to /var/tmp using ifdh's default temporary location.  But the dunegpvm machines as of November 2023 seem to rarely have 2.9 GB of space in /var/tmp and you get a "no space left on device" error.  The newer prod4 versions of the fcls point to a newer version of the beam particle generator that can stream this file using XRootD instead of copying it with ifdh.  But the streaming flag is turned off by default in the prod4 fcl for the version of dunesw used in this tutorial, and so this is the minimal solution.  Note for the next iteration:  the Prod4 fcls are here: https://wiki.dunescience.org/wiki/ProtoDUNE-SP_Production_IV
 
+### Run the event display on your new Monte Carlo event
+~~~
+ lar -c evd_protoDUNE_data.fcl reco_stage1.root
+~~~
+{: .language-bash}
+and push the "Reconstructed" radio button at the bottom of the display.  To look at some raw digits in the event display, you need to decode a DAQ file or find one that's already been decoded.  The decoder fcl for ProtoDUNE-HD data taken in 2024 is run_pdhd_wibeth3_tpc_decoder.fcl.  An event display of an example decoded file is
+~~~
+ lar -c evd_protoDUNE_data.fcl /exp/dune/data/users/trj/nov2024tutorial/np04hd_raw_run028707_0075_dataflow5_datawriter_0_20240815T154544_decode.root
+~~~
+which is a file taken in August 2024.
+
 ### Running at CERN
 
 This example puts all files in a subdirectory of your home directory. There is an input file for the ProtoDUNE-SP beamline simulation that is copied over and you need to point the generation job at it. The above sequence of commands will work at CERN if you have a Fermilab grid proxy, but not everyone signed up for the tutorial can get one of these yet, so we copied the necessary file over and adjusted a fcl file to point at it. It also runs faster with the local copy of the input file than the above workflow which copies it.
