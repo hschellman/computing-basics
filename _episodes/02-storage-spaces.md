@@ -60,6 +60,7 @@ Each has its own advantages and limitations, and knowing which one to use when i
 * not for code developement (size of less than 2 GB)
 * at Fermilab, need a valid Kerberos ticket in order to access files in your Home area
 * periodic snapshots are taken so you can recover deleted files. (/nashome/.snapshot)
+* permissions are set so your collaborators cannot see files in your home area
 
 **Locally mounted volumes** are physical disks, mounted directly on the computer
 * physically inside the computer node you are remotely accessing
@@ -74,7 +75,8 @@ Each has its own advantages and limitations, and knowing which one to use when i
 * fast and stable POSIX access to these volumes
 * volumes available only on a limited number of computers or servers
 * not available on larger grid computing (FermiGrid, Open Science Grid, etc.)
-* /exp/dune/app/....yourdir has periodic snapshots in /exp/dune/app/... yourdir/.snap, but /exp/dune/data do NOT
+* /exp/dune/app/....yourdir has periodic snapshots in /exp/dune/app/... yourdir/.snap, but /exp/dune/data does NOT
+* easy to share files with colleagues using /exp/dune/data and /exp/dune/app
 
 ## Grid-accessible storage volumes
 
@@ -163,7 +165,6 @@ once in the Apptainer
 ~~~
 #source ~/dune_presetup_2024.sh
 #dune_setup
-export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 kx509
 export ROLE=Analysis
