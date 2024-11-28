@@ -41,9 +41,36 @@ Quiz blocks are added in this lesson and should be administered in the closing m
 
 ## Introduction
 
-DUNE data is stored around the world and the storage elements are not always organized in a way that they can be easily inspected. For this purpose we use the metacat data catalog to describe the data and collections and rucio to determine where replicas of files are.  There is also a legacy SAM data access system that can be used for older files. 
+### What we need to do to produce accurate physics results
+DUNE has a lot of data which is processed through a complicated chain of steps. We try to abide by [FAIR](https://www.go-fair.org/fair-principles/) (Findable, Accesible, Intepretable and Reproducible) principles in our use of data.  
 
-### What is metacat
+Our [DUNE Physics Analysis Review Procedures](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=28237&filename=physics_analysis_review_v7.pdf) state that:
+
+1. Software must be documented, and committed to a repository accessible to the collaboration.
+
+    The preferred location is any repository managed within the official DUNE GitHub page: https://github.com/DUNE.
+
+    There should be sufficient instructions on how to reproduce the results included with the software. In particular, a good goal is that the working group conveners are able to remake plots, in case cosmetic changes need to be made. Software repositories should adhere to licensing and copyright guidelines detailed in DocDB-27141.
+
+2. Data and simulation samples must come from well-documented, reproducible production campaigns. For most analyses, input samples should be official, catalogued DUNE productions.
+
+
+
+### How we do it
+
+DUNE offical data samples are produced using released code, cataloged with metadata that describes the processing chain and stored so that they are accessible to collaborators.  
+
+DUNE data is stored around the world and the storage elements are not always organized in a way that they can be easily inspected. For this purpose we use the [metacat][metacat] data catalog to describe the data and collections and the [rucio][rucio] file storage system to determine where replicas of files are.  There is also a legacy SAM data access system that can be used for older files. 
+
+### How can I help?
+
+If you want to access data, this module will help you find and examine it.
+
+If you want to process data using the full power of DUNE computing, you should talk to the data management group about methods for cataloging any data files you plan to produce.  This will allow you to use DUNE's collaborative storage capabilities to preserve and share your work with others and will be required for publication of results. 
+ 
+## How to find and access official data
+
+### What is metacat?
 
 Metacat is a file catalog - it allows you to search for files that have particular attributes and understand their provenance, including details on all of their processing steps. 
 
@@ -363,7 +390,9 @@ FIXME Need to make an example of looking at a dataset
 
 
 ## Useful links to bookmark
-* Metacat: [https://dune.github.io/DataCatalogDocs](https://dune.github.io/DataCatalogDocs/index.html)
+* DataCatalog: [https://dune.github.io/DataCatalogDocs](https://dune.github.io/DataCatalogDocs/index.html)
+* metacat: [https://dune.github.io/DataCatalogDocs/]
+* rucio: [https://rucio.github.io/documentation/]
 * Pre-2024 Official dataset definitions: [dune-data.fnal.gov](https://dune-data.fnal.gov)
 * [UPS reference manual](http://www.fnal.gov/docs/products/ups/ReferenceManual/)
 * [UPS documentation (redmine)](https://cdcvs.fnal.gov/redmine/projects/ups/wiki)
@@ -382,3 +411,6 @@ FIXME Need to make an example of looking at a dataset
 [Spack documentation]: https://fifewiki.fnal.gov/wiki/Spack
 [DataCatalogDocs]: https://dune.github.io/DataCatalogDocs/index.html
 [MetaCatGlossary]: https://dune.github.io/DataCatalogDocs/glossary.html
+
+{%include links.md%} 
+

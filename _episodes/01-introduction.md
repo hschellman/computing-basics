@@ -70,8 +70,10 @@ go to [https://atwork.dunescience.org/tools/](https://atwork.dunescience.org/too
 
 
 {%include links.md%} 
-
-[indico-event-link]: https://indico.fnal.gov/event/59762/
+[metacat]: https://dune.github.io/DataCatalogDocs/
+[rucio]: https://rucio.github.io/documentation/
+<!--[indico-event-link]: https://indico.fnal.gov/event/59762/
 [slack-join-link]: https://dunescience.slack.com/
 [zoom-link]: https://fnal.zoom.us/
 [indico-event-requirements]: https://indico.fnal.gov/event/59762/page/3229-requirements
+-->

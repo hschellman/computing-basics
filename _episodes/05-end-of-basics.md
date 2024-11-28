@@ -1,5 +1,5 @@
 ---
-title: End of the basics lesson - Continue to learn how to build code and submit batch jobs
+title: End of the basics lesson - Continue on your own to learn how to build code and submit batch jobs
 teaching: 5
 exercises: 0
 questions:

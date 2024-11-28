@@ -47,3 +47,5 @@
 [training]: https://carpentries.github.io/instructor-training/
 [workshop-repo]: {{ site.workshop_repo }}
 [yaml]: http://yaml.org/
+[metacat]: https://dune.github.io/DataCatalogDocs
+[rucio]: https://rucio.github.io/documentation

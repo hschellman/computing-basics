@@ -50,6 +50,10 @@ Other common conflicting environments come from MINERvA and MicroBooNE, but you 
 
 -->
 
+## First learn a bit about the MRB system
+
+Link to the [mrb]({{ site.baseurl }}/05.5-mrb) episode
+
 ## getting set up
 
 You will need *three* login sessions.  These have different
