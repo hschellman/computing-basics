@@ -1,7 +1,7 @@
 ---
 title: Data Management (2024 updated for metacat/justin/rucio)
-teaching: 40
-exercises: 0
+teaching: 30
+exercises: 15
 questions:
 - What are the data management tools and software for DUNE? 
 objectives:
