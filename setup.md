@@ -29,7 +29,7 @@ keypoints:
 
 You must be on the DUNE Collaboration member list and have a valid FNAL or CERN account. <!-- See the old [Indico Requirement page][indico-event-requirements] for more information.-->
 
-You should join the DUNE Slack instance and look in #computing-training-basics (see Mission Setup below)  for help with this tutorial
+You should join the [DUNE Slack instance](https://dunescience.slack.com) and look in #computing-training-basics (see Mission Setup below)  for help with this tutorial.  To join, email dune-slack@fnal.gov
 
 Windows users are invited to review the [Windows Setup page]({{ site.baseurl }}/Windows.html).
 
@@ -54,6 +54,7 @@ If you do not have any FNAL accounts yet, you need to contact  your supervisor a
 If you have a valid CERN account and access to CERN machines, you will be able to do many of the exercises as some data is available at CERN. The LArSoft tutorial has been designed to work from CERN. We strongly advise pursuing the FNAL computing account though.
 
 If you have trouble getting access, please reach out to the training team several days ahead of time.  Some issues take some time to resolve.  Please do not put this off.  We cannot help you the day of the tutorial as we are busy doing the tutorial.  
+
 
 ## Step 3: Mission setup (rest of this page)
 
