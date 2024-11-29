@@ -1,7 +1,7 @@
 ---
 title: Storage Spaces (2024)
-teaching: 45
-exercises: 0
+teaching: 30
+exercises: 15
 questions:
 - What are the types and roles of DUNE's data volumes? 
 - What are the commands and tools to handle data?  

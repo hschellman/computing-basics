@@ -46,8 +46,12 @@ By the end of this workshop, participants will know how to:
 * Utilize data volumes at FNAL.
 * Understand good data management practices.
 * Provide a basic overview of art and LArSoft to a new researcher.
-* Develop configuration files to control batch jobs.
-* Monitor jobs submitted to the grid.
+
+There are additional materials provided that explain how to:
+
+* [Develop configuration files to control batch jobs]({{ site.baseurl }}/07-grid-job-submission)
+* [Use the Justin system to process data]({{ site.baseurl }}/08-submit-jobs-w-justin)
+* [Modify LArSoft modules]({{ site.baseurl }}/06-larsoft-modify-module)
 
 You will need to be a DUNE Collaborator (listed member), and have a valid FNAL or CERN computing account to join the tutorial. Contact your  DUNE group leader for assistance.
 
