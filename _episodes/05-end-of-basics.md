@@ -24,6 +24,9 @@ keypoints:
 
 - [List of DUNE computing tutorials](https://wiki.dunescience.org/wiki/Computing_tutorials) (collaborators only)
 
+- [HEP Software Foundation Training](https://hsf-training.org/training-center/)
+Learn about `bash`, `github`, `python`, `cmake`, `root` and many more HEP computing packages
+
 ## You can continue on with these additional modules. 
 
 - [The LArSoft tutorial at CERN, February 3-7, 2025](https://indico.cern.ch/event/1461779/) password on the [tutorials page](https://wiki.dunescience.org/wiki/Computing_tutorials)
