@@ -14,7 +14,7 @@ objectives:
 - Modify the example module to make a custom histogram.
 - Test the modified module.
 - Stretch goal -- run the debugger.
-keypoints:
+key points:
 - DUNE's software stack is built out of a tree of UPS products.
 - You don't have to build all of the software to make modifications -- you can check out and build one or more products to achieve your goals.
 - You can set up pre-built CVMFS versions of products you aren't developing, and UPS will check version consistency, though it is up to you to request the right versions.
@@ -79,7 +79,7 @@ Create two scripts in your home directory:
 
 ~~~
 #!/bin/bash
-export DUNELAR_VERSION=v09_90_01d00
+export DUNELAR_VERSION=v10_00_04d00
 export PROTODUNEANA_VERSION=$DUNELAR_VERSION
 DUNELAR_QUALIFIER=e26:prof
 DIRECTORY=2024tutorial
