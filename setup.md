@@ -358,8 +358,8 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 {: .callout}
 
 ## 4.2 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>
-=======
-Try testing ROOT to make certain things are working
+
+<!-- Try testing ROOT to make certain things are working
 
 ~~~
 setup root -v v6_28_12 -q e26:p3915:prof # sets up root for you  
@@ -378,7 +378,7 @@ You cannot submit jobs from the Container - you need to open a separate window, 
 
 
 ## 4.2 Setting up DUNE software - Alma9 version
-
+-->
 
 We are moving to the Alma9 version of unix.  Not all DUNE code has been ported yet but if you are doing basic analysis work, try it out. 
 
@@ -389,11 +389,8 @@ Here is how you set up basic DUNE software on Alma 9. We are now using the super
 2. Log into a gpvm or lxplus
 
 ~~~
+# find a spack environment and set it up
 source /cvmfs/larsoft.opensciencegrid.org/spack-packages/setup-env.sh 
-~~~
-{: .language-bash}
-
-~~~
 # get some basic things - 
 # use the command spack find to find packages you might want
 # If you just type spack load ... you may be presented with a choice and will need to choose. 
@@ -401,14 +398,10 @@ source /cvmfs/larsoft.opensciencegrid.org/spack-packages/setup-env.sh
 spack load root@6.28.12
 spack load cmake@3.27.7
 spack load gcc@12.2.0
-spack load fife-utils@3.7.0
-spack load metacat@4.0.0
-spack load rucio-clients@33.3.0
-spack load sam-web-client@3.4%gcc@12.2.0 
+spack load fife-utils@3.7.4
+# load metacat, rucio and sam and tell it you are on dune
+spack load r-m-dd-config  experiment=dune
 spack load kx509
-
-# config for dune
-spack load r-m-dd-config experiment=dune
 export SAM_EXPERIMENT=dune
 ~~~
 {: .language-bash}
@@ -418,7 +411,8 @@ export SAM_EXPERIMENT=dune
 > > Try testing ROOT to make certain things are working
 > >
 > > ~~~ 
-> > root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
+> > root -l -q $ROOTSYS/share/doc/root/tutorials/dataframe/df013_InspectAnalysis.C
+> > # (the spack version of root seems to bury the tutorials.)
 > > ~~~
 > > {: .language-bash}
 > > You should see a plot that updates and then terminates.   
@@ -612,12 +606,12 @@ With this done, you should be able to submit jobs and access remote DUNE storage
 
 <!-- Caution: the following instructions are for those of you who do not have a valid FNAL account but have access to CERN machines. -->
 
-> # Warning Some data access operations here still require a fermilab account. We are working on a solution.  
+> # Warning: Some data access operations here still require a fermilab account. We are working on a solution.  
 {: .callout}
 
 See [https://github.com/DUNE/data-mgmt-ops/wiki/Using-Rucio-to-find-Protodune-files-at-CERN](https://github.com/DUNE/data-mgmt-ops/wiki/Using-Rucio-to-find-Protodune-files-at-CERN) for instructions on getting full access to DUNE data via metacat/rucio from lxplus. 
 
-### 1. Source the DUNE environment setup script
+### 1. Source the DUNE environment SL7 setup script
 CERN access is mainly for ProtoDUNE collaborators. If you have a valid CERN ID and access to lxplus via ssh, you can setup your environment for this tutorial as follow:
 
 log into `lxplus.cern.ch`

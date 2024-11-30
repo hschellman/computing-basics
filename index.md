@@ -23,9 +23,11 @@ This tutorial will teach you the basics of DUNE Computing.
 
 Instructors will engage students with hands-on lessons focused in three areas:
 
+0. Basics of logging on, getting accounts, disk spaces
 1. Data storage and management,
-2. Introduction to LArSoft,
-3. Job submission and monitoring.
+2. Introduction to LArSoft
+3. How to find futher training materials for DUNE and HEP software
+
 
 Mentors will answer your questions and provide technical support.
 
@@ -34,11 +36,11 @@ Mentors will answer your questions and provide technical support.
 {% comment %} This is a comment in Liquid {% endcomment %}
 
 > ## Prerequisites
->
-> Command line experience is necessary for this training. We recommend the
-> participants to go through
-> [The Unix Shell](https://swcarpentry.github.io/shell-novice/), if new to the
-> command line (also known as terminal or shell).  
+> 1. Unix command line experience is necessary for this training. 
+>   We recommend that participants to go through [The Unix Shell](https://swcarpentry.github.io/shell-novice/), if new to the unix command line (also known as terminal or shell).
+> 2. A computer set up so that you can log into a remote unix system at FNAL or CERN.  
+>   This will include getting DUNE computing accounts at FNAL or CERN.      
+>   See [Setup]({{ page.root }}/setup.html) to do this pre-class setup.  
 {: .prereq}
 
 By the end of this workshop, participants will know how to:
@@ -58,13 +60,15 @@ You will need to be a DUNE Collaborator (listed member), and have a valid FNAL o
 > ## Getting Started
 >
 > First step: follow the directions in the "[Setup](
-> {{ page.root }}/setup.html)". Follow the instructions; we give you an easy exercise 
+> {{ page.root }}/setup.html)". Once you follow the instructions; we give you an easy exercise 
 > to make sure you are good to go.
 {: .callout}
 
-Then proceed through the episodes
+Then we will proceed through the episodes - the live tutorial currently goes to episode 5. 
 
-If there is a live session the schedule will appear here
+Ask questions on [Slack](https://dunescience.slack.com/archives/C02TJDHUQPR) anytime or - during the live lessons - on the [livedoc](https://docs.google.com/document/d/1QNK-hKPqLIVaecRyg9q4QZOHNwAZgq32oHVuboG_AvQ/edit?usp=sharing).
+
+<!-- If there is a live session the schedule will appear here -->
 
 <!--<h2 id="schedule">Schedule by Day</h2>
 

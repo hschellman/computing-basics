@@ -30,9 +30,18 @@ A similar session from May 2022 was captured for your asynchronous review.
 </center>
 -->
 
+<!--
 ## Schedule
 
 The May 2023 DUNE computing training spanned two days: [Indico site](https://indico.fnal.gov/event/59762/timetable/#20230524).
+
+--> 
+
+This is a short 3 hour version of the basics.  We will be adding/offering additional tutorials.  An important one that is coming soon is:
+
+[The LArSoft tutorial at CERN, February 3-7, 2025](https://indico.cern.ch/event/1461779/) password on the [tutorials page](https://wiki.dunescience.org/wiki/Computing_tutorials)
+
+[Also check out the longer list of DUNE computing tutorials](https://wiki.dunescience.org/wiki/Computing_tutorials) (collaborators only)
 
 ## Instructional Crew
 
@@ -44,14 +53,13 @@ The May 2023 DUNE computing training spanned two days: [Indico site](https://ind
 - Michael Kirby (FNAL): storage spaces
 - Steven Timm (FNAL): data management 
 - Tom Junk (FNAL): art and LArSoft
-- Kenneth Herner (FNAL): grid and batch job submission
+
 
 **Mentors**
 - Amit Bashyal (ANL)
 - Aaron Higuera (Rice University)
 - Pengfei Ding (FNAL)
 - Barnali Chowdury (ANL)
-- Lino Gerlach (BNL)
 - Nilay Bostan (University of Iowa)
 
 ## Support

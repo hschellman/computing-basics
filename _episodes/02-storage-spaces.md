@@ -61,6 +61,10 @@ Each has its own advantages and limitations, and knowing which one to use when i
 * at Fermilab, need a valid Kerberos ticket in order to access files in your Home area
 * periodic snapshots are taken so you can recover deleted files. (/nashome/.snapshot)
 
+> ## Note: your home area is small and private
+> You want to use your home area for things that only you should see.  If you want to share files with collaborators you need to put them in the /app/ or /data/ areas described below. 
+{: .callout}
+
 **Locally mounted volumes** are physical disks, mounted directly on the computer
 * physically inside the computer node you are remotely accessing
 * mounted on the machine through the motherboard (not over network)
@@ -199,7 +203,7 @@ ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024_data_file
 {: .language-bash}
 
 ### xrootd 
-The eXtended ROOT daemon is software framework designed for accessing data from various architectures and in a complete scalable way (in size and performance). 
+The eXtended ROOT daemon is a software framework designed for accessing data from various architectures in a complete scalable way (in size and performance). 
 
 XRootD is most suitable for read-only data access.
 [XRootD Man pages](https://xrootd.slac.stanford.edu/docs.html)
@@ -342,7 +346,6 @@ df -h
 > > ## Answer
 > > The correct answer is B - DUNE CVMFS repository.
 > > {: .output}
-> > Comment here 
 > {: .solution}
 {: .challenge}
 
@@ -360,7 +363,6 @@ df -h
 > > ## Answer
 > > The correct answer is A, dCache scratch (/pnfs/dune/scratch/users/${USER}/).
 > > {: .output}
-> > Comment here
 > {: .solution}
 {: .challenge}
 
@@ -378,7 +380,6 @@ df -h
 > > ## Answer
 > > The correct answer is D - Your GPVM home area.
 > > {: .output}
-> > Comment here
 > {: .solution}
 {: .challenge}
 
@@ -390,7 +391,6 @@ df -h
 > <li>Download the whole file to /tmp with xrdcp</li>
 > <li>Open it for streaming via xrootd</li>
 > <li>None of the above</li>
-> <li>None of the Above</li>
 > </ol>
 >
 > > ## Answer
