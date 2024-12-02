@@ -540,7 +540,6 @@ physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023t
  cd ~
  mkdir 2024Tutorial
  cd 2024Tutorial
- export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 
  export DUNELAR_VERSION=v10_00_04
@@ -592,7 +591,7 @@ To work with pull requests, see the documentation at this link: [https://larsoft
 
 There are bi-weekly LArSoft coordination meetings [https://indico.fnal.gov/category/405/][larsoft-meetings] at which stakeholders, managers, and users discuss upcoming releases, plans, and new features to be added to LArSoft.
 
-##w Useful tip: check out an inspection copy of larsoft  <a name="inspection_copy"></a>
+## Useful tip: check out an inspection copy of larsoft  <a name="inspection_copy"></a>
 
 A good old-fashioned `grep -r` or a find command can be effective if you are looking for an example of how to call something but I do not know where such an example might live. The copies of LArSoft source in CVMFS lack the CMakeLists.txt files and if that's what you're looking for to find examples, it's good to have a copy checked out. Here's a script that checks out all the LArSoft source and DUNE LArSoft code but does not compile it. Warning: it deletes a directory called "inspect" in your app area. Make sure `/exp/dune/app/users/<yourusername>` exists first:
 
