@@ -256,24 +256,28 @@ file to be staged in. Check to see if a sample file is in dCache or only on tape
 ~~~
 cache_state.py PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_18800650_2_20210414T012053Z.root
 ~~~
+{: .language-bash}
 
 Get the `xrootd` URL:
 
 ~~~
 samweb get-file-access-url --schema=root PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_18800650_2_20210414T012053Z.root
 ~~~
+{: .language-bash}
 
 which should print the following URL:
 
 ~~~
 root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/06/50/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_18800650_2_20210414T012053Z.root
 ~~~
+{: .language-bash}
   
 Now run the program with the input file accessed by that URL:
 
 ~~~
 lar -c analyzer_job.fcl root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/06/50/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_18800650_2_20210414T012053Z.root
 ~~~
+{: .language-bash}
 
 CERN Users without access to Fermilab's `dCache`: -- example input files for this tutorial have been copied to `/afs/cern.ch/work/t/tjunk/public/2024tutorialfiles/`.
 
@@ -356,6 +360,7 @@ Look at the contents of the input file:
 ~~~
   product_sizes_dumper root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/06/50/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_18800650_2_20210414T012053Z.root | grep -i cluster
 ~~~
+{: .language-bash}
 
 There are clusters with module label "pandora" but not
 `lineclusterdc` which you can find in the tmp.txt file above.  Now edit `myana.fcl` to say
@@ -387,6 +392,7 @@ Add
 ~~~
 #include "TH1F.h"
 ~~~
+{: .source}
 
 to the section with includes.
 
@@ -395,6 +401,7 @@ Add a private data member
 ~~~
 TH1F *fTutorialHisto;
 ~~~
+{: .source}
 
 to the class.  Create the histogram in the `beginJob()` method:
 
@@ -407,12 +414,15 @@ Fill the histo in the `analyze()` method, after the loop over clusters:
 ~~~
 fTutorialHisto->Fill(fNClusters);
 ~~~
+{: .source}
 
 Go to session #2 and build it.  The current working directory should be the build directory:
 
 ~~~
 make install -j16
 ~~~
+{: .language-bash}
+
 
 Note -- this is the quicker way to re-build a product.  The `-j16` says to use 16 parallel processes,
 which matches the number of cores on a build node. The command

@@ -74,10 +74,12 @@ You should join the DUNE Slack instance and look in [#computing-training-basics]
 
 go to [https://atwork.dunescience.org/tools/](https://atwork.dunescience.org/tools/) scroll down to Slack and request an invite.  Please do not do this if you are already in DUNE Slack.
 
+The livedoc is here [livedoc](https://docs.google.com/document/d/1QNK-hKPqLIVaecRyg9q4QZOHNwAZgq32oHVuboG_AvQ/edit?usp=sharing)
 
 
 
 {%include links.md%} 
+
 [metacat]: https://dune.github.io/DataCatalogDocs/
 [rucio]: https://rucio.github.io/documentation/
 <!--[indico-event-link]: https://indico.fnal.gov/event/59762/

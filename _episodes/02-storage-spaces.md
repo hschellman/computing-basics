@@ -184,24 +184,25 @@ Note, if the destination for an ifdh cp command is a directory instead of filena
 
 > ## Exercise 1
 > Using the ifdh command, complete the following tasks:
-* create a directory in your dCache scratch area (/pnfs/dune/scratch/users/${USER}/) called "DUNE_tutorial_2024" 
-* copy /exp/dune/app/users/${USER}/my_first_login.txt file to that directory
-* copy the my_first_login.txt file from your dCache scratch directory (i.e. DUNE_tutorial_2024) to /dev/null
-* remove the directory DUNE_tutorial_2024
-* create the directory DUNE_tutorial_2024_data_file
-
+> * create a directory in your dCache scratch area (/pnfs/dune/scratch/users/${USER}/) called "DUNE_tutorial_2024" 
+> * copy /exp/dune/app/users/${USER}/my_first_login.txt file to that directory
+> * copy the my_first_login.txt file from your dCache scratch directory (i.e. DUNE_tutorial_2024) to /dev/null
+> * remove the directory DUNE_tutorial_2024
+> * create the directory DUNE_tutorial_2024_data_file
 > Note, if the destination for an ifdh cp command is a directory instead of filename with full path, you have to add the "-D" option to the command line. Also, for a directory to be deleted, it must be empty.
+> 
+> > ## Answer
+> > ~~~
+> > ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024
+> > ifdh cp -D /exp/dune/app/users/${USER}/my_first_login.txt /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024
+> > ifdh cp /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024/my_first_login.txt /dev/null
+> > ifdh rm /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024/my_first_login.txt
+> > ifdh rmdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024
+> > ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024_data_file
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
 {: .challenge}
-
-~~~
-ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024
-ifdh cp -D /exp/dune/app/users/${USER}/my_first_login.txt /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024
-ifdh cp /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024/my_first_login.txt /dev/null
-ifdh rm /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024/my_first_login.txt
-ifdh rmdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024
-ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024_data_file
-~~~
-{: .language-bash}
 
 ### xrootd 
 The eXtended ROOT daemon is a software framework designed for accessing data from various architectures in a complete scalable way (in size and performance). 

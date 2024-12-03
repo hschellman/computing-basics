@@ -391,7 +391,7 @@ In a producer or analyzer module, data products can be retrieved from the art ev
 ~~~
 simb::MCParticles_largeant__G4Stage1.
 ~~~
-{:. source}
+{: .code}
 
 here, `simb::MCParticle` is the name of the class that defines the data product. The "s" after the data product name is added by *art* -- you have no choice in this even if the plural of your noun ought not to just add an "s". The underscore separates the data product name from the module name, "largeant". Another underscore separates the module name and the instance name, which in this example is the empty string -- there are two underscores together there. The last string is the process name and usually is not needed to be specified in data product retrieval. You can find the `TBranch` names by browsing an artroot file with `ROOT` and using a `TBrowser`, or by using `product_sizes_dumper -f 0`.
 
@@ -449,7 +449,7 @@ There are a number of data product dumper fcl files. A non-exhaustive list of us
  dump_lartpcdetector_channelmap.fcl
  dump_lartpcdetector_geometry.fcl
 ~~~
-{: .code}
+{: .language-bash}
 
 Some of these may require some configuration of input module labels so they can find the data products of interest.
 
@@ -518,7 +518,7 @@ The apptainer command is slightly different as the mounts are different. Here we
 
 >#### Note
 > CERN Apptainer variant
-{: .challenge}
+{: .callout}
 
 ~~~
 /cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --she
@@ -534,7 +534,7 @@ Make a fcl file:
 #include "mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl"
 physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023tutorialfiles/H4_v34b_1GeV_-27.7_10M_1.root"
 ~~~
-{: .code}
+{: .source}
 
 ~~~ 
  cd ~
@@ -598,7 +598,7 @@ A good old-fashioned `grep -r` or a find command can be effective if you are loo
 
 > ## Note
 > Remember the Apptainer!  You can use your dunesl7 alias defined at the top of this page.
-{: .challenge}
+{: .callout}
 
 ~~~
  #!/bin/bash

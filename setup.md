@@ -270,7 +270,77 @@ A simpler solution would be to rename your login scripts (for instance .bashrc a
 > You are going to be doing some setup for dune, which you will also need to  do when you submit batch jobs.  It is much easier to make a script `setup_dune.sh` which you execute every time you log in.  Then you can duplicate the contents of that script in the script you use to run batch jobs on remote machines.  It also makes it much easier for people to help you debug your setup. 
 {: .callout}
 
-## 4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>
+## 4.1 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>
+
+<!-- Try testing ROOT to make certain things are working
+
+~~~
+setup root -v v6_28_12 -q e26:p3915:prof # sets up root for you  
+
+#  right now setup seems to spew out 1000's of lines of verbose output just doing its job. 
+
+root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
+~~~
+{: .language-bash}
+
+You should see a plot that updates and then terminates.   You may need to `export DISPLAY=0:0` .
+
+### Caveats for later
+
+You cannot submit jobs from the Container - you need to open a separate window, not do the apptainer and submit your jobs from that window. 
+
+
+## 4.2 Setting up DUNE software - Alma9 version
+-->
+
+We are moving to the Alma9 version of unix.  Not all DUNE code has been ported yet but if you are doing basic root analysis work, try it out. 
+
+Alma9 is the operating system you get when you log onto fnal unix or lxplus at CERN.
+
+Here is how you set up basic DUNE software on Alma 9. We are using the super-computer packaging system [Spack][Spack documentation] to give versioned access to code.
+
+1. login into a unix machine at FNAL or CERN
+
+2. Log into a gpvm or lxplus
+
+~~~
+# find a spack environment and set it up
+source /cvmfs/larsoft.opensciencegrid.org/spack-packages/setup-env.sh 
+# get some basic things - 
+# use the command spack find to find packages you might want
+# If you just type spack load ... you may be presented with a choice and will need to choose. 
+#
+spack load root@6.28.12
+spack load cmake@3.27.7
+spack load gcc@12.2.0
+spack load fife-utils@3.7.4
+# load metacat, rucio and sam and tell it you are on dune
+spack load r-m-dd-config  experiment=dune
+spack load kx509
+export SAM_EXPERIMENT=dune
+~~~
+{: .language-bash}
+
+> ## Optional
+> > ## See if ROOT works
+> > Try testing ROOT to make certain things are working
+> >
+> > ~~~ 
+> > root -l -q $ROOTSYS/share/doc/root/tutorials/dataframe/df013_InspectAnalysis.C
+> > # (the spack version of root seems to bury the tutorials.)
+> > ~~~
+> > {: .language-bash}
+> > You should see a plot that updates and then terminates.   
+> {: .solution}
+{: .callout}
+
+
+### Caveats
+
+We don't have a full ability to rebuild DUNE Software packages such as LArSoft using Spack yet.  We will be adding more functionality soon.  Unless you are doing simple ROOT based analysis you will need to use the [SL7 Container](#SL7_setup) method for now. 
+
+
+## 4.2 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>
 
 See [SL7_to_Alma9][SL7_to_Alma9] for more information 
 
@@ -309,34 +379,8 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 ~~~
 {: .output}
 
-
-
 > ## Optional
-> > ## See how you can make an alias so you don't have to type everything
-> > You can store this in your (minimal) .bashrc or .profile if you want this alias to be available in all sessions. The alias will be defined but not executed. Only if you type the command `dune_setup` yourself.> Not familiar with aliases? Read below.
-> > 
-> > To create unix custom commands for yourself, we use 'aliases':
-> > ~~~
-> > alias my_custom_commmand='the_long_command_you_want_to_alias_in_a_shorter_custom_name'
-> > ~~~
-> > {: .source}
-> > For DUNE setup, you can type for instance:
-> > ~~~
-> > alias dune_setup='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
-> > ~~~
-> > {: .language-bash}
-> > 
-> > So next time you type:
-> > ~~~
-> > dune_setup
-> > ~~~
-> > {: .source}
-> > Your terminal will execute the long command. This will work for your current session (if you disconnect, the alias won't exist anymore). 
-> {: .solution}
-{: .callout}
-
-> ## Optional
-> > ## See if ROOT works
+> > ### See if ROOT works
 > > Try testing ROOT to make certain things are working
 > >
 > > ~~~
@@ -348,7 +392,6 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 > {: .solution}
 {: .callout}
 
-
 ### Caveats for later
 
 > ## Note: You cannot submit jobs from the Container
@@ -357,72 +400,40 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 >You may need to print your submit command to the screen or a file to do so if your submission is done from a script that uses ups. 
 {: .callout}
 
-## 4.2 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>
-
-<!-- Try testing ROOT to make certain things are working
-
-~~~
-setup root -v v6_28_12 -q e26:p3915:prof # sets up root for you  
-
-#  right now setup seems to spew out 1000's of lines of verbose output just doing its job. 
-
-root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
-~~~
-{: .language-bash}
-
-You should see a plot that updates and then terminates.   You may need to `export DISPLAY=0:0` .
-
-### Caveats for later
-
-You cannot submit jobs from the Container - you need to open a separate window, not do the apptainer and submit your jobs from that window. 
-
-
-## 4.2 Setting up DUNE software - Alma9 version
--->
-
-We are moving to the Alma9 version of unix.  Not all DUNE code has been ported yet but if you are doing basic analysis work, try it out. 
-
-Here is how you set up basic DUNE software on Alma 9. We are now using the super-computer packaging system [Spack][Spack documentation] to give versioned access to code.
-
-1. login into a unix machine at FNAL or CERN
-
-2. Log into a gpvm or lxplus
-
-~~~
-# find a spack environment and set it up
-source /cvmfs/larsoft.opensciencegrid.org/spack-packages/setup-env.sh 
-# get some basic things - 
-# use the command spack find to find packages you might want
-# If you just type spack load ... you may be presented with a choice and will need to choose. 
-#
-spack load root@6.28.12
-spack load cmake@3.27.7
-spack load gcc@12.2.0
-spack load fife-utils@3.7.4
-# load metacat, rucio and sam and tell it you are on dune
-spack load r-m-dd-config  experiment=dune
-spack load kx509
-export SAM_EXPERIMENT=dune
-~~~
-{: .language-bash}
-
-> ## Optional
-> > ## See if ROOT works
-> > Try testing ROOT to make certain things are working
-> >
-> > ~~~ 
-> > root -l -q $ROOTSYS/share/doc/root/tutorials/dataframe/df013_InspectAnalysis.C
-> > # (the spack version of root seems to bury the tutorials.)
+> ## 4.3 Optional
+> > ## See how you can make an alias so you don't have to type everything
+> > You can store this in your (minimal) .bashrc or .profile if you want this alias to be available in all sessions. The alias will be defined but not executed. Only if you type the command `dune_setup7` yourself.> Not familiar with aliases? Read below.
+> > 
+> > To create unix custom commands for yourself, we use 'aliases':
+> > ~~~
+> > alias my_custom_commmand='the_long_command_you_want_to_alias_in_a_shorter_custom_name'
+> > ~~~
+> > {: .source}
+> > For DUNE setup, you can type for instance:
+> > ~~~
+> > alias dune_setup7='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
 > > ~~~
 > > {: .language-bash}
-> > You should see a plot that updates and then terminates.   
+> > or 
+> > ~~~
+> > alias dune_setup9='source /cvmfs/larsoft.opensciencegrid.org/spack-packages/setup-env.sh'
+> > ~~~
+> > {: .language-bash}
+> > 
+> > So next time you type:
+> > ~~~
+> > dune_setup9
+> > ~~~
+> > {: .source}
+> > Your terminal will execute the long command. This will work for your current session (if you disconnect, the alias won't exist anymore). 
 > {: .solution}
 {: .callout}
-{: .language-bash}
 
-### Caveats
 
-We don't have a full ability to rebuild DUNE Software packages yet.  We will be adding more functionality here.  Unless you are doing simple ROOT based analysis you will need to use the [SL7 Container](#SL7_setup) method for now. 
+
+
+
+
 
 
 
@@ -442,7 +453,7 @@ export DUNELAR_QUALIFIER=e26:prof
 export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
 setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
 
-alias dune_setup='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
+alias dune_setup7='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
 ~~~
 {: .source}
 When you start the training, you will have to source this file:
@@ -452,7 +463,7 @@ source ~/dune_presetup_2024.sh
 {: .language-bash}
 Then, to setup DUNE, use the created alias:
 ~~~
-dune_setup
+dune_setup7
 ~~~
 {: .language-bash}
 
@@ -472,9 +483,7 @@ date >& /exp/dune/app/users/${USER}/my_first_login.txt
 4) With the above, we will check if you reach this point. However we want to tailor this tutorial to your preferences as much as possible. We will let you decide which animals you would like to see in future material, between: "puppy", "cat", "squirrel", "sloth", "unicorn pegasus llama" (or "prefer not to say" of course). Write your desired option on the second line of the file you just created above.
 
 > ## Note
-
 > If you experience difficulties, please ask for help in the Slack channel [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR).  Please mention in your message this is about the Setup step 5. Thanks!
-
 {: .challenge}
 
 ## 6. Getting setup for streaming and grid access
@@ -593,7 +602,6 @@ With this done, you should be able to submit jobs and access remote DUNE storage
 
 
 > ## Issues
-
 > If you have issues here, please ask [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR) in Slack to get support. Please mention in your message it is the Step 6 of the setup. Thanks!
 {: .challenge}
 
@@ -606,12 +614,16 @@ With this done, you should be able to submit jobs and access remote DUNE storage
 
 <!-- Caution: the following instructions are for those of you who do not have a valid FNAL account but have access to CERN machines. -->
 
-> # Warning: Some data access operations here still require a fermilab account. We are working on a solution.  
+> ## Warning: Some data access operations here still require a fermilab account and the Fermilab VO. We are working on a solution.  
 {: .callout}
 
 See [https://github.com/DUNE/data-mgmt-ops/wiki/Using-Rucio-to-find-Protodune-files-at-CERN](https://github.com/DUNE/data-mgmt-ops/wiki/Using-Rucio-to-find-Protodune-files-at-CERN) for instructions on getting full access to DUNE data via metacat/rucio from lxplus. 
 
-### 1. Source the DUNE environment SL7 setup script
+### 1. Setup in Alma9 
+
+The directions above at: [AL9_setup](#AL9_setup) above should work directly at CERN, do those and proceed to step 3. 
+
+### 2. Source the DUNE environment SL7 setup script
 CERN access is mainly for ProtoDUNE collaborators. If you have a valid CERN ID and access to lxplus via ssh, you can setup your environment for this tutorial as follow:
 
 log into `lxplus.cern.ch`
@@ -644,7 +656,9 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 ~~~
 {: .output}
 
-If you have a Fermilab account already do this to get access the data catalog worldwide
+### 3. Getting authentication for data access
+
+If you have a Fermilab account already, do this to get access the data catalog worldwide
 
 ~~~
 kdestroy
@@ -667,7 +681,7 @@ Your proxy is valid until Sat Aug 24 17:11:41 2024
 
 
 
-### 2. Access tutorial datasets
+### 4. Access tutorial datasets
 Normally, the datasets are accessible through the grid resource. But with your CERN account, you may not be part of the DUNE VO yet (more on this during the tutorial). We found a workaround: some datasets have been copied locally for you. You can check them here:
 ~~~
 ls /afs/cern.ch/work/t/tjunk/public/may2023tutorialfiles/
@@ -679,7 +693,7 @@ PDSPProd4_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_41094796_0_20210121
 ~~~
 {: .output}
 
-### 3. Notify us
+### 5. Notify us
 You should be good to go, and you might revisit [Indico event page][indico-event-page].
 If however you are experiencing issues, please contact us as soon as possible. Be sure to mention "Setup on CERN machines" if that is the case, and we will do our best to assist you.
 
@@ -723,5 +737,5 @@ The [DUNE FAQ][DUNE FAQ] on GitHub.
 [anaconda-faq-kinit]: https://github.com/DUNE/FAQ/issues/22
 [dunefaq]: https://github.com/DUNE/FAQ
 [DUNE FAQ]: https://github.com/orgs/DUNE/projects/19/views/1
-s
+
 

@@ -49,3 +49,4 @@
 [yaml]: http://yaml.org/
 [metacat]: https://dune.github.io/DataCatalogDocs
 [rucio]: https://rucio.github.io/documentation
+[livedoc]: https://docs.google.com/document/d/1QNK-hKPqLIVaecRyg9q4QZOHNwAZgq32oHVuboG_AvQ/edit?usp=sharing
