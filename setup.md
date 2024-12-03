@@ -422,7 +422,7 @@ export SAM_EXPERIMENT=dune
 
 ### Caveats
 
-We don't have a full ability to rebuild DUNE Software packages yet.  We will be adding more functionality here.  Unless you are doing simple ROOT based analysis you will need to use the [SL7 Container](#SL7_setup) method for now. 
+We don't have a full ability to rebuild DUNE Software packages using Spack yet.  We will be adding more functionality soon.  Unless you are doing simple ROOT based analysis you will need to use the [SL7 Container](#SL7_setup) method for now. 
 
 
 
@@ -472,9 +472,7 @@ date >& /exp/dune/app/users/${USER}/my_first_login.txt
 4) With the above, we will check if you reach this point. However we want to tailor this tutorial to your preferences as much as possible. We will let you decide which animals you would like to see in future material, between: "puppy", "cat", "squirrel", "sloth", "unicorn pegasus llama" (or "prefer not to say" of course). Write your desired option on the second line of the file you just created above.
 
 > ## Note
-
 > If you experience difficulties, please ask for help in the Slack channel [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR).  Please mention in your message this is about the Setup step 5. Thanks!
-
 {: .challenge}
 
 ## 6. Getting setup for streaming and grid access
@@ -593,7 +591,6 @@ With this done, you should be able to submit jobs and access remote DUNE storage
 
 
 > ## Issues
-
 > If you have issues here, please ask [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR) in Slack to get support. Please mention in your message it is the Step 6 of the setup. Thanks!
 {: .challenge}
 
@@ -606,7 +603,7 @@ With this done, you should be able to submit jobs and access remote DUNE storage
 
 <!-- Caution: the following instructions are for those of you who do not have a valid FNAL account but have access to CERN machines. -->
 
-> # Warning: Some data access operations here still require a fermilab account. We are working on a solution.  
+> ## Warning: Some data access operations here still require a fermilab account and the Fermilab VO. We are working on a solution.  
 {: .callout}
 
 See [https://github.com/DUNE/data-mgmt-ops/wiki/Using-Rucio-to-find-Protodune-files-at-CERN](https://github.com/DUNE/data-mgmt-ops/wiki/Using-Rucio-to-find-Protodune-files-at-CERN) for instructions on getting full access to DUNE data via metacat/rucio from lxplus. 
@@ -723,5 +720,5 @@ The [DUNE FAQ][DUNE FAQ] on GitHub.
 [anaconda-faq-kinit]: https://github.com/DUNE/FAQ/issues/22
 [dunefaq]: https://github.com/DUNE/FAQ
 [DUNE FAQ]: https://github.com/orgs/DUNE/projects/19/views/1
-s
+
 
