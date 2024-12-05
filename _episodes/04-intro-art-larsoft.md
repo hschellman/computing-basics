@@ -265,7 +265,9 @@ new TBrowser
 
 This will be faster with `VNC`. Navigate to the `Events TTree` in the file that is automatically opened, navigate to the `TBranch` with the Argon 39 MCTruths (it's near the bottom), click on the branch icon `simb::MCTruths_ar39__SinglesGen.obj`, and click on the `NParticles()` leaf (It's near the bottom. Yes, it has a red exclamation point on it, but go ahead and click on it). How many events are there? How many 39Ar decays are there per event on average?
 
-*Art* is not constrained to using `ROOT` files -- some effort has already been underway to use HDF5-formatted files for some purposes.
+Header files for many data products are in [lardataobj](https://github.com/larsoft/lardataobj)   and some are in [nusimdata](https://github.com/NuSoftHEP/nusimdata).
+
+*Art* is not constrained to using `ROOT` files -- we use HDF5-formatted files for some purposes.  ROOT has nice browsing features for inspecting ROOT-formatted files;   Some HDF5 data visualiztion tools exist, but they assume that data are in particular formats.  ROOT has the ability to display more general kinds of data (C++ classes), but it needs dictionaries for some of the more complicated ones.
 
 The *art* main executable program is a very short stub that interprets command-line options, reads in the configuration document (a `FHiCL` file which usually includes other `FHiCL` files), and loads shared libraries, initializes software components, and schedules execution of modules. Most code we are interested in is in the form of *art* plug-ins -- modules, services, and tools. The generic executable for invoking *art* is called `art`, but a LArSoft-customized one is called `lar`. No additional customization has yet been applied so in fact, the `lar` executable has identical functionality to the `art` executable.
 
