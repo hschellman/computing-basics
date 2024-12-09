@@ -451,8 +451,6 @@ export DUNELAR_VERSION=v09_90_01d00
 export DUNELAR_QUALIFIER=e26:prof
 
 export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
-setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
-
 alias dune_setup7='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
 ~~~
 {: .source}
@@ -464,6 +462,7 @@ source ~/dune_presetup_2024.sh
 Then, to setup DUNE, use the created alias:
 ~~~
 dune_setup7
+setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
 ~~~
 {: .language-bash}
 
