@@ -37,7 +37,8 @@ There are four types of storage volumes that you will encounter at Fermilab (or 
 - local hard drives
 - network attached storage
 - large-scale, distributed storage
-- Rucio Storage Elements (RSE's)
+- Rucio Storage Elements (RSE's) (a specific type of large-scale, distributed storage)
+- CERN Virtual Machine File System (CVMFS)
 
 Each has its own advantages and limitations, and knowing which one to use when isn't all straightforward or obvious. But with some amount of foresight, you can avoid some of the common pitfalls that have caught out other users.
 
@@ -57,7 +58,7 @@ Each has its own advantages and limitations, and knowing which one to use when i
 * network volumes are NOT safe to store certificates and tickets
 * important: users have a single home area at FNAL used for all experiments 
 * not accessible from grid worker nodes
-* not for code developement (size of less than 2 GB)
+* not for code developement (home area is less than 2 GB)
 * at Fermilab, need a valid Kerberos ticket in order to access files in your Home area
 * periodic snapshots are taken so you can recover deleted files. (/nashome/.snapshot)
 * permissions are set so your collaborators cannot see files in your home area
@@ -78,30 +79,32 @@ Each has its own advantages and limitations, and knowing which one to use when i
 * functions similar to services such as Dropbox or OneDrive
 * fast and stable POSIX access to these volumes
 * volumes available only on a limited number of computers or servers
-* not available on larger grid computing (FermiGrid, Open Science Grid, etc.)
-* /exp/dune/app/....yourdir has periodic snapshots in /exp/dune/app/... yourdir/.snap, but /exp/dune/data does NOT
+* not available on grid computing (FermiGrid, Open Science Grid, WLCG, HPC, etc.)
+* /exp/dune/app/....<yourdir> has periodic snapshots in /exp/dune/app/....<yourdir>/.snap, but /exp/dune/data does NOT
 * easy to share files with colleagues using /exp/dune/data and /exp/dune/app
 
 ## Grid-accessible storage volumes
 
-At Fermilab, an instance of dCache+Enstore is used for large-scale, distributed storage with capacity for more than 100 PB of storage and O(10000) connections. Whenever possible, these storage elements should be accessed over xrootd (see next section) as the mount points on interactive nodes are slow, unstable, and can cash the node to become unusable. Here are the different dCache volumes:
+At Fermilab, an instance of dCache+Enstore is used for large-scale, distributed storage with capacity for more than 100 PB of storage and O(10000) connections. Whenever possible, these storage elements should be accessed over xrootd (see next section) as the mount points on interactive nodes are slow, unstable, and can cause the node to become unusable. Here are the different dCache volumes:
 
-**Persistent dCache**: the data in the file is actively available for reads at any time and will not be removed until manually deleted by user
+**Persistent dCache**: the data in the file is actively available for reads at any time and will not be removed until manually deleted by user. 
 There is now a second persistent dCache volume that is dedicated for DUNE Physics groups and managed by the respective physics conveners of those 
 physics group.  https://wiki.dunescience.org/wiki/DUNE_Computing/Using_the_Physics_Groups_Persistent_Space_at_Fermilab gives more details on how to get 
-access to these groups.  In general if you need to store more than 5TB in persistent dCache you should be working with the Physics Groups areas.
+access to these groups.  In general, if you need to store more than 5TB in persistent dCache you should be working with the Physics Groups areas.
 
-**Scratch dCache**: large volume shared across all experiments. When a new file is written to scratch space, old files are removed in order to make room for the newer file. removal is based on Least Recently Utilized (LRU) policy.
+**Scratch dCache**: large volume shared across all experiments. When a new file is written to scratch space, old files are removed in order to make room for the newer file. Removal is based on Least Recently Utilized (LRU) policy, and performed by an automated daemon.
 
 **Tape-backed dCache**: disk based storage areas that have their contents mirrored to permanent storage on Enstore tape.  
 Files are not available for immediate read on disk, but needs to be 'staged' from tape first ([see video of a tape storage robot](https://www.youtube.com/watch?v=kiNWOhl00Ao)).
 
 **Resilient dCache**: NOTE: DIRECT USAGE is being phased out and if the Rapid Code Distribution function in POMS/jobsub does not work for you, consult with the FIFE team for a solution (handles custom user code for their grid jobs, often in the form of a tarball. Inappropriate to store any other files here (NO DATA OR NTUPLES)).
 
-**Rucio Storage Elements**: Rucio Storage Elements (or RSEs) are storage elements provided by collaborating institution for official DUNE datasets.  Data stored in DUNE RSE's must be fully cataloged in the [metacat][metacat] catalog and is managed by the DUNE data management team. This is where you find the big official data samples. 
+**Rucio Storage Elements**: Rucio Storage Elements (or RSEs) are storage elements provided by collaborating institution for official DUNE datasets.  Data stored in DUNE RSE's must be fully cataloged in the [metacat][metacat] catalog and is managed by the DUNE data management team. This is where you find the official data samples.
+
+**CVMFS**: CERN Virtual Machine File System is a centrally managed storage area that is distributed over the network, and utilized to distribute common software and a limited set of reference files. CVMFS is mounted over the network, and can be utilized on grid nodes, interactive nodes, and personal desktops/laptops. It is read only, and the most common source for centrally maintained versions of experiment software libraries/executables. CVMFS is mounted at `/cvmfs/` and access is POSIX-like, but read only. 
 
 > ## Note - When reading from dcache always use the root: syntax, not direct /pnfs
-> The Fermilab dcache areas have NFS mounts.  These are for your convenience, they allow you to look at the directory structure and, for example, remove files.  However, NFS access is slow and can hang the machine if I/O heavy processes use it.  Always use the `xroot root://<site>` ... when reading/accessing files instead of `/pnfs/` directly.  Once you have your dune environment set up the `pnfs2xrootd` command can do the conversion to `root:` format for you. 
+> The Fermilab dcache areas have NFS mounts.  These are for your convenience, they allow you to look at the directory structure and, for example, remove files.  However, NFS access is slow, inconsistent, and can hang the machine if I/O heavy processes use it.  Always use the `xroot root://<site>` ... when reading/accessing files instead of `/pnfs/` directly.  Once you have your dune environment set up the `pnfs2xrootd` command can do the conversion to `root:` format for you (only for files at FNAL for now). 
 {: .callout} 
 
 ## Summary on storage spaces
@@ -110,9 +113,9 @@ Full documentation: [Understanding Storage Volumes](https://cdcvs.fnal.gov/redmi
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
 |    | Quota/Space | Retention Policy | Tape Backed? | Retention Lifetime on disk |	Use for	| Path | Grid Accessible |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
-| Persistent dCache	| No/~100 TB/exp | Managed by Experiment| No| Until manually deleted | immutable files w/ long lifetime	| /pnfs/dune/persistent	| Yes |
+| Persistent dCache	| Yes(5)/~100 TB/exp | Managed by User/Exp| No| Until manually deleted | immutable files w/ long lifetime	| /pnfs/dune/persistent	| Yes |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
-| Persistent PhysGrp	| Yes/~500 TB/exp | Managed by PhysGrp| No| Until manually deleted | immutable files w/ long lifetime	| /pnfs/dune/persistent/physicsgroups	| Yes |
+| Persistent PhysGrp	| Yes(50)/~500 TB/exp | Managed by PhysGrp| No| Until manually deleted | immutable files w/ long lifetime	| /pnfs/dune/persistent/physicsgroups	| Yes |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
 | Scratch dCache | No/no limit | LRU eviction - least recently used file deleted | No | Varies, ~30 days (*NOT* guaranteed) | immutable files w/ short lifetime | /pnfs/\<exp\>/scratch	| Yes |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
@@ -138,7 +141,7 @@ And to see the total volume usage at Rucio Storage Elements around the world:
 **Resource** [DUNE Rucio Storage](https://dune.monitoring.edi.scotgrid.ac.uk/app/dashboards#/view/7eb1cea0-ca5e-11ea-b9a5-15b75a959b33?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1d,to:now)))
 
 > ## Note - do not blindly copy files from personal machines to DUNE systems.
-> You may have files on your personal machine that contain personal information, licensed software or (god forbid) malware or pornography.  Do not traer any files from your personal machine to DUNE machines unless they are directly related to work on DUNE.  You must be fully aware of any file's contents. We have seen it all and we do not want to. 
+> You may have files on your personal machine that contain personal information, licensed software or (god forbid) malware or pornography.  Do not transfer any files from your personal machine to DUNE machines unless they are directly related to work on DUNE.  You must be fully aware of any file's contents. We have seen it all and we do not want to. 
 {: .callout} 
 
 ## Commands and tools
@@ -146,7 +149,7 @@ This section will teach you the main tools and commands to display storage infor
 
 ### ifdh 
 
-Another useful data handling command you will soon come across is ifdh. This stands for Intensity Frontier Data Handling. It is a tool suite that facilitates selecting the appropriate data traer method from many possibilities while protecting shared resources from overload. You may see *ifdhc*, where *c* refers to *client*.
+Another useful data handling command you will soon come across is ifdh. This stands for Intensity Frontier Data Handling. It is a tool suite that facilitates selecting the appropriate data transfer method from many possibilities while protecting shared resources from overload. You may see *ifdhc*, where *c* refers to *client*.
 
 > ## Note
 >  ifdh is much more efficient than NFS file access.  Please use it and/or xroot when accessing remote files. 
@@ -179,6 +182,8 @@ ifdh cp root://fndcadoor.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepr
 {: .language-bash}
 
 Note, if the destination for an ifdh cp command is a directory instead of filename with full path, you have to add the "-D" option to the command line.
+
+Prior to attempting the first exercise, please take a look at the full list of IFDH commands, to be able to complete the exercise. In particular, mkdir, cp, rmdir,
 
 **Resource:** [idfh commands](https://cdcvs.fnal.gov/redmine/projects/ifdhc/wiki/Ifdh_commands)
 
