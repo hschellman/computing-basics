@@ -130,7 +130,7 @@ The output is not sorted, although portions of it may look sorted. Do not depend
 
 In addition to the version and qualifiers, `UPS` products have "flavors". This refers to the operating system type and version. Older versions of DUNE software supported `SL6` and some versions of macOS. Currently only SL7 and the compatible CentOS 7 are supported. The flavor of a product is automatically selected to match your current operating system when you set up a product. If a product does not have a compatible flavor, you will get an error message.  "Unflavored" products are ones that do not depend on the operating-system libraries.  They are listed with a flavor of "NULL". 
 
-There is a setup command provided by the operating system -- you usually don't want to use it (at least not when developing DUNE software). If you haven't yet sourced the `setup_dune.sh` script in `CVMFS` above but type `setup xyz` anyway, you will get the system setup command, which will ask you for the root password. Just `control-C` out of it, source the `setup_dune.sh` script, and try again.
+There is a setup command provided by the operating system -- you usually don't want to use it (at least not when developing DUNE software). If you haven't yet sourced the `setup_dune.sh` script in `CVMFS` above but type `setup xyz` anyway, you will get the system setup command, which will ask you for the root password. Just `control-C` out of it, source the `setup_dune.sh` script, and try again.  On AL9 and the SL7 container, there is no system setup command so you will get "command not found" if you haven't yet set up UPS.
 
 UPS's setup command (find out where it lives with this command):
 
