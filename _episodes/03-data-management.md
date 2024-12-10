@@ -97,16 +97,45 @@ and when searching for specific types of data
 
  Here is an example of a metacat query that gets you raw files from a recent 'hd-protodune' cosmics run.
 
+Note: there are example setups that do a full setup in the extras folder:
+
+- [SL7 setup]({{ site.baseurl }}/sl7_setup)
+- [AL9 setup]({{ site.baseurl }}/al9_setup)
+
 First get metacat if you have not already done so
 
-~~~
-setup metacat # if using SL7
-spack load metacat # if using Alma9
-metacat auth login -m password $USER  # use your services password to authenticate
-export METACAT_AUTH_SERVER_URL=https://metacat.fnal.gov:8143/auth/dune
-export METACAT_SERVER_URL=https://metacat.fnal.gov:9443/dune_meta_prod/app 
-~~~
-{: .language-bash}
+> ## SL7 
+> ~~~
+> # If you have not already done a general SL7 software setup:
+> source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
+> export DUNELAR_VERSION=v10_00_04d00
+> export DUNELAR_QUALIFIER=e26:prof 
+> setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
+> export METACAT_AUTH_SERVER_URL=https://metacat.fnal.gov:8143/auth/dune
+> export METACAT_SERVER_URL=https://metacat.fnal.gov:9443/dune_meta_prod/app 
+> 
+> # then you can set up metacat and rucio
+> setup metacat 
+> setup rucio
+> ~~~
+> {: .language-bash}
+{: .callout}
+
+> ## AL9
+> ~~~
+> source /cvmfs/larsoft.opensciencegrid.org/spack-packages/setup-env.sh   
+> spack load r-m-dd-config  experiment=dune
+> ~~~
+> {: .language-bash}
+{: .callout}
+
+> ## For both
+> ~~~
+> metacat auth login -m password $USER  # use your services password to authenticate
+> ~~~
+> {: .language-bash}
+{: .callout}
+
 
 >### Note: other means of authentication
 >Check out the [metacat documentation](https://metacat.readthedocs.io/en/latest/ui.html#user-authentication) for 
@@ -329,15 +358,17 @@ To learn more about using Rucio and Metacat to run over large data samples go he
 
 
 > ## Exercise 1
-> * Use `metacat` to find a file from a particular experiment/run/processing stage 
-> * Use `metacat file show -m namespace:filename` to get  metadata for this file. Note that `--json` gives the output in json format.
+> * Use `metacat query ....` to find a file from a particular experiment/run/processing stage.  Look in [DataCatalogDocs](https://dune.github.io/DataCatalogDocs/index.html) for hints on constructing queries.  
+> * Use `metacat file show -m -l namespace:filename` to get  metadata for this file. Note that `--json` gives the output in json format.
 {: .challenge}
 
 
 When we are analyzing large numbers of files in a group of batch jobs, we use a metacat dataset to describe the full set of files that we are going to analyze and use the JustIn system to run over that dataset. Each job will then come up and ask metacat and rucio to give it the next file in the list. It will try to find the nearest copy.  For instance if you are running at CERN and analyzing this file it will automatically take it from the CERN storage space EOS.
 
-> ## Exercise 2
-FIXME Need to make an example of looking at a dataset
+> ## Exercise 2  - explore in the gui
+> [The Metacat Gui](https://metacat.fnal.gov:9443/dune_meta_prod/app/auth/login?redirect=/dune_meta_prod/app/app/gui/datasets) is a nice place to explore the data we have.
+> 
+> You need to log in with your services (not kerberos) password.
 {: .challenge}
 
 **Resources**: 

@@ -14,7 +14,7 @@ keypoints:
 
 __The JustIn Tutorial is currently in docdb at: [JustIn Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145)__
 
-The JustIn system is describe in detail at: 
+The JustIn system is described in detail at: 
 
 __[JustIn Home](https://justin.dune.hep.ac.uk/dashboard/)__
 
@@ -321,6 +321,7 @@ Dataset names tend to be self explanatory and includes the type of detector, whi
 ~~~
 "files from fardet-hd:fardet-hd__fd_mc_2023a_reco2__full-reconstructed__v09_81_00d02__standard_reco2_dune10kt_nu_1x2x6__prodgenie_nue_dune10kt_1x2x6__out1__validation ordered limit 100 "
 ~~~
+{: .language-bash} 
 
 - The flag 'ordered' is crucial to ensure reproducibility 
 
@@ -413,6 +414,7 @@ prod-utils/blob/main/justIN-examples/submit_local_fcl.jobscript
 ~~~
 justin simple-workflow --mql "files from fardet-hd:fardet-hd__fd_mc_2023a_reco2__full-reconstructed__v09_81_00d02__standard_reco2_dune10kt_nu_1x2x6__prodgenie_nu_dune10kt_1x2x6__out1__validation skip 5 limit 5 ordered ' --jobscript submit_local_fcl.jobscript --rss-mb 4000 --env INPUT_TAR_DIR_LOCAL="$INPUT_TAR_DIR_LOCAL"
 ~~~
+{: .language-bash} 
 
 Things you can do
 
