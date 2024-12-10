@@ -366,7 +366,7 @@ To learn more about using Rucio and Metacat to run over large data samples go he
 When we are analyzing large numbers of files in a group of batch jobs, we use a metacat dataset to describe the full set of files that we are going to analyze and use the JustIn system to run over that dataset. Each job will then come up and ask metacat and rucio to give it the next file in the list. It will try to find the nearest copy.  For instance if you are running at CERN and analyzing this file it will automatically take it from the CERN storage space EOS.
 
 > ## Exercise 2  - explore in the gui
-> [The Metacat Gui](https://metacat.fnal.gov:9443/dune_meta_prod/app/auth/login?redirect=/dune_meta_prod/app/app/gui/datasets) is a nice place to explore the data we have.
+> [The Metacat Gui](https://metacat.fnal.gov:9443/dune_meta_prod/app/auth/login) is a nice place to explore the data we have.
 > 
 > You need to log in with your services (not kerberos) password.
 >
