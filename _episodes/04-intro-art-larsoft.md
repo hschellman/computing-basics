@@ -41,6 +41,8 @@ This lesson includes collapsable quiz blocks which are encouraged, a blank quiz 
 
 [https://indico.cern.ch/event/1461779/overview](https://indico.cern.ch/event/1461779/overview)
 
+This page is protected by a password.  Dom Brailsford sent this password in an e-mail to the DUNE Collaboration on November 6, 2024.
+
 ## Introduction to *art*
 
 *Art* is the framework used for the offline software used to process LArTPC data from the far detector and the ProtoDUNEs. It was chosen not only because of the features it provides, but also because it allows DUNE to use and share algorithms developed for other LArTPC experiments, such as ArgoNeuT, LArIAT, MicroBooNE and ICARUS. The section below describes LArSoft, a shared software toolkit. Art is also used by the NOvA and mu2e experiments. The primary language for *art* and experiment-specific plug-ins is C++.
