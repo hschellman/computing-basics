@@ -377,11 +377,10 @@ When we are analyzing large numbers of files in a group of batch jobs, we use a 
 > you can then click on sets to see what they contain
 {: .challenge}
 
-> ## Exercise 3
+> ## Exercise 3 - explore a dataset
 > Use metacat to find information about the dataset justin-tutorial:justin-tutorial-2024
 > How many files are in it, what is the total size.  (metacat dataset show command, and metacat dataset files command)
 > Use rucio to find one of the files in it.
-
 {: .challenge}
 
 **Resources**: 
