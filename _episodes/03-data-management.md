@@ -73,6 +73,7 @@ If you want to process data using the full power of DUNE computing, you should t
 ### What is metacat?
 
 Metacat is a file catalog - it allows you to search for files that have particular attributes and understand their provenance, including details on all of their processing steps. 
+It also allows for querying jointly the file catalog and the DUNE conditions database.
 
 You can find extensive documentation on metacat at:
 
@@ -103,6 +104,7 @@ Note: there are example setups that do a full setup in the extras folder:
 - [AL9 setup]({{ site.baseurl }}/al9_setup)
 
 First get metacat if you have not already done so
+
 
 > ## SL7 
 > ~~~
@@ -135,7 +137,6 @@ First get metacat if you have not already done so
 > ~~~
 > {: .language-bash}
 {: .callout}
-
 
 >### Note: other means of authentication
 >Check out the [metacat documentation](https://metacat.readthedocs.io/en/latest/ui.html#user-authentication) for 
@@ -230,7 +231,7 @@ To look at all the files in that run you need to use XRootD - **DO NOT TRY TO CO
 
 
 ### What is(was) SAM?  
-Sequential Access with Metadata (SAM) is/was a data handling system developed at Fermilab.  It is designed to tracklocations of files and other file metadata.  It has been replaced by metacat.  
+Sequential Access with Metadata (SAM) is/was a data handling system developed at Fermilab.  It is designed to track locations of files and other file metadata.  It has been replaced by the combination of MetaCat and Rucio.  New files are not getting declared to SAM anymore.  Any SAM locations after June of 2024 should be presumed to be wrong.  Still being used in some legacy ProtoDUNE analyses.
 
 <!--This lecture will show you how to access data files that have been defined to the DUNE Data Catalog. Execute the following commands after logging in to the DUNE interactive node, and sourcing the main dune setups.
 
@@ -247,8 +248,8 @@ Rucio has two functions:
 1. A rule-based system to get files to Rucio Storage Elements around the world and keep them there.
 2. To return the "nearest" replica of any data file for use either in interactive or batch file use.  It is expected that most DUNE users will not be regularly using direct Rucio commands, but other wrapper scripts that calls them indirectly.
 
-As of the date of the June 2024 tutorial:
-- The Rucio client is available in CVMFS
+As of the date of the December 2024 tutorial:
+- The Rucio client is available in CVMFS and Spack
 - Most DUNE users are now enabled to use it. New users may not automatically be added. 
 
 ### Let's find a file
@@ -256,7 +257,7 @@ As of the date of the June 2024 tutorial:
 If you haven't already done this earlier in setup
 
 - On sl7 type `setup rucio`
-- On al9 type `spack load rucio-clients@33.3.0`  # may need to update that version #
+- On al9 type `spack load rucio-clients@33.3.0`  # see above for r-m-dd-config which will always get the current version
 
 ~~~
 # first get a kx509 proxy, then
@@ -271,7 +272,7 @@ rucio list-file-replicas hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawr
 returns 3 locations:
 
 ~~~
-root://eospublic.cern.ch:1094//eos/experiment/neutplatform/protodune/dune/hd-protodune/e5/57/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+root://dune.dcache.nikhef.nl:1094/pnfs/nikhef.nl/data/dune/generic/rucio/hd-protodune/e5/57/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
 root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro//hd-protodune/raw/2024/detector/cosmics/None/00/02/72/96/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
 root://eosctapublic.cern.ch:1094//eos/ctapublic/archive/neutplatform/protodune/rawdata/np04//hd-protodune/raw/2024/detector/cosmics/None/00/02/72/96/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
 ~~~
@@ -332,7 +333,7 @@ pdsp_det_reco:np04_raw_run005141_0011_dl7_reco1_18127369_0_20210318T104844Z.root
 {: .output}
 
 
-To see the total number of files that match a certain query expression, then add the `-s` option to `metacat query`.
+To see the total number (and size) of files that match a certain query expression, then add the `-s` option to `metacat query`.
 
 <!---`samweb` allows you to select on a lot of parameters which are documented here:
 
@@ -365,6 +366,7 @@ To learn more about using Rucio and Metacat to run over large data samples go he
 
 When we are analyzing large numbers of files in a group of batch jobs, we use a metacat dataset to describe the full set of files that we are going to analyze and use the JustIn system to run over that dataset. Each job will then come up and ask metacat and rucio to give it the next file in the list. It will try to find the nearest copy.  For instance if you are running at CERN and analyzing this file it will automatically take it from the CERN storage space EOS.
 
+
 > ## Exercise 2  - explore in the gui
 > [The Metacat Gui](https://metacat.fnal.gov:9443/dune_meta_prod/app/auth/login) is a nice place to explore the data we have.
 > 
@@ -373,6 +375,13 @@ When we are analyzing large numbers of files in a group of batch jobs, we use a 
 > do a datasets search of all namespaces for the word official in a dataset name
 > 
 > you can then click on sets to see what they contain
+{: .challenge}
+
+> ## Exercise 3
+> Use metacat to find information about the dataset justin-tutorial:justin-tutorial-2024
+> How many files are in it, what is the total size.  (metacat dataset show command, and metacat dataset files command)
+> Use rucio to find one of the files in it.
+
 {: .challenge}
 
 **Resources**: 

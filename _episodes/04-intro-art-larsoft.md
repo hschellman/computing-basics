@@ -37,6 +37,12 @@ This lesson includes collapsable quiz blocks which are encouraged, a blank quiz 
 
 -->
 
+## Advertisement -- February 2025 LArSoft workshop at CERN
+
+[https://indico.cern.ch/event/1461779/overview](https://indico.cern.ch/event/1461779/overview)
+
+This page is protected by a password.  Dom Brailsford sent this password in an e-mail to the DUNE Collaboration on November 6, 2024.
+
 ## Introduction to *art*
 
 *Art* is the framework used for the offline software used to process LArTPC data from the far detector and the ProtoDUNEs. It was chosen not only because of the features it provides, but also because it allows DUNE to use and share algorithms developed for other LArTPC experiments, such as ArgoNeuT, LArIAT, MicroBooNE and ICARUS. The section below describes LArSoft, a shared software toolkit. Art is also used by the NOvA and mu2e experiments. The primary language for *art* and experiment-specific plug-ins is C++.
@@ -124,7 +130,7 @@ The output is not sorted, although portions of it may look sorted. Do not depend
 
 In addition to the version and qualifiers, `UPS` products have "flavors". This refers to the operating system type and version. Older versions of DUNE software supported `SL6` and some versions of macOS. Currently only SL7 and the compatible CentOS 7 are supported. The flavor of a product is automatically selected to match your current operating system when you set up a product. If a product does not have a compatible flavor, you will get an error message.  "Unflavored" products are ones that do not depend on the operating-system libraries.  They are listed with a flavor of "NULL". 
 
-There is a setup command provided by the operating system -- you usually don't want to use it (at least not when developing DUNE software). If you haven't yet sourced the `setup_dune.sh` script in `CVMFS` above but type `setup xyz` anyway, you will get the system setup command, which will ask you for the root password. Just `control-C` out of it, source the `setup_dune.sh` script, and try again.
+There is a setup command provided by the operating system -- you usually don't want to use it (at least not when developing DUNE software). If you haven't yet sourced the `setup_dune.sh` script in `CVMFS` above but type `setup xyz` anyway, you will get the system setup command, which will ask you for the root password. Just `control-C` out of it, source the `setup_dune.sh` script, and try again.  On AL9 and the SL7 container, there is no system setup command so you will get "command not found" if you haven't yet set up UPS.
 
 UPS's setup command (find out where it lives with this command):
 
@@ -261,7 +267,9 @@ new TBrowser
 
 This will be faster with `VNC`. Navigate to the `Events TTree` in the file that is automatically opened, navigate to the `TBranch` with the Argon 39 MCTruths (it's near the bottom), click on the branch icon `simb::MCTruths_ar39__SinglesGen.obj`, and click on the `NParticles()` leaf (It's near the bottom. Yes, it has a red exclamation point on it, but go ahead and click on it). How many events are there? How many 39Ar decays are there per event on average?
 
-*Art* is not constrained to using `ROOT` files -- some effort has already been underway to use HDF5-formatted files for some purposes.
+Header files for many data products are in [lardataobj](https://github.com/larsoft/lardataobj)   and some are in [nusimdata](https://github.com/NuSoftHEP/nusimdata).
+
+*Art* is not constrained to using `ROOT` files -- we use HDF5-formatted files for some purposes.  ROOT has nice browsing features for inspecting ROOT-formatted files;   Some HDF5 data visualiztion tools exist, but they assume that data are in particular formats.  ROOT has the ability to display more general kinds of data (C++ classes), but it needs dictionaries for some of the more complicated ones.
 
 The *art* main executable program is a very short stub that interprets command-line options, reads in the configuration document (a `FHiCL` file which usually includes other `FHiCL` files), and loads shared libraries, initializes software components, and schedules execution of modules. Most code we are interested in is in the form of *art* plug-ins -- modules, services, and tools. The generic executable for invoking *art* is called `art`, but a LArSoft-customized one is called `lar`. No additional customization has yet been applied so in fact, the `lar` executable has identical functionality to the `art` executable.
 
@@ -419,7 +427,9 @@ The LArSoft wiki is here: [larsoft-wiki](https://larsoft.github.io/LArSoftWiki/)
 
 The LArSoft toolkit is a set of software components that simulate and reconstruct LArTPC data, and also it provides tools for accessing raw data from the experiments. LArSoft contains an interface to GEANT4 (art does not list GEANT4 as a dependency) and the GENIE generator. It contains geometry tools that are adapted for wire-based LArTPC detectors.
 
-A recent graph of the UPS products in a full stack starting with dunesw is available [here](https://wiki.dunescience.org/w/img_auth.php/6/6f/Dunesw_v09_72_01_e20_prof_graph.pdf) (dunesw). You can see the LArSoft pieces under dunesw, as well as GEANT4, GENIE, ROOT, and a few others.
+LArSoft provides a collection of shared simulation, reconstruction, and analysis tools, with art interfaces.  Often, a useful algorithm will be developed by an experimental collaboration, and desire to share it with other LArTPC collaborations, which is how much of the software in LArSoft came to be.  Interfaces and services have to be standardized for shared use.  Things like the detector geometry and the dead channel list, for example, are detector-specific, but shared simulation and reconstruction algorithms need to be able to access information from these services, which are not defined until an experiment's software stack is set up and the lar program is invoked.  LArSoft therefore uses plug-ins and class inheritance extensively to deal with these situations.
+
+A recent graph of the UPS products in a full stack starting with dunesw is available [here](https://wiki.dunescience.org/w/img_auth.php/0/07/Dunesw_v10_00_04d00_e26-prof_graph.pdf) (dunesw). You can see the LArSoft pieces under dunesw, as well as GEANT4, GENIE, ROOT, and a few others.
 
 ### LArSoft Data Products
 
@@ -489,6 +499,21 @@ Try it yourself! The workflow for ProtoDUNE-SP MC is given in the [Simulation Ta
 
 Note added November 22, 2023:  The construct "TMPDIR=/tmp lar ..." defines the environment variable TMPDIR only for the duration of the subsequent command on the line.  This is needed for the tutorial example because the mcc12 gen stage copies a 2.9 GB file (see below -- it's the one we had to copy over to CERN) to /var/tmp using ifdh's default temporary location.  But the dunegpvm machines as of November 2023 seem to rarely have 2.9 GB of space in /var/tmp and you get a "no space left on device" error.  The newer prod4 versions of the fcls point to a newer version of the beam particle generator that can stream this file using XRootD instead of copying it with ifdh.  But the streaming flag is turned off by default in the prod4 fcl for the version of dunesw used in this tutorial, and so this is the minimal solution.  Note for the next iteration:  the Prod4 fcls are here: https://wiki.dunescience.org/wiki/ProtoDUNE-SP_Production_IV
 
+### Run the event display on your new Monte Carlo event
+~~~
+ lar -c evd_protoDUNE_data.fcl reco_stage1.root
+~~~
+{: .language-bash}
+and push the "Reconstructed" radio button at the bottom of the display.  
+
+### Display decoded raw digits
+
+To look at some raw digits in the event display, you need to decode a DAQ file or find one that's already been decoded.  The decoder fcl for ProtoDUNE-HD data taken in 2024 is run_pdhd_wibeth3_tpc_decoder.fcl.  An event display of an example decoded file is
+~~~
+ lar -c evd_protoDUNE_data.fcl /exp/dune/data/users/trj/nov2024tutorial/np04hd_raw_run028707_0075_dataflow5_datawriter_0_20240815T154544_decode.root
+~~~
+which is a file taken in August 2024.
+
 ### Running at CERN
 
 This example puts all files in a subdirectory of your home directory. There is an input file for the ProtoDUNE-SP beamline simulation that is copied over and you need to point the generation job at it. The above sequence of commands will work at CERN if you have a Fermilab grid proxy, but not everyone signed up for the tutorial can get one of these yet, so we copied the necessary file over and adjusted a fcl file to point at it. It also runs faster with the local copy of the input file than the above workflow which copies it.
@@ -519,7 +544,6 @@ physics.producers.generator.FileName: "/afs/cern.ch/work/t/tjunk/public/may2023t
  cd ~
  mkdir 2024Tutorial
  cd 2024Tutorial
- export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 
  export DUNELAR_VERSION=v10_00_04
@@ -571,7 +595,7 @@ To work with pull requests, see the documentation at this link: [https://larsoft
 
 There are bi-weekly LArSoft coordination meetings [https://indico.fnal.gov/category/405/][larsoft-meetings] at which stakeholders, managers, and users discuss upcoming releases, plans, and new features to be added to LArSoft.
 
-##w Useful tip: check out an inspection copy of larsoft  <a name="inspection_copy"></a>
+## Useful tip: check out an inspection copy of larsoft  <a name="inspection_copy"></a>
 
 A good old-fashioned `grep -r` or a find command can be effective if you are looking for an example of how to call something but I do not know where such an example might live. The copies of LArSoft source in CVMFS lack the CMakeLists.txt files and if that's what you're looking for to find examples, it's good to have a copy checked out. Here's a script that checks out all the LArSoft source and DUNE LArSoft code but does not compile it. Warning: it deletes a directory called "inspect" in your app area. Make sure `/exp/dune/app/users/<yourusername>` exists first:
 
