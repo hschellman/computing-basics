@@ -45,4 +45,5 @@ This looks like a bad python version, try doing `which python` if it isn't > 3.9
   ~~~
   spack load somecode@6.28.12
   ~~~
+  {: .language-bash} 
   We do not suggest using the hash as then how do you know what you did? 

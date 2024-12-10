@@ -29,7 +29,7 @@ On Linux use xterm, on MacOS go to Utilities and start a Terminal.
 
 On Windows it's a bit more complicated as the underlying operating system is not a unix variant.  
 
-> We suggest using the [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/about) (WSL). That page has download instructions.
+> ## We suggest using the [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/about) (WSL). That page has download instructions.
 
 
 

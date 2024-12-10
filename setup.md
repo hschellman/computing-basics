@@ -58,6 +58,10 @@ If you have trouble getting access, please reach out to the training team severa
 
 ## Step 3: Mission setup (rest of this page)
 
+> ## If you run into problems, check out the [Common Error Messages]({{ site.baseurl }}/ErrorMessages) page and the [FAQ page](https://github.com/orgs/DUNE/projects/19/)
+> if that doesn't help, use Slack to ask us about the problem - there is always a new one cropping up.
+{: .challenge} 
+
 We ask that you have completed the setup work to verify your access to the DUNE servers. It is not complicated, and should take 10 - 20 min.
 
 If you are not familiar with Unix shell commands, here is a tutorial you can do on your own to be ready: [The Unix Shell](https://swcarpentry.github.io/shell-novice/)

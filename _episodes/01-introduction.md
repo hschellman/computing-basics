@@ -63,6 +63,9 @@ Here are some example scripts that do most of the setups explained in this tutor
 
 - [AL9 setup]({{ site.baseurl }}/al9_setup)
 
+> ## If you run into problems, check out the [Common Error Messages]({{ site.baseurl }}/ErrorMessages) page and the [FAQ page](https://github.com/orgs/DUNE/projects/19/)
+> if that doesn't help, use Slack to ask us about the problem - there is always a new one cropping up.
+{: .challenge} 
 
 ## Instructional Crew
 

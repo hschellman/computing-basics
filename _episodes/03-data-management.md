@@ -369,6 +369,10 @@ When we are analyzing large numbers of files in a group of batch jobs, we use a 
 > [The Metacat Gui](https://metacat.fnal.gov:9443/dune_meta_prod/app/auth/login?redirect=/dune_meta_prod/app/app/gui/datasets) is a nice place to explore the data we have.
 > 
 > You need to log in with your services (not kerberos) password.
+>
+> do a datasets search of all namespaces for the word official in a dataset name
+> 
+> you can then click on sets to see what they contain
 {: .challenge}
 
 **Resources**: 
