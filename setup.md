@@ -58,6 +58,10 @@ If you have trouble getting access, please reach out to the training team severa
 
 ## Step 3: Mission setup (rest of this page)
 
+> ## If you run into problems, check out the [Common Error Messages]({{ site.baseurl }}/ErrorMessages) page and the [FAQ page](https://github.com/orgs/DUNE/projects/19/)
+> if that doesn't help, use Slack to ask us about the problem - there is always a new one cropping up.
+{: .challenge} 
+
 We ask that you have completed the setup work to verify your access to the DUNE servers. It is not complicated, and should take 10 - 20 min.
 
 If you are not familiar with Unix shell commands, here is a tutorial you can do on your own to be ready: [The Unix Shell](https://swcarpentry.github.io/shell-novice/)
@@ -447,7 +451,7 @@ Launch the *Apptainer* as described above in the [SL7 version](#SL7_setup)
 
 Write in it the following:
 ~~~
-export DUNELAR_VERSION=v09_90_01d00
+export DUNELAR_VERSION=v10_00_04d00
 export DUNELAR_QUALIFIER=e26:prof
 
 export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
@@ -514,8 +518,9 @@ On Alma9 you may need to do this first
 ~~~
 spack load kx509
 ~~~
+{: .language-bash}
 
-This is to be done once every 24 hours per login machine you’re using to identify yourself:
+Requesting a proxy needs to be done once every 24 hours per login machine you’re using to identify yourself:
 
 ~~~
 kx509

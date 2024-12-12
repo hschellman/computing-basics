@@ -3,7 +3,7 @@ title: Example AL9 setup for a new session
 permalink: al9_setup
 keypoints:
 - getting basic applications on Alma9
-- getting authentication set ip
+- getting authentication set up
 --- 
 
 You can store the code below as 

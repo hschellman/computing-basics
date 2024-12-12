@@ -73,7 +73,7 @@ export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 
 ## you need to change these to match current versions
 
-export DUNELAR_VERSION=v09_90_01d00
+export DUNELAR_VERSION=v10_00_04d00
 export DUNELAR_QUALIFIER=e26:prof
 
 setup -B dunesw ${DUNELAR_VERSION} -q ${DUNELAR_QUALIFIER}

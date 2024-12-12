@@ -395,7 +395,7 @@ In a producer or analyzer module, data products can be retrieved from the art ev
 ~~~
 simb::MCParticles_largeant__G4Stage1.
 ~~~
-{: .code}
+{: .source}
 
 here, `simb::MCParticle` is the name of the class that defines the data product. The "s" after the data product name is added by *art* -- you have no choice in this even if the plural of your noun ought not to just add an "s". The underscore separates the data product name from the module name, "largeant". Another underscore separates the module name and the instance name, which in this example is the empty string -- there are two underscores together there. The last string is the process name and usually is not needed to be specified in data product retrieval. You can find the `TBranch` names by browsing an artroot file with `ROOT` and using a `TBrowser`, or by using `product_sizes_dumper -f 0`.
 

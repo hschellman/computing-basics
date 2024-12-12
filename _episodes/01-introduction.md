@@ -43,6 +43,30 @@ This is a short 3 hour version of the basics.  We will be adding/offering additi
 
 [Also check out the longer list of DUNE computing tutorials](https://wiki.dunescience.org/wiki/Computing_tutorials) (collaborators only)
 
+## Basic setup reminder
+
+You should have gone through the [setup sequence]({{ site.baseurl }}/setup)
+
+As a reminder you need to choose between running on sl7 in a container or al9.  You do NOT want to mix them.
+
+You also need to be starting in a clean terminal session.  We recommend not having a `.profile` or `.login` at all and deliberately creating  setup scripts that you source whenever you start using DUNE code. 
+
+~~~ 
+source mysetup7.sh
+~~~
+{: .language-bash}
+
+Here are some example scripts that do most of the setups explained in this tutorial.  You need to store these in your home area, source them every time you log in, and possibly update them as code versions evolve. 
+
+
+- [SL7 setup]({{ site.baseurl }}/sl7_setup)
+
+- [AL9 setup]({{ site.baseurl }}/al9_setup)
+
+> ## If you run into problems, check out the [Common Error Messages]({{ site.baseurl }}/ErrorMessages) page and the [FAQ page](https://github.com/orgs/DUNE/projects/19/)
+> if that doesn't help, use Slack to ask us about the problem - there is always a new one cropping up.
+{: .challenge} 
+
 ## Instructional Crew
 
 **Organizers:**
@@ -75,6 +99,9 @@ You should join the DUNE Slack instance and look in [#computing-training-basics]
 go to [https://atwork.dunescience.org/tools/](https://atwork.dunescience.org/tools/) scroll down to Slack and request an invite.  Please do not do this if you are already in DUNE Slack.
 
 The livedoc is here [livedoc](https://docs.google.com/document/d/1QNK-hKPqLIVaecRyg9q4QZOHNwAZgq32oHVuboG_AvQ/edit?usp=sharing)
+
+
+
 
 
 

@@ -75,6 +75,7 @@ First time you use your environment you can do
 ~~~
 conda config --add --env channels conda-forge # only
 ~~~
+{: .language-bash} 
 
 the config command tells conda to use conda-forge as a default.   You should now have a conda environment with root in it. 
 
