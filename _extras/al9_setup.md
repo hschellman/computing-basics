@@ -17,10 +17,6 @@ You can store the code below as
 
 # use spack to get applications
 source /cvmfs/larsoft.opensciencegrid.org/spack-packages/setup-env.sh 
-spack load root@6.28.12
-spack load cmake@3.27.7
-spack load gcc@12.2.0
-spack load fife-utils@3.7.4
 
 # load metacat, rucio and sam and tell it you are on dune
 spack load r-m-dd-config  experiment=dune
@@ -50,3 +46,12 @@ export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 
 ~~~
 {: .language-bash}
+
+------------------------
+
+## setup specific versions of code here
+
+spack load root@6.28.12
+spack load cmake@3.27.7
+spack load gcc@12.2.0
+spack load fife-utils@3.7.4
