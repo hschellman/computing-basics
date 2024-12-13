@@ -71,7 +71,10 @@ htgettoken -i dune --vaultserver htvaultprod.fnal.gov
 
 export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 
-## you need to change these to match current versions
+
+--------------------------------------------------------
+
+## This you need to update yourself to get new versions of DUNE software
 
 export DUNELAR_VERSION=v10_00_04d00
 export DUNELAR_QUALIFIER=e26:prof
