@@ -9,7 +9,7 @@ keypoints:
 You can store the code below as 
  `myal9.sh` and run it every time you log in. 
 
-> ##Note - the full LArSoft suite doesn't work yet with spack
+> ## Note - the full LArSoft suite doesn't work yet with spack
 > Use the [Apptainer/sl7 method]({{ site.baseurl }}al9_setup.html) until we get that working if you want to use the full DUNE software suite. 
 {: .callout}
 
@@ -21,7 +21,6 @@ source /cvmfs/larsoft.opensciencegrid.org/spack-packages/setup-env.sh
 # load metacat, rucio and sam and tell it you are on dune
 spack load r-m-dd-config  experiment=dune
 spack load kx509
-export SAM_EXPERIMENT=dune
 export IFDH_CP_MAXRETRIES=0\0\0\0\0  # no retries
 export RUCIO_ACCOUNT=$USER
 
@@ -51,7 +50,9 @@ export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 
 ## setup specific versions of code here
 
-spack load root@6.28.12
-spack load cmake@3.27.7
+~~~
+spack load root@6.28.12  # recent with xrootd
 spack load gcc@12.2.0
 spack load fife-utils@3.7.4
+~~~
+{: .language-bash}
