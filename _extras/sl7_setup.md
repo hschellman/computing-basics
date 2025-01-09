@@ -36,9 +36,8 @@ you can store this as
 `mysl7.sh` and run it every time you log in.  
 
 ~~~
-# use ups to find programs
+# use ups to find programs - this only works on SL7
 
-export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 setup metacat
 setup rucio
@@ -68,11 +67,13 @@ voms-proxy-init -rfc -noregen -voms dune:/dune/Role=$ROLE -valid 24:00
 export X509_USER_PROXY=/tmp/x509up_u`id -u`
 
 htgettoken -i dune --vaultserver htvaultprod.fnal.gov
-
 export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 
-## you need to change these to match current versions
+--------------------------------------------------------
 
+## This you need to update yourself to get new versions of DUNE software
+
+~~~
 export DUNELAR_VERSION=v10_00_04d00
 export DUNELAR_QUALIFIER=e26:prof
 
