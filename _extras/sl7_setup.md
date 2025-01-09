@@ -71,9 +71,8 @@ export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 
 --------------------------------------------------------
 
-## This you need to update yourself to get new versions of DUNE software
+# This you need to update yourself to get new versions of DUNE software
 
-~~~
 export DUNELAR_VERSION=v10_00_04d00
 export DUNELAR_QUALIFIER=e26:prof
 
