@@ -69,8 +69,6 @@ export X509_USER_PROXY=/tmp/x509up_u`id -u`
 htgettoken -i dune --vaultserver htvaultprod.fnal.gov
 export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 
---------------------------------------------------------
-
 # This you need to update yourself to get new versions of DUNE software
 
 export DUNELAR_VERSION=v10_00_04d00
