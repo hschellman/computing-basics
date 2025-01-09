@@ -19,16 +19,7 @@ Selected consortia members coordinate DUNE computing activities to new members t
 
 DUNE Computing Consortium Coordinator: Michael Kirby (Brookhave National Laboratory)
 
-<!--
-## A video from 2022 of a Welcome Session for a live event
 
-The session will be captured on video a placed here after the workshop for asynchronous study.
-A similar session from May 2022 was captured for your asynchronous review.
-
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/B1mr3v1i7M8" title="DUNE Computing Tutorial May 2022 Introduction" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
--->
 
 <!--
 ## Schedule
@@ -42,6 +33,18 @@ This is a short 3 hour version of the basics.  We will be adding/offering additi
 [The LArSoft tutorial at CERN, February 3-7, 2025](https://indico.cern.ch/event/1461779/) password on the [tutorials page](https://wiki.dunescience.org/wiki/Computing_tutorials)
 
 [Also check out the longer list of DUNE computing tutorials](https://wiki.dunescience.org/wiki/Computing_tutorials) (collaborators only)
+
+### Workshop Introduction Video from December 2024
+
+<!--
+The session will be captured on video a placed here after the workshop for asynchronous study.
+A similar session from May 2022 was captured for your asynchronous review.
+-->
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Yfa5SQlc8yM" title="DUNE Computing Tutorial Dec 2024 Introduction" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
 
 ## Basic setup reminder
 

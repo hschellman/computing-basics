@@ -525,6 +525,10 @@ For protoduneana and dunesw, this [wiki page][dunetpc-wiki-tutorial] is quite go
 
 [https://cdcvs.fnal.gov/redmine/projects/larsoft/wiki/Working_with_GitHub][redmine-working-github]
 
+### Some handy tools for working with search paths
+
+Tom has written some scripts and made aliases for convenience -- finding files in search paths like FHCIL_FILE_PATH, or FW_SEARCH_PATH, and searching within those files for content.  Have a look on the dunegpvms at /exp/dune/data/users/trj/texttools.  There is a list of aliases in aliases.txt that can be run in your login script (such as .profile).  Put the perl scripts and tkdiff and newtkdiff somewhere in your PATH.  A common place to put your favorite convenience scripts is ${HOME}/bin, but make sure to add that to your PATH.  The scripts tkdiff and newtkdiff are open-source graphical diff tools that run using TCL/TK.
+
 ## Common errors and recovery
 
 #### Version mismatch between source code and installed products
