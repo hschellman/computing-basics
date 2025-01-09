@@ -19,8 +19,6 @@ keypoints:
 
 ## This is an updated version of the 2023 training
 
-
-
 <!-- #### Session Video
 
 The session will be captured on video a placed here after the workshop for asynchronous study.
@@ -30,6 +28,18 @@ The session will be captured on video a placed here after the workshop for async
 Participants are encouraged to monitor and utilize the [Livedoc for May. 2023](https://docs.google.com/document/d/19XMQqQ0YV2AtR5OdJJkXoDkuRLWv30BnHY9C5N92uYs/edit?usp=sharing) to ask questions and learn.  For reference, the [Livedoc from Jan. 2023](https://docs.google.com/document/d/1sgRQPQn1OCMEUHAk28bTPhZoySdT5NUSDnW07aL-iQU/edit?usp=sharing) is provided.
 
 Temporary Note: This lesson (02-storage-spaces.md) was imported from the [Jan. 2023 lesson](https://github.com/DUNE/computing-training-basics-short/tree/gh-pages/_episodes) which was a shortened version of the training. The May 2022 training event was a two day event, see [02-storage-spaces.md (May 2022)](https://github.com/DUNE/computing-training-basics/blob/gh-pages/_episodes/02-storage-spaces.md) for reference. Quiz blocks were added. -->
+
+### Workshop Storage Spaces Video from December 2024
+
+<!--
+The session will be captured on video a placed here after the workshop for asynchronous study.
+A similar session from May 2022 was captured for your asynchronous review.
+-->
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5dX2BsgW05Y" title="DUNE Computing Tutorial Dec 2024 Storage Spaces" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
 
 ## Introduction
 There are four types of storage volumes that you will encounter at Fermilab (or CERN): 
