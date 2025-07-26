@@ -83,7 +83,7 @@ See the information about [Windows]({{ site.baseurl }}/Windows.html) terminal co
 - Alternatively, if you have access to a remote linux system through your institution you can use the Windows terminal/X-windows connections described in [Windows]({{ site.baseurl }}/Windows.html) to connect to that system and work there. 
 
 > # Note
-> You should now be ready to go for the ({{ site.baseurl }}/setup.html) 
+> You should now be ready to go for the ({{ site.baseurl }}/setup) 
 {: .callout}
 
 ## Extra - Get a compiler/code editor

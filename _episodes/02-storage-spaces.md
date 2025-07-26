@@ -295,7 +295,7 @@ root -l root://dune.dcache.nikhef.nl:1094/pnfs/nikhef.nl/data/dune/generic/rucio
 ~~~
 {: .language-bash}
 
-See the next section on [data management](({{ site.baseurl }}/03-data-management)) for instructions on finding files worldwide. 
+See the next episode on [data management]({{ site.baseurl }}/03-data-management) for instructions on finding files worldwide. 
 
 > ## Note Files in /tape_backed/ may not be immediately accessible, those in /persistent/ and /scratch/ are. 
 {: .callout}
