@@ -10,7 +10,7 @@ You can store the code below as
  `myal9.sh` and run it every time you log in. 
 
 > ## Note - the full LArSoft suite doesn't work yet with spack
-> Use the [Apptainer/sl7 method]({{ site.baseurl }}al9_setup.html) until we get that working if you want to use the full DUNE software suite. 
+> Use the [Aptainer/SL7]({{ site.baseurl }}/sl7_setup.html) until we get that working if you want to use the full DUNE software suite. 
 {: .callout}
 
 ~~~
@@ -59,7 +59,6 @@ export SAM_EXPERIMENT=dune
 echo "IFDHC"
 spack load ifdhc@2.8.0%gcc@12.2.0 arch=linux-almalinux9-x86_64_v3
 spack load ifdhc-config@2.6.20%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
-
 
 echo "PY-PIP"                       
 spack load py-pip@23.1.2%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
