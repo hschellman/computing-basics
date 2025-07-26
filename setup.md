@@ -662,7 +662,7 @@ log into `lxplus.cern.ch`
 fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightly different version as mounts are different.
 
 ~~~
-/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash\
+/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
 -B /cvmfs,/afs,/opt,/run/user,/etc/hostname --ipc --pid \
 /cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
 ~~~
