@@ -83,7 +83,7 @@ Also check out our [Computing FAQ](https://github.com/orgs/DUNE/projects/19/view
 
 ## 0. Basic setup on your computer. 
 
-[Computer Setup]({{ site.baseurl }}/ComputerSetup.html) goes through how to find a terminal and set up xwindows on MacOS and Windows.  You can skip this if already familiar with doing that. 
+[Computer Setup]({{ site.baseurl }}/ComputerSetup) goes through how to find a terminal and set up xwindows on MacOS and Windows.  You can skip this if already familiar with doing that. 
 
 > ## Note
 > The instructions directly below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#setup_CERN) section.
