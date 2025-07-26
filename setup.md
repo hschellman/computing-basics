@@ -24,6 +24,12 @@ keypoints:
 - Do an exercise to help us check if all is good
 - Get streaming and grid access
 
+
+
+> ## If you run into problems now or later, check out the [Common Error Messages]({{ site.baseurl }}/ErrorMessages) page and the [FAQ page](https://github.com/orgs/DUNE/projects/19/)
+> if that doesn't help, use [DUNE Slack](https://dunescience.slack.com/archives/C02TJDHUQPR) channel `#computing-training-basics` to ask us about the problem - there is always a new one cropping up.
+{: .challenge} 
+
 ## Requirements
 
 
@@ -58,11 +64,9 @@ If you have trouble getting access, please reach out to the training team severa
 
 ## Step 3: Mission setup (rest of this page)
 
-> ## If you run into problems, check out the [Common Error Messages]({{ site.baseurl }}/ErrorMessages) page and the [FAQ page](https://github.com/orgs/DUNE/projects/19/)
-> if that doesn't help, use Slack to ask us about the problem - there is always a new one cropping up.
-{: .challenge} 
 
-We ask that you have completed the setup work to verify your access to the DUNE servers. It is not complicated, and should take 10 - 20 min.
+
+Before you start the tutorial, we ask that you have completed this setup to verify your access to the DUNE servers. It is not complicated, and should take 10 - 20 min.
 
 If you are not familiar with Unix shell commands, here is a tutorial you can do on your own to be ready: [The Unix Shell](https://swcarpentry.github.io/shell-novice/)
 
@@ -82,7 +86,7 @@ Also check out our [Computing FAQ](https://github.com/orgs/DUNE/projects/19/view
 [Computer Setup]({{ site.baseurl }}/ComputerSetup.html) goes through how to find a terminal and set up xwindows on MacOS and Windows.  You can skip this if already familiar with doing that. 
 
 > ## Note
-> The instructions directly below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#setup_CERN).
+> The instructions directly below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#setup_CERN) section.
 {: .challenge}
 
 ## 1. Kerberos business
@@ -216,7 +220,12 @@ GSSAPIDelegateCredentials yes
 ~~~
 {: .output}
 
-Now you can try to log into a machine at Fermilab. There are now 15 different machines you can login to: from dunegpvm01 to dunegpvm15 (gpvm stands for 'general purpose virtual machine' because these servers run on virtual machines and not dedicated hardware, others nodes which are indented for building code run on dedicated hardware). The dunegpvm machines run Scientific Linux Fermi 7 (SLF7). To know the load on the machines, use this monitoring link: dunegpvm status.
+> ## Note: Your ssh_config may get replaced when you do operating system upgrades.  
+When you set it up, make a backup copy so that you can restore it if it gets removed in an OS upgrade.
+{: .callout}
+
+
+Now you can try to log into a machine at Fermilab. There are now 15 different machines you can login to: from dunegpvm01 to dunegpvm15 (gpvm stands for 'general purpose virtual machine' because these servers run on virtual machines and not dedicated hardware, others nodes which are indented for building code run on dedicated hardware). The dunegpvm machines run Alma Linux 9.6. To know the load on the machines, use this monitoring link: [dunegpvm status](https://fifemon.fnal.gov/monitor/d/000000004/experiment-overview?var-experiment=dune&orgId=1&viewPanel=30).  Any load > 4 likely results in reduced performance.
 
 **How to connect?** The ssh command does the job. The -Y option turns on the xwindow protocol so that you can have graphical display and keyboard/mouse handling (quite useful). But if you have the line "ForwardX11Trusted yes" in your ssh config file, this will do the -Y option. For connecting to e.g. dunegpvm07, the command is:
 
@@ -226,7 +235,7 @@ ssh username@dunegpvmXX.fnal.gov
 {: .language-bash}
 
 where XX is a number from 01 to 15. 
-If you experience long delays in loading programs or graphical output, you can try connecting with VNC. More info: [Using VNC Connections on the dunegpvms][dunegpvm-vnc].
+If you experience long delays in loading programs or graphical output, you can try connecting with VNC. More info: [Using VNC Connections on the dunegpvms][dunegpvm-vnc].  Please remember to shut down your VNC connection at least once/week - the machines can get overrun by zombies. 
 
 ## 3. Get a clean shell
 To run DUNE software, it is necessary to have a 'clean login'. What is meant by clean here? If you work on other experiment(s), you may have some environment variables defined (for NOvA, MINERvA, MicroBooNE). Theses may conflict with the DUNE environment ones.
@@ -248,7 +257,7 @@ env | grep -i nova
 ~~~
 {: .language-bash}
 
-Another useful command that will detect UPS products that have been set up is
+<!-- Another useful command that will detect UPS products that have been set up is
 
 ~~~
 ups active
@@ -262,7 +271,7 @@ bash: ups: command not found...
 ~~~
 {: .output}
 
-and if your environment has UPS products set up, the above command will list the ones you have.
+and if your environment has UPS products set up, the above command will list the ones you have. -->
 
 Once you identify environment variables that might conflict with your DUNE work, you can tweak your login scripts, like .bashrc, .profile, .shrc, .login etc., to temporarily comment out those (the "export" commands that are setting custom environment variables, or UPS's setup command).  Note:  files with names that begin with `.` are "hidden" in that they do not show up with a simple `ls` command.  To see them, type `ls -a` which lists **a**ll files.
 
@@ -309,19 +318,37 @@ Here is how you set up basic DUNE software on Alma 9. We are using the super-com
 
 ~~~
 # find a spack environment and set it up
-source /cvmfs/larsoft.opensciencegrid.org/spack-packages/setup-env.sh 
-# get some basic things - 
-# use the command spack find to find packages you might want
-# If you just type spack load ... you may be presented with a choice and will need to choose. 
-#
-spack load root@6.28.12
-spack load cmake@3.27.7
+# setup spack
+
+source /cvmfs/larsoft.opensciencegrid.org/spack-v0.22.0-fermi/setup-env.sh
+export CVSROOT=minervacvs@cdcvs.fnal.gov:/cvs/mnvsoft
+
+# get the packages you need to run this - this will become simple in future
+echo "ROOT"
+spack load root@6.28.12%gcc@12.2.0 arch=linux-almalinux9-x86_64_v3
+
+echo "CMAKE"
+spack load cmake@3.27.9%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
+
+echo "GCC"
 spack load gcc@12.2.0
-spack load fife-utils@3.7.4
-# load metacat, rucio and sam and tell it you are on dune
-spack load r-m-dd-config  experiment=dune
-spack load kx509
+
+echo "Rucio and metacat"
+spack load r-m-dd-config experiment=dune lab=fnal.gov
+export RUCIO_ACCOUNT=${USER}
 export SAM_EXPERIMENT=dune
+
+echo "IFDHC"
+spack load ifdhc@2.8.0%gcc@12.2.0 arch=linux-almalinux9-x86_64_v3
+spack load ifdhc-config@2.6.20%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
+
+
+echo "PY-PIP"                       
+spack load py-pip@23.1.2%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
+
+echo "Justin"
+spack load justin
+
 ~~~
 {: .language-bash}
 
@@ -371,7 +398,6 @@ Apptainer>
 You can then set up DUNE's code 
 
 ~~~
-export UPS_OVERRIDE="-H Linux64bit+3.10-2.17" # makes certain you get the right UPS
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 ~~~
 {: .language-bash}
@@ -399,7 +425,7 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 ### Caveats for later
 
 > ## Note: You cannot submit jobs from the Container
-> You cannot submit jobs from the Container - you need to open a separate window. In that window do the minimal [Alma9](#AL9_setup) setup below and submit your jobs from that window. 
+> You cannot submit jobs from the Container - you need to open a separate window. In that window do the minimal [Alma9](#AL9_setup) setup above and submit your jobs from that window. 
 >
 >You may need to print your submit command to the screen or a file to do so if your submission is done from a script that uses ups. 
 {: .callout}
@@ -444,7 +470,7 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 ## 5. Exercise! (it's easy)
 This exercise will help organizers see if you reached this step or need help.
 
-1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2024.sh```.  
+1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2025.sh```.  
 
 
 Launch the *Apptainer* as described above in the [SL7 version](#SL7_setup) 
@@ -460,7 +486,7 @@ alias dune_setup7='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_du
 {: .source}
 When you start the training, you will have to source this file:
 ~~~
-source ~/dune_presetup_2024.sh
+source ~/dune_presetup_2025.sh
 ~~~
 {: .language-bash}
 Then, to setup DUNE, use the created alias:
@@ -470,7 +496,7 @@ setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
 ~~~
 {: .language-bash}
 
-2) Create working directories in the `dune/app` and `pnfs/dune` areas (these will be explained during the training):
+2) Create working directories in the `/exp/dune/app` and `/pnfs/dune` areas (these will be explained later in the training):
 ~~~
 mkdir -p /exp/dune/app/users/${USER}
 mkdir -p /pnfs/dune/scratch/users/${USER}
@@ -492,7 +518,7 @@ date >& /exp/dune/app/users/${USER}/my_first_login.txt
 ## 6. Getting setup for streaming and grid access
 In addition to your kerberos access, you need to be in the DUNE VO (Virtual Organization) to access to global DUNE resources. This is necessary in particular to stream data and submit jobs to the grid. If you are on the DUNE collaboration list and have a Fermilab ID you should have been added automatically to the DUNE VO.
 
-To check if you are on the VO, two commands. The kx509 gets a certificate from your kerberos ticket. On a DUNE machine, type:
+<!-- To check if you are on the VO, two commands. The kx509 gets a certificate from your kerberos ticket. On a DUNE machine, type:
 ~~~
 kx509
 ~~~
@@ -505,13 +531,13 @@ Storing certificate in /tmp/x509up_u55793
 
 Your certificate is valid until: Wed Jan 27 18:03:55 2021
 ~~~
-{: .output}
+{: .output} -->
 
-To access the grid resources, you will need either need a proxy or a token. More information on proxy is available [here][proxy-info].
+To access the grid resources, you will need a token. 
 
 
 
-## How to authorize with the KX509/Proxy method <a name="proxy"></a>
+<!-- ## How to authorize with the KX509/Proxy method <a name="proxy"></a>
 
 On Alma9 you may need to do this first 
 
@@ -552,16 +578,17 @@ voms-proxy-info >> /exp/dune/app/users/${USER}/my_first_login.txt
 
 With this done, you should be able to submit jobs and access remote DUNE storage systems via xroot. 
 
-
+ -->
 
 ### Tokens method <a name="tokens"></a>
 
-We are moving from proxies to tokens - these are a bit different.  
+We have moved from proxies to tokens for authentication as of 2025.
 
-#### 1. Get your token
+#### 1. Get and store your token
 
 ~~~
- htgettoken -i dune --vaultserver htvaultprod.fnal.gov
+htgettoken -i dune --vaultserver htvaultprod.fnal.gov 
+export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 ~~~
 {: .language-bash}
 
@@ -609,9 +636,6 @@ With this done, you should be able to submit jobs and access remote DUNE storage
 > If you have issues here, please ask [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR) in Slack to get support. Please mention in your message it is the Step 6 of the setup. Thanks!
 {: .challenge}
 
-> ## Success
-> If you obtain the message starting with `Your proxy is valid until`... Congratulations! You are ready to go!
-{: .keypoints}
 
 
 ## Set up on CERN machines <a name="setup_CERN"></a>
@@ -627,7 +651,10 @@ See [https://github.com/DUNE/data-mgmt-ops/wiki/Using-Rucio-to-find-Protodune-fi
 
 The directions above at: [AL9_setup](#AL9_setup) above should work directly at CERN, do those and proceed to step 3. 
 
-### 2. Source the DUNE environment SL7 setup script
+### 2. For SL7
+
+#### Source the DUNE environment SL7 setup script
+
 CERN access is mainly for ProtoDUNE collaborators. If you have a valid CERN ID and access to lxplus via ssh, you can setup your environment for this tutorial as follow:
 
 log into `lxplus.cern.ch`
@@ -650,7 +677,6 @@ Set up the DUNE software
 ~~~
 export UPS_OVERRIDE="-H Linux64bit+3.10-2.17" # makes certain you get the right UPS
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-setup kx509
 ~~~
 {: .language-bash}
 
@@ -662,31 +688,12 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 
 ### 3. Getting authentication for data access
 
-If you have a Fermilab account already, do this to get access the data catalog worldwide
-
-~~~
-kdestroy
-kinit -f <fnalaccount>@FNAL.GOV
-kx509
-export ROLE=Analysis
-voms-proxy-init -rfc -noregen -voms=dune:/dune/Role=$ROLE -valid 120:00
-~~~
-{: .language-bash}
-
-~~~
-Checking if /tmp/x509up_u79129 can be reused ... yes
-Your identity: /DC=org/DC=cilogon/C=US/O=Fermi National Accelerator Laboratory/OU=People/CN=Heidi <fnalusername>n/CN=UID:<fnalusername>
-Contacting  voms1.fnal.gov:15042 [/DC=org/DC=incommon/C=US/ST=Illinois/O=Fermi Research Alliance/CN=voms1.fnal.gov] "dune" Done
-Creating proxy .......................................................................................... Done
-
-Your proxy is valid until Sat Aug 24 17:11:41 2024
-~~~
-{: .output}
+If you have a Fermilab account already, get a token as described in [tokens](#tokens)
 
 
 
 ### 4. Access tutorial datasets
-Normally, the datasets are accessible through the grid resource. But with your CERN account, you may not be part of the DUNE VO yet (more on this during the tutorial). We found a workaround: some datasets have been copied locally for you. You can check them here:
+Normally, the datasets are accessible through the grid resources. But with your CERN account, you may not be part of the DUNE VO yet (more on this during the tutorial). We found a workaround: some datasets have been copied locally for you. You can check them here:
 ~~~
 ls /afs/cern.ch/work/t/tjunk/public/may2023tutorialfiles/
 ~~~

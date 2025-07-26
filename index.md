@@ -8,11 +8,11 @@ country: "us"
 language: "en"
 latitude: "45"
 longitude: "-1"
-humandate: "2024"
+humandate: "2025"
 humantime: "asynchronous"
-startdate: "2024-05-20"
-enddate: "2024-12-01"
-instructor: ["Heidi Schellman","Dave Demuth","Michael Kirby","Steve Timm","Tom Junk","Ken Herner"]
+startdate: "2025-09-08"
+enddate: "2025-09-12"
+instructor: ["Heidi Schellman","Dave Demuth","Michael Kirby","Steve Timm","Tom Junk","Ken Herner","Nilay Bostan"]
 helper: ["mentor1", "mentor2"]
 email: ["schellmh@oregonstate.edu","dmdemuth@gmail.com","mkirby@bnl.gov","timm@fnal.gov","junk@fnal.gov","herner@fnal.gov"]
 collaborative_notes: "2024-05-24-dune"
@@ -24,10 +24,12 @@ This tutorial will teach you the basics of DUNE Computing.
 Instructors will engage students with hands-on lessons focused in three areas:
 
 0. Basics of logging on, getting accounts, disk spaces
-1. Data storage and management,
-2. Introduction to LArSoft
-3. How to find futher training materials for DUNE and HEP software
+1. Data storage and management
+2. How to find futher training materials for DUNE and HEP software
 
+Other modules 
+1. Introduction to LArSoft
+2. Introduction to batch systems
 
 Mentors will answer your questions and provide technical support.
 
@@ -47,7 +49,8 @@ By the end of this workshop, participants will know how to:
 
 * Utilize data volumes at FNAL.
 * Understand good data management practices.
-* Provide a basic overview of art and LArSoft to a new researcher.
+* Know how to run basic root analysis on Fermilab or CERN unix systems.
+<!-- * Provide a basic overview of art and LArSoft to a new researcher. -->
 
 There are additional materials provided that explain how to:
 
