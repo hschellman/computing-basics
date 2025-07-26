@@ -49,7 +49,8 @@ By the end of this workshop, participants will know how to:
 
 * Utilize data volumes at FNAL.
 * Understand good data management practices.
-* Provide a basic overview of art and LArSoft to a new researcher.
+* Know how to run basic root analysis on Fermilab or CERN unix systems.
+<!-- * Provide a basic overview of art and LArSoft to a new researcher. -->
 
 There are additional materials provided that explain how to:
 
