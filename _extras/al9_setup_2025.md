@@ -10,46 +10,17 @@ You can store the code below as
  `myal9.sh` and run it every time you log in. 
 
 > ## Note - the full LArSoft suite doesn't work yet with spack
-> Use the [Apptainer/sl7 method]({{ site.baseurl }}al9_setup.html) until we get that working if you want to use the full DUNE software suite. 
+> Use the [Apptainer/sl7 method]({{ site.baseurl }}al9_setup.html) until we get larsoft working if you want to use the full DUNE software suite. 
 {: .callout}
 
 ~~~
-
-# setup spack
-# worked on May 20, 2025
-
-source /cvmfs/larsoft.opensciencegrid.org/spack-v0.22.0-fermi/setup-env.sh
-export CVSROOT=minervacvs@cdcvs.fnal.gov:/cvs/mnvsoft
-
-# get the packages you need to run this - this is a total hack of guesswork
-
-echo "ROOT"
-spack load root@6.28.12%gcc@12.2.0 arch=linux-almalinux9-x86_64_v3
-
-echo "CMAKE"
-spack load cmake@3.27.9%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
-
-echo "GCC"
-spack load gcc@12.2.0
-
-echo "Rucio and metacat"
-spack load r-m-dd-config experiment=dune lab=fnal.gov
-
-echo "IFDHC"
-spack load ifdhc@2.8.0%gcc@12.2.0 arch=linux-almalinux9-x86_64_v3
-spack load ifdhc-config@2.6.20%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
-
-echo "PY-PIP"                       
-spack load py-pip@23.1.2%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
-
-echo "Justin"
-spack load justin
-
-htgettoken -i dune --vaultserver htvaultprod.fnal.gov
-
-export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
-
+# setup spack version 1.0 - generic env
+. /cvmfs/dune.opensciencegrid.org/dune-spack/spack-develop-fermi/setup-env.sh
+spack env activate dune-tutorial
+export RUCIO_ACCOUNT=${USER}
 ~~~
 {: .language-bash}
+
+You can ignore the warning messages - this is still under development
 
 

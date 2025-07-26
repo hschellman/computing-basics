@@ -323,7 +323,7 @@ Here is how you set up basic DUNE software on Alma 9. We are using the super-com
 source /cvmfs/larsoft.opensciencegrid.org/spack-v0.22.0-fermi/setup-env.sh
 export CVSROOT=minervacvs@cdcvs.fnal.gov:/cvs/mnvsoft
 
-# get the packages you need to run this - this is a total hack of guesswork
+# get the packages you need to run this - this will become simple in future
 echo "ROOT"
 spack load root@6.28.12%gcc@12.2.0 arch=linux-almalinux9-x86_64_v3
 
