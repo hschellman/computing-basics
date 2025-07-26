@@ -83,7 +83,7 @@ Also check out our [Computing FAQ](https://github.com/orgs/DUNE/projects/19/view
 
 ## 0. Basic setup on your computer. 
 
-[Computer Setup]({{ site.baseurl }}/ComputerSetup.html) goes through how to find a terminal and set up xwindows on MacOS and Windows.  You can skip this if already familiar with doing that. 
+[Computer Setup]({{ site.baseurl }}/ComputerSetup) goes through how to find a terminal and set up xwindows on MacOS and Windows.  You can skip this if already familiar with doing that. 
 
 > ## Note
 > The instructions directly below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#setup_CERN) section.
@@ -670,7 +670,7 @@ fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightl
 
 You may have to add some mounts - here I added `/afs/` but removed `/nashome/`, `/exp/`, `/etc/krb5.conf` and `/pnfs/`.
 
-You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}/03.3-cvmfs.html).
+You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}/03.3-cvmfs).
 
 Set up the DUNE software 
 
