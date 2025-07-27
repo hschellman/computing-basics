@@ -21,6 +21,15 @@ export RUCIO_ACCOUNT=${USER}
 ~~~
 {: .language-bash}
 
-You can ignore the warning messages - this is still under development
+You can ignore most warning messages - this is still under development - but pay attention to this one.
 
-
+> ## Note
+> > ## You may see a rucio config error message that looks like this
+> > ~~~
+> > ==> Warning: Your rucio config /nashome/X/XXXXX/.config/rucio/dune/etc/rucio.cfg does not list oidc authentication
+> > If you remove it and spack load r-m-dd-config again it will get regenerated with oidc (Token) authentication
+> > ~~~
+> > {: .output}
+> > This happens if you've run older versions of rucio that used kx509 authentication.  Remove `$HOME/.config/rucio/dune/etc/rucio.cfg` as it advises and rerun the `spack load r-m-dd-config` command to reset the config file.  You should not need to do this again.
+> {: .solution}
+{: .callout}
