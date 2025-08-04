@@ -83,7 +83,7 @@ Also check out our [Computing FAQ](https://github.com/orgs/DUNE/projects/19/view
 
 ## 0. Basic setup on your computer. 
 
-[Computer Setup]({{ site.baseurl }}/ComputerSetup.html) goes through how to find a terminal and set up xwindows on MacOS and Windows.  You can skip this if already familiar with doing that. 
+[Computer Setup]({{ site.baseurl }}/ComputerSetup) goes through how to find a terminal and set up xwindows on MacOS and Windows.  You can skip this if already familiar with doing that. 
 
 > ## Note
 > The instructions directly below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#setup_CERN) section.
@@ -351,6 +351,18 @@ spack load justin
 
 ~~~
 {: .language-bash}
+
+
+> > ## You may see a rucio config error message that looks like this
+> > ~~~
+> > ==> Warning: Your rucio config /nashome/X/XXXXX/.config/rucio/dune/etc/rucio.cfg does not list oidc authentication
+> > If you remove it and spack load r-m-dd-config again it will get regenerated with oidc (Token) authentication
+> > ~~~
+> > {: .output}
+> > This happens if you've run older versions of rucio that used kx509 authentication.  Remove `$HOME/.config/rucio/dune/etc/rucio.cfg` as it advises and rerun the `spack load r-m-dd-config` command to reset the config file.  You should not need to do this again.
+<!-- > {: .solution} -->
+{: .callout}
+
 
 > ## Optional
 > > ## See if ROOT works
@@ -662,7 +674,7 @@ log into `lxplus.cern.ch`
 fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightly different version as mounts are different.
 
 ~~~
-/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash\
+/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
 -B /cvmfs,/afs,/opt,/run/user,/etc/hostname --ipc --pid \
 /cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
 ~~~
@@ -670,7 +682,7 @@ fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightl
 
 You may have to add some mounts - here I added `/afs/` but removed `/nashome/`, `/exp/`, `/etc/krb5.conf` and `/pnfs/`.
 
-You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}/03.3-cvmfs.html).
+You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}/03.3-cvmfs).
 
 Set up the DUNE software 
 

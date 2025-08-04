@@ -49,14 +49,18 @@ By the end of this workshop, participants will know how to:
 
 * Utilize data volumes at FNAL.
 * Understand good data management practices.
-* Know how to run basic root analysis on Fermilab or CERN unix systems.
+* Know how to set up to run basic ROOT-based analysis on Fermilab or CERN unix systems.
 <!-- * Provide a basic overview of art and LArSoft to a new researcher. -->
 
-There are additional materials provided that explain how to:
+There are additional tutorials in this series:
 
-* [Develop configuration files to control batch jobs]({{ site.baseurl }}/07-grid-job-submission)
+- [LArSoft Basics](https://dune.github.io/computing-basics-larsoft)
+- [Batch submission Basics](https://dune.github.io/computing-basics-batch)
+
+
+<!-- * [Develop configuration files to control batch jobs]({{ site.baseurl }}/07-grid-job-submission)
 * [Use the Justin system to process data]({{ site.baseurl }}/08-submit-jobs-w-justin)
-* [Modify LArSoft modules]({{ site.baseurl }}/06-larsoft-modify-module)
+* [Modify LArSoft modules]({{ site.baseurl }}/06-larsoft-modify-module) -->
 
 You will need to be a DUNE Collaborator (listed member), and have a valid FNAL or CERN computing account to join the tutorial. Contact your  DUNE group leader for assistance.
 
