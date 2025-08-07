@@ -96,7 +96,7 @@ and when searching for specific types of data
 Note: there are example setups that do a full setup in the extras folder:
 
 - [SL7 setup]({{ site.baseurl }}/sl7_setup)
-- [AL9 setup]({{ site.baseurl }}/al9_setup_2025)
+- [AL9 setup]({{ site.baseurl }}/al9_setup)
 
 First get metacat if you have not already done so
 
@@ -122,7 +122,7 @@ First get metacat if you have not already done so
 
 Use the example code at: 
 
-[AL9 setup]({{ site.baseurl }}/al9_setup_2025)
+[AL9 setup]({{ site.baseurl }}/al9_setup)
 
 > ## For both
 > ~~~
