@@ -137,7 +137,7 @@ Full documentation: [Understanding Storage Volumes](https://cdcvs.fnal.gov/redmi
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
 | Home Area (NFS mount)	| Yes (~10 GB) | Centrally Managed by CCD | No | Until manually deleted | Storing global environment scripts (All FNAL Exp) | /nashome/\<letter\>/\<uid\>| No |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
-| Rucio	| 10 PB | Centrally Managed by DUNE  | Yes | Each file has retention policy | Official DUNE Data samples | use rucio/justin to access| Yes |
+| Rucio	| 10 PB | Centrally Managed by DUNE  | Yes | Each file has retention policy | Official DUNE Data samples | use rucio/justIN to access| Yes |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
 
 

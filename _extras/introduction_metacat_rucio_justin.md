@@ -1,16 +1,16 @@
 ---
-title:  Submit grid jobs with JustIn
+title:  Submit grid jobs with justIN
 teaching: 20
 exercises: 0
 questions:
 - How to submit realistic grid jobs with JustIn
 objectives:  
-- Demonstrate use of JustIn for job submission with more complicated setups.
+- Demonstrate use of justIN for job submission with more complicated setups.
 keypoints:
 - Always, always, always prestage input datasets. No exceptions.
 ---
 
-#  PLEASE USE THE NEW JUSTIN SYSTEM INSTEAD OF POMS
+#  PLEASE USE THE NEW justIN SYSTEM INSTEAD OF POMS
 
 __The JustIn Tutorial is currently in docdb at: [JustIn Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145)__
 
@@ -520,7 +520,7 @@ backup
 
 
 
-How to setup MetaCat, Rucioand justIN(on dunegpvm)
+How to setup MetaCat, Rucio and justIN(on dunegpvm)
 first run:
 /cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainershell --shell=/bin/bash -B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc--pid/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
 Then: 

@@ -1,12 +1,12 @@
 ---
-title: Data Management (2024 updated for metacat/justin/rucio)
+title: Data Management (2024 updated for metacat/justIN/rucio)
 teaching: 30
 exercises: 15
 questions:
 - What are the data management tools and software for DUNE? 
 objectives:
 - Learn how to access data from DUNE Data Catalog.
-- Learn a bit about the JustIN workflow system for submitting batch jobs.
+- Learn a bit about the justIN workflow system for submitting batch jobs.
 keypoints:
 - SAM and Rucio are data handling systems used by the DUNE collaboration to retrieve data.
 - Staging is a necessary step to make sure files are on disk in dCache (as opposed to only on tape).
@@ -119,12 +119,10 @@ First get metacat if you have not already done so
 {: .callout}
 
 > ## AL9
-> ~~~
-> source /cvmfs/larsoft.opensciencegrid.org/spack-packages/setup-env.sh   
-> spack load r-m-dd-config  experiment=dune
-> ~~~
-> {: .language-bash}
-{: .callout}
+
+Use the example code at: 
+
+[AL9 setup]({{ site.baseurl }}/al9_setup)
 
 > ## For both
 > ~~~
@@ -347,9 +345,9 @@ You can stream files worldwide if you have a DUNE VO certificate as described in
 
 To learn more about using Rucio and Metacat to run over large data samples go here:
 
-> # Full Justin/Rucio/Metacat Tutorial
-> The [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) 
->  and [justin tutorial](https://justin.dune.hep.ac.uk/docs/tutorials.dune.md)
+> # Full justIN/Rucio/Metacat Tutorial
+> The [justIN tutorial](https://justin.dune.hep.ac.uk/docs/tutorials.dune.md)
+>  and [justIN/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145)  
 {: .challenge}
 
 
