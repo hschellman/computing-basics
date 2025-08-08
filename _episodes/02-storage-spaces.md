@@ -1,5 +1,5 @@
 ---
-title: Storage Spaces (2024)
+title: Storage Spaces (2025)
 teaching: 30
 exercises: 15
 questions:
@@ -11,8 +11,8 @@ objectives:
 - Differentiating the commands to handle data between grid accessible and interactive volumes
 keypoints:
 - Home directories are centrally managed by Computing Division and meant to store setup scripts, do NOT store certificates here.
-- Network attached storage (NAS) /dune/app is primarily for code development.
-- The NAS /dune/data is for store ntuples and small datasets.
+- Network attached storage (NAS) /exp/dune/app is primarily for code development.
+- The NAS /exp/dune/data is for store ntuples and small datasets.
 - dCache volumes (tape, resilient, scratch, persistent) offer large storage with various retention lifetime.
 - The tool suites idfh and XRootD allow for accessing data with appropriate transfer method and in a scalable way.
 ---
@@ -42,7 +42,7 @@ A similar session from May 2022 was captured for your asynchronous review.
 
 
 ## Introduction
-There are four types of storage volumes that you will encounter at Fermilab (or CERN): 
+There are five types of storage volumes that you will encounter at Fermilab (or CERN): 
 
 - local hard drives
 - network attached storage
@@ -95,16 +95,15 @@ Each has its own advantages and limitations, and knowing which one to use when i
 
 ## Grid-accessible storage volumes
 
-At Fermilab, an instance of dCache+Enstore is used for large-scale, distributed storage with capacity for more than 100 PB of storage and O(10000) connections. Whenever possible, these storage elements should be accessed over xrootd (see next section) as the mount points on interactive nodes are slow, unstable, and can cause the node to become unusable. Here are the different dCache volumes:
+At Fermilab, an instance of dCache+CTA is used for large-scale, distributed storage with capacity for more than 100 PB of storage and O(10000) connections. Whenever possible, these storage elements should be accessed over xrootd (see next section) as the mount points on interactive nodes are slow, unstable, and can cause the node to become unusable. Here are the different dCache volumes:
 
-**Persistent dCache**: the data in the file is actively available for reads at any time and will not be removed until manually deleted by user. 
-There is now a second persistent dCache volume that is dedicated for DUNE Physics groups and managed by the respective physics conveners of those 
-physics group.  https://wiki.dunescience.org/wiki/DUNE_Computing/Using_the_Physics_Groups_Persistent_Space_at_Fermilab gives more details on how to get 
-access to these groups.  In general, if you need to store more than 5TB in persistent dCache you should be working with the Physics Groups areas.
+**Persistent dCache**: the data in the file is actively available for reads at any time and will not be removed until manually deleted by user.  The persistent dCache contains 3 logical areas: (1) /pnfs/dune/persistent/users in which every user has a quota up to 5TB total  (2) /pnfs/dune/persistent/physicsgroups.  This is dedicated for DUNE Physics groups and managed by the respective physics conveners of those physics groups. 
+https://wiki.dunescience.org/wiki/DUNE_Computing/Using_the_Physics_Groups_Persistent_Space_at_Fermilab gives more details on how to get 
+access to these groups.  In general, if you need to store more than 5TB in persistent dCache you should be working with the Physics Groups areas. (3) the "staging" area /pnfs/dune/persistent/staging which is not accessible by regular users but is by far the largest of the three.  It is used for official datasets.
 
 **Scratch dCache**: large volume shared across all experiments. When a new file is written to scratch space, old files are removed in order to make room for the newer file. Removal is based on Least Recently Utilized (LRU) policy, and performed by an automated daemon.
 
-**Tape-backed dCache**: disk based storage areas that have their contents mirrored to permanent storage on Enstore tape.  
+**Tape-backed dCache**: disk based storage areas that have their contents mirrored to permanent storage on CTA tape.  
 Files are not available for immediate read on disk, but needs to be 'staged' from tape first ([see video of a tape storage robot](https://www.youtube.com/watch?v=kiNWOhl00Ao)).
 
 **Resilient dCache**: NOTE: DIRECT USAGE is being phased out and if the Rapid Code Distribution function in POMS/jobsub does not work for you, consult with the FIFE team for a solution (handles custom user code for their grid jobs, often in the form of a tarball. Inappropriate to store any other files here (NO DATA OR NTUPLES)).
@@ -123,21 +122,21 @@ Full documentation: [Understanding Storage Volumes](https://cdcvs.fnal.gov/redmi
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
 |    | Quota/Space | Retention Policy | Tape Backed? | Retention Lifetime on disk |	Use for	| Path | Grid Accessible |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
-| Persistent dCache	| Yes(5)/~100 TB/exp | Managed by User/Exp| No| Until manually deleted | immutable files w/ long lifetime	| /pnfs/dune/persistent	| Yes |
+| Persistent dCache	| Yes(5)/~400 TB/exp | Managed by User/Exp| No| Until manually deleted | immutable files w/ long lifetime	| /pnfs/dune/persistent/users	| Yes |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
 | Persistent PhysGrp	| Yes(50)/~500 TB/exp | Managed by PhysGrp| No| Until manually deleted | immutable files w/ long lifetime	| /pnfs/dune/persistent/physicsgroups	| Yes |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
-| Scratch dCache | No/no limit | LRU eviction - least recently used file deleted | No | Varies, ~30 days (*NOT* guaranteed) | immutable files w/ short lifetime | /pnfs/\<exp\>/scratch	| Yes |
+| Scratch dCache | No/no limit | LRU eviction - least recently used file deleted | No | Varies, ~30 days (*NOT* guaranteed) | immutable files w/ short lifetime | /pnfs/dune/scratch	| Yes |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
-| Tape backed| dCache	No/O(10) PB | LRU eviction (from disk) | Yes | Approx 30 days | Long-term archive | /pnfs/dune/... | Yes |
+| Tape backed| dCache	No/O(40) PB | LRU eviction (from disk) | Yes | Approx 30 days | Long-term archive | /pnfs/dune/... | Yes |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
-| NAS Data | Yes (~1 TB)/ 32+30 TB total | Managed by Experiment | No | Until manually deleted | Storing final analysis samples | /exp/dune/data | No |
+| NAS Data | Yes (~1 TB)/ 62 TB total | Managed by Experiment | No | Until manually deleted | Storing final analysis samples | /exp/dune/data | No |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
-| NAS App | Yes (~100 GB)/ ~15 TB total | Managed by Experiment | No | Until manually deleted | Storing and compiling software | /exp/dune/app | No |
+| NAS App | Yes (~100 GB)/ ~50 TB total | Managed by Experiment | No | Until manually deleted | Storing and compiling software | /exp/dune/app | No |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
 | Home Area (NFS mount)	| Yes (~10 GB) | Centrally Managed by CCD | No | Until manually deleted | Storing global environment scripts (All FNAL Exp) | /nashome/\<letter\>/\<uid\>| No |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
-| Rucio	| 10 PB | Centrally Managed by DUNE  | Yes | Each file has retention policy | Official DUNE Data samples | use rucio/justIN to access| Yes |
+| Rucio	| 25 PB | Centrally Managed by DUNE  | Yes | Each file has retention policy | Official DUNE Data samples | use rucio/justIN to access| Yes |
 |-------------+------------------+----------+-------------+----------------+------------+--------------+-----------|
 
 
@@ -148,7 +147,7 @@ Remember that these volumes are not infinite, and monitoring your and the experi
 
 And to see the total volume usage at Rucio Storage Elements around the world:
 
-**Resource** [DUNE Rucio Storage](https://dune.monitoring.edi.scotgrid.ac.uk/app/dashboards#/view/7eb1cea0-ca5e-11ea-b9a5-15b75a959b33?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1d,to:now)))
+**Resource** [DUNE Rucio Storage](https://dune-os.monitoring.edi.scotgrid.ac.uk/app/dashboards#/view/70a0baa0-8a3b-11ef-9dc8-5d2d451cf204?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1d,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,title:'Rucio%20Overview',viewMode:view))
 
 > ## Note - do not blindly copy files from personal machines to DUNE systems.
 > You may have files on your personal machine that contain personal information, licensed software or (god forbid) malware or pornography.  Do not transfer any files from your personal machine to DUNE machines unless they are directly related to work on DUNE.  You must be fully aware of any file's contents. We have seen it all and we do not want to. 
@@ -183,11 +182,8 @@ once in the Apptainer
 #source ~/dune_presetup_2024.sh
 #dune_setup
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-kx509
-export ROLE=Analysis
-voms-proxy-init -rfc -noregen -voms=dune:/dune/Role=$ROLE -valid 120:00
 setup ifdhc
-export IFDH_TOKEN_ENABLE=0
+export IFDH_TOKEN_ENABLE=1
 ifdh cp root://fndcadoor.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/physics/full-reconstructed/2023/mc/out1/MC_Winter2023_RITM1592444_reReco/54/05/35/65/NNBarAtm_hA_BR_dune10kt_1x2x6_54053565_607_20220331T192335Z_gen_g4_detsim_reco_65751406_0_20230125T150414Z_reReco.root /dev/null
 ~~~
 {: .language-bash}
@@ -196,25 +192,25 @@ Note, if the destination for an ifdh cp command is a directory instead of filena
 
 Prior to attempting the first exercise, please take a look at the full list of IFDH commands, to be able to complete the exercise. In particular, mkdir, cp, rmdir,
 
-**Resource:** [idfh commands](https://cdcvs.fnal.gov/redmine/projects/ifdhc/wiki/Ifdh_commands)
+**Resource:** [ifdh commands](https://cdcvs.fnal.gov/redmine/projects/ifdhc/wiki/Ifdh_commands)
 
 > ## Exercise 1
 > Using the ifdh command, complete the following tasks:
-> * create a directory in your dCache scratch area (/pnfs/dune/scratch/users/${USER}/) called "DUNE_tutorial_2024" 
+> * create a directory in your dCache scratch area (/pnfs/dune/scratch/users/${USER}/) called "DUNE_tutorial_2025" 
 > * copy /exp/dune/app/users/${USER}/my_first_login.txt file to that directory
 > * copy the my_first_login.txt file from your dCache scratch directory (i.e. DUNE_tutorial_2024) to /dev/null
-> * remove the directory DUNE_tutorial_2024
-> * create the directory DUNE_tutorial_2024_data_file
+> * remove the directory DUNE_tutorial_2025
+> * create the directory DUNE_tutorial_2025_data_file
 > Note, if the destination for an ifdh cp command is a directory instead of filename with full path, you have to add the "-D" option to the command line. Also, for a directory to be deleted, it must be empty.
 > 
 > > ## Answer
 > > ~~~
-> > ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024
-> > ifdh cp -D /exp/dune/app/users/${USER}/my_first_login.txt /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024
-> > ifdh cp /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024/my_first_login.txt /dev/null
-> > ifdh rm /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024/my_first_login.txt
-> > ifdh rmdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024
-> > ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024_data_file
+> > ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2025
+> > ifdh cp -D /exp/dune/app/users/${USER}/my_first_login.txt /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2025
+> > ifdh cp /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2025/my_first_login.txt /dev/null
+> > ifdh rm /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2025/my_first_login.txt
+> > ifdh rmdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2025
+> > ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2025_data_file
 > > ~~~
 > > {: .language-bash}
 > {: .solution}
@@ -299,7 +295,7 @@ See the next episode on [data management]({{ site.baseurl }}/03-data-management)
 
 > ## Note Files in /tape_backed/ may not be immediately accessible, those in /persistent/ and /scratch/ are. 
 {: .callout}
-
+<!--
 ## Let's practice
 
 > ## Exercise 2
@@ -318,7 +314,7 @@ xrdfs root://fndca1.fnal.gov:1094/ ls /pnfs/fnal.gov/usr/dune/tape_backed/dunepr
 ~~~
 {: .language-bash}
 
-
+-->
 > ## Is my file available or stuck on tape?
 > /tape_backed/ storage at Fermilab is migrated to tape and may not be on disk?
 > You can check this by doing the following **in an AL9 window**
@@ -380,9 +376,9 @@ df -h
 > <ol type="A">
 > <li>dCache scratch (/pnfs/dune/scratch/users/${USER}/)</li>
 > <li>dCache persistent (/pnfs/dune/persistent/users/${USER}/)</li>
-> <li>Enstore tape (/pnfs/dune/tape_backed/users/${USER}/)</li>
+> <li>CTA tape (/pnfs/dune/tape_backed/users/${USER}/)</li>
 > <li>user’s home area (`~${USER}`)</li>
-> <li>NFS data volume (/dune/data or /dune/app)</li>
+> <li>CEPH data volume (/exp/dune/data or /exp/dune/app)</li>
 > </ol>
 >
 > > ## Answer
