@@ -68,11 +68,11 @@ Each has its own advantages and limitations, and knowing which one to use when i
 * network volumes are NOT safe to store certificates and tickets
 * important: users have a single home area at FNAL used for all experiments 
 * not accessible from grid worker nodes
-* not for code developement (home area is less than 2 GB)
+* not for code developement (home area is 5 GB)
 * at Fermilab, need a valid Kerberos ticket in order to access files in your Home area
 * periodic snapshots are taken so you can recover deleted files. (/nashome/.snapshot)
 * permissions are set so your collaborators cannot see files in your home area
-
+* can find quota with command quota -u -m -s 
 > ## Note: your home area is small and private
 > You want to use your home area for things that only you should see.  If you want to share files with collaborators you need to put them in the /app/ or /data/ areas described below. 
 {: .callout}
