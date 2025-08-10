@@ -63,7 +63,7 @@ If you want to access data, this module will help you find and examine it.
 
 If you want to process data using the full power of DUNE computing, you should talk to the data management group about methods for cataloging any data files you plan to produce.  This will allow you to use DUNE's collaborative storage capabilities to preserve and share your work with others and will be required for publication of results. 
 
-FIXME - explain the 2 layers, metacat and rucio
+<!-- FIXME - explain the 2 layers, metacat and rucio -->
  
 ## How to find and access official data
 

@@ -77,8 +77,8 @@ Each has its own advantages and limitations, and knowing which one to use when i
 > You want to use your home area for things that only you should see.  If you want to share files with collaborators you need to put them in the /app/ or /data/ areas described below. 
 {: .callout}
 
-FIXME - notes on caches for VNC/VScode PIP
-FIXME - how to you check quota
+<!-- FIXME - notes on caches for VNC/VScode PIP -->
+<!-- FIXME - how to you check quota -->
 
 **Locally mounted volumes** are physical disks, mounted directly on the computer
 * physically inside the computer node you are remotely accessing
@@ -88,7 +88,7 @@ FIXME - how to you check quota
 * usually very small and should not be used to store data files or for code development
 * files on these volumes are not backed up
 
-FIXME - how do you check quota
+<!-- FIXME - how do you check quota -->
 
 **Network Attached Storage (NAS)** element behaves similar to a locally mounted volume.
 * functions similar to services such as Dropbox or OneDrive
@@ -98,7 +98,7 @@ FIXME - how do you check quota
 * /exp/dune/app/users/....<yourdir> has periodic snapshots in /exp/dune/app/....<yourdir>/.snap, but /exp/dune/data does NOT
 * easy to share files with colleagues using /exp/dune/data and /exp/dune/app
 
-FIXME - how to you check quota
+<!-- FIXME - how to you check quota -->
 
 ## Grid-accessible storage volumes
 
@@ -109,14 +109,14 @@ There is now a second persistent dCache volume that is dedicated for DUNE Physic
 physics group.  https://wiki.dunescience.org/wiki/DUNE_Computing/Using_the_Physics_Groups_Persistent_Space_at_Fermilab gives more details on how to get 
 access to these groups.  In general, if you need to store more than 5TB in persistent dCache you should be working with the Physics Groups areas.
 
-FIXME - comment about read/write permissions with tokes
+<!-- FIXME - comment about read/write permissions with tokes -->
 
-FIXME - comment on quotas
+<!-- FIXME - comment on quotas -->
 
 **Scratch dCache**: large volume shared across all experiments. When a new file is written to scratch space, old files are removed in order to make room for the newer file. Removal is based on Least Recently Utilized (LRU) policy, and performed by an automated daemon.
 
 
-FIXME - lifetimes are weeks not month.  
+<!-- FIXME - lifetimes are weeks not month.   -->
 
 **Tape-backed dCache**: disk based storage areas that have their contents mirrored to permanent storage on Enstore tape.  
 Files are not available for immediate read on disk, but needs to be 'staged' from tape first ([see video of a tape storage robot](https://www.youtube.com/watch?v=kiNWOhl00Ao)).
@@ -164,9 +164,9 @@ Remember that these volumes are not infinite, and monitoring your and the experi
 
 And to see the total volume usage at Rucio Storage Elements around the world:
 
-FIXME - make a table of how to check quotas
+<!-- FIXME - make a table of how to check quotas -->
 
-FIXME - fix link to rucio storage
+<!-- FIXME - fix link to rucio storage -->
 
 **Resource** [DUNE Rucio Storage](https://dune.monitoring.edi.scotgrid.ac.uk/app/dashboards#/view/7eb1cea0-ca5e-11ea-b9a5-15b75a959b33?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1d,to:now)))
 
@@ -315,7 +315,7 @@ root -l root://dune.dcache.nikhef.nl:1094/pnfs/nikhef.nl/data/dune/generic/rucio
 ~~~
 {: .language-bash}
 
-FIXME update the root version 
+<!-- FIXME update the root version  -->
 
 See the next episode on [data management]({{ site.baseurl }}/03-data-management) for instructions on finding files worldwide. 
 
