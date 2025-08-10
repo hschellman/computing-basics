@@ -70,12 +70,15 @@ Each has its own advantages and limitations, and knowing which one to use when i
 * not accessible from grid worker nodes
 * not for code developement (home area is 5 GB)
 * at Fermilab, need a valid Kerberos ticket in order to access files in your Home area
-* periodic snapshots are taken so you can recover deleted files. (/nashome/.snapshot)
+* periodic snapshots are taken so you can recover deleted files. (/nashome/.snapshot) 
 * permissions are set so your collaborators cannot see files in your home area
 * can find quota with command quota -u -m -s 
 > ## Note: your home area is small and private
 > You want to use your home area for things that only you should see.  If you want to share files with collaborators you need to put them in the /app/ or /data/ areas described below. 
 {: .callout}
+
+<!-- FIXME - notes on caches for VNC/VScode PIP -->
+<!-- FIXME - how to you check quota -->
 
 **Locally mounted volumes** are physical disks, mounted directly on the computer
 * physically inside the computer node you are remotely accessing
@@ -85,13 +88,17 @@ Each has its own advantages and limitations, and knowing which one to use when i
 * usually very small and should not be used to store data files or for code development
 * files on these volumes are not backed up
 
+<!-- FIXME - how do you check quota -->
+
 **Network Attached Storage (NAS)** element behaves similar to a locally mounted volume.
 * functions similar to services such as Dropbox or OneDrive
 * fast and stable POSIX access to these volumes
 * volumes available only on a limited number of computers or servers
 * not available on grid computing (FermiGrid, Open Science Grid, WLCG, HPC, etc.)
-* /exp/dune/app/....<yourdir> has periodic snapshots in /exp/dune/app/....<yourdir>/.snap, but /exp/dune/data does NOT
+* /exp/dune/app/users/....<yourdir> has periodic snapshots in /exp/dune/app/....<yourdir>/.snap, but /exp/dune/data does NOT
 * easy to share files with colleagues using /exp/dune/data and /exp/dune/app
+
+<!-- FIXME - how to you check quota -->
 
 ## Grid-accessible storage volumes
 
@@ -101,16 +108,24 @@ At Fermilab, an instance of dCache+CTA is used for large-scale, distributed stor
 https://wiki.dunescience.org/wiki/DUNE_Computing/Using_the_Physics_Groups_Persistent_Space_at_Fermilab gives more details on how to get 
 access to these groups.  In general, if you need to store more than 5TB in persistent dCache you should be working with the Physics Groups areas. (3) the "staging" area /pnfs/dune/persistent/staging which is not accessible by regular users but is by far the largest of the three.  It is used for official datasets.
 
+<!-- FIXME - comment about read/write permissions with tokes -->
+
+<!-- FIXME - comment on quotas -->
+
 **Scratch dCache**: large volume shared across all experiments. When a new file is written to scratch space, old files are removed in order to make room for the newer file. Removal is based on Least Recently Utilized (LRU) policy, and performed by an automated daemon.
 
+
 **Tape-backed dCache**: disk based storage areas that have their contents mirrored to permanent storage on CTA tape.  
+
 Files are not available for immediate read on disk, but needs to be 'staged' from tape first ([see video of a tape storage robot](https://www.youtube.com/watch?v=kiNWOhl00Ao)).
 
-**Resilient dCache**: NOTE: DIRECT USAGE is being phased out and if the Rapid Code Distribution function in POMS/jobsub does not work for you, consult with the FIFE team for a solution (handles custom user code for their grid jobs, often in the form of a tarball. Inappropriate to store any other files here (NO DATA OR NTUPLES)).
+<!-- **Resilient dCache**: NOTE: DIRECT USAGE is being phased out and if the Rapid Code Distribution function in POMS/jobsub does not work for you, consult with the FIFE team for a solution (handles custom user code for their grid jobs, often in the form of a tarball. Inappropriate to store any other files here (NO DATA OR NTUPLES)). -->
 
 **Rucio Storage Elements**: Rucio Storage Elements (or RSEs) are storage elements provided by collaborating institution for official DUNE datasets.  Data stored in DUNE RSE's must be fully cataloged in the [metacat][metacat] catalog and is managed by the DUNE data management team. This is where you find the official data samples.
 
 **CVMFS**: CERN Virtual Machine File System is a centrally managed storage area that is distributed over the network, and utilized to distribute common software and a limited set of reference files. CVMFS is mounted over the network, and can be utilized on grid nodes, interactive nodes, and personal desktops/laptops. It is read only, and the most common source for centrally maintained versions of experiment software libraries/executables. CVMFS is mounted at `/cvmfs/` and access is POSIX-like, but read only. 
+
+add in RCDS and StashCache
 
 > ## Note - When reading from dcache always use the root: syntax, not direct /pnfs
 > The Fermilab dcache areas have NFS mounts.  These are for your convenience, they allow you to look at the directory structure and, for example, remove files.  However, NFS access is slow, inconsistent, and can hang the machine if I/O heavy processes use it.  Always use the `xroot root://<site>` ... when reading/accessing files instead of `/pnfs/` directly.  Once you have your dune environment set up the `pnfs2xrootd` command can do the conversion to `root:` format for you (only for files at FNAL for now). 
@@ -147,7 +162,11 @@ Remember that these volumes are not infinite, and monitoring your and the experi
 
 And to see the total volume usage at Rucio Storage Elements around the world:
 
+
+<!-- FIXME - make a table of how to check quotas -->
+
 **Resource** [DUNE Rucio Storage](https://dune-os.monitoring.edi.scotgrid.ac.uk/app/dashboards#/view/70a0baa0-8a3b-11ef-9dc8-5d2d451cf204?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1d,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,title:'Rucio%20Overview',viewMode:view))
+
 
 > ## Note - do not blindly copy files from personal machines to DUNE systems.
 > You may have files on your personal machine that contain personal information, licensed software or (god forbid) malware or pornography.  Do not transfer any files from your personal machine to DUNE machines unless they are directly related to work on DUNE.  You must be fully aware of any file's contents. We have seen it all and we do not want to. 
@@ -161,7 +180,7 @@ This section will teach you the main tools and commands to display storage infor
 Another useful data handling command you will soon come across is ifdh. This stands for Intensity Frontier Data Handling. It is a tool suite that facilitates selecting the appropriate data transfer method from many possibilities while protecting shared resources from overload. You may see *ifdhc*, where *c* refers to *client*.
 
 > ## Note
->  ifdh is much more efficient than NFS file access.  Please use it and/or xroot when accessing remote files. 
+>  ifdh is much more efficient than NFS file access.  Please use it and/or xrdcp when accessing remote files. 
 {: .challenge}
 
 Here is an example to copy a file. Refer to the [Mission Setup]({{ site.baseurl }}/setup.html) for the setting up the `DUNELAR_VERSION`.
@@ -179,14 +198,14 @@ Here is an example to copy a file. Refer to the [Mission Setup]({{ site.baseurl 
 
 once in the Apptainer
 ~~~
-#source ~/dune_presetup_2024.sh
-#dune_setup
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 setup ifdhc
 export IFDH_TOKEN_ENABLE=1
 ifdh cp root://fndcadoor.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/physics/full-reconstructed/2023/mc/out1/MC_Winter2023_RITM1592444_reReco/54/05/35/65/NNBarAtm_hA_BR_dune10kt_1x2x6_54053565_607_20220331T192335Z_gen_g4_detsim_reco_65751406_0_20230125T150414Z_reReco.root /dev/null
 ~~~
 {: .language-bash}
+
+TODO - make certain we have a valid file
 
 Note, if the destination for an ifdh cp command is a directory instead of filename with full path, you have to add the "-D" option to the command line.
 
@@ -235,6 +254,8 @@ lar -c <input.fcl> <xrootd_uri>
 ~~~
 {: .language-bash}
 
+TODO - HDF5 voodoo? 
+
 to stream into a larsoft module configured within the fhicl file. As well, it can be implemented in standalone C++ as
 
 ~~~
@@ -277,7 +298,7 @@ root -l <that long root: path>
 
 to open the root file.  
 
-This even works if the file is in Europe - which you cannot do with a direct /pnfs! (NOTE! not all storage elements accept tokens, so right now this will fail if you have a token in your environment! Times out over ~10 minutes.)
+This even works if the file is in Europe - which you cannot do with a direct /pnfs! (NOTE! not all storage elements accept tokens so this may stop)
 
 ~~~
 #Need to setup root executable in the environment first...
@@ -291,14 +312,15 @@ root -l root://dune.dcache.nikhef.nl:1094/pnfs/nikhef.nl/data/dune/generic/rucio
 ~~~
 {: .language-bash}
 
+<!-- FIXME update the root version  -->
+
 See the next episode on [data management]({{ site.baseurl }}/03-data-management) for instructions on finding files worldwide. 
 
 > ## Note Files in /tape_backed/ may not be immediately accessible, those in /persistent/ and /scratch/ are. 
 {: .callout}
-<!--
-## Let's practice
 
-> ## Exercise 2
+
+<!-- > ## Exercise 2
 > Using a combination of `ifdh` and `xrootd` commands discussed previously:
 > * Use `ifdh locateFile <file> root` to find the directory for this file `PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root`
 > * Use `xrdcp` to copy that file to `/pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024_data_file`
@@ -312,9 +334,10 @@ ifdh locateFile PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_
 xrdcp root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/01/67/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/scratch/users/${USER}/DUNE_tutorial_2024_data_file/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root
 xrdfs root://fndca1.fnal.gov:1094/ ls /pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/01/67/ | wc -l
 ~~~
-{: .language-bash}
+{: .language-bash} -->
 
 -->
+  
 > ## Is my file available or stuck on tape?
 > /tape_backed/ storage at Fermilab is migrated to tape and may not be on disk?
 > You can check this by doing the following **in an AL9 window**

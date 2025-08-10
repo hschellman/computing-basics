@@ -12,13 +12,10 @@ keypoints:
 ---
 ## What is Spack and why do we need it?
 
-> ## Note
-<!-- > UPS is going away and only works on SL7 but we do not yet have a fully functional replacement. 
-> You need to be in the Apptainer to use it. 
-> UPS is being replaced by a new [spack][Spack Documentation] system for Alma9.  We will be adding a Spack tutorial soon but for now, you need to use SL7/UPS to use the full DUNE code stack.   
+> ## Note 
+> UPS is being replaced by a new [spack](https://fifewiki.fnal.gov/wiki/Spack) system for Alma9. 
 > 
-> Go back and look at the [SL7/Apptainer]({{ site.baseurl }}setup.html#SL7_setup) instructions to get an SL7 container for this section. 
-{: .challenge} -->
+{: .callout}
 
 An important requirement for making valid physics results is computational reproducibility. You need to be able to repeat the same calculations on the data and MC and get the same answers every time. You may be asked to produce a slightly different version of a plot for example, and the data that goes into it has to be the same every time you run the program. 
 
@@ -62,7 +59,45 @@ intel-tbb-oneapi@2021.9.0  nlohmann-json@3.11.3  re2c@3.1         xxhash@0.8.3
 ~~~
 {: .output}
 
-This particular environment loads defined versions of the packages. 
+This particular environment loads only one version of the packages.
+
+## A more flexible environment with more packages but you have to make choices of versions
+
+An older instance with more packages and more flexibility is here: [AL9 setup]({{ site.baseurl }}/al9_setup)
+
+Here if you execute the setup in [AL9 setup]({{ site.baseurl }}/al9_setup) and then try to do, for example
+
+~~~
+spack load geant4
+~~~
+{: .language-bash}
+
+you have to make a choice
+
+~~~
+==> Error: geant4 matches multiple packages.
+  Matching packages:
+    r2dcnvb geant4@10.6.1%gcc@12.2.0 arch=linux-almalinux9-x86_64_v3
+    5pqylh6 geant4@10.6.1%gcc@12.2.0 arch=linux-almalinux9-x86_64_v2
+  Use a more specific spec (e.g., prepend '/' to the hash).
+~~~
+{: .output}
+
+Now you have to choose. I would go with 'v3'.  You can either use the hash or the full string - I tend to use the full string as it has more information.
+
+> ## You can do 
+> ~~~
+> spack load geant4@10.6.1%gcc@12.2.0 arch=linux-almalinux9-x86_64_v3 # pick v3
+> ~~~
+> {: .language-bash}
+> or if you change your mind
+> 
+> ~~~
+> spack unload geant4
+> spack load geant4/5pqylh6. # changed my mind and used the hash for v2
+> ~~~
+> {: .language-bash}
+{: .callout}
 
 <!-- 
 > ## Exercise 3
@@ -101,7 +136,9 @@ to see the version of root that spack sets up. Try it out!
 | Command                                        | Action                                                           |
 |------------------------------------------------|------------------------------------------------------------------|
 | `spack list`                         | List everything spack knows about |
-| `spack find`                                   | Displays what has been setup                                     |
+| `spack find`                                   | Displays what is available in your environment                                  |
+| `spack load`                         | Load a package |
+| `spack unload`                         | Unload a package |
 
 
 
@@ -114,4 +151,5 @@ to see the version of root that spack sets up. Try it out!
 > * [UPS documentation](https://cdcvs.fnal.gov/redmine/projects/ups/wiki)
 > * [UPS qualifiers](https://cdcvs.fnal.gov/redmine/projects/cet-is-public/wiki/AboutQualifiers)
 {: .callout} -->
+[Spack documention]: (https://fifewiki.fnal.gov/wiki/Spack) (requires FNAL SSO)
 

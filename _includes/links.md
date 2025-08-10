@@ -1,4 +1,6 @@
 {% include base_path.html %}
+
+
 [cc-by-human]: https://creativecommons.org/licenses/by/4.0/
 [cc-by-legal]: https://creativecommons.org/licenses/by/4.0/legalcode
 [ci]: http://communityin.org/
@@ -50,3 +52,4 @@
 [metacat]: https://dune.github.io/DataCatalogDocs
 [rucio]: https://rucio.github.io/documentation
 [livedoc]: https://docs.google.com/document/d/1QNK-hKPqLIVaecRyg9q4QZOHNwAZgq32oHVuboG_AvQ/edit?usp=sharing
+[Spack documention]: (https://fifewiki.fnal.gov/wiki/Spack) (requires FNAL SSO)
