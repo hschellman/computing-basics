@@ -17,7 +17,7 @@ keypoints:
 
 <!--The session will be captured on video a placed here after the workshop for asynchronous study.-->
 
-The session video on December 10, 2025 was captured for your asynchronous review. 
+The session video on December 10, 2024 was captured for your asynchronous review. 
 
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/BGDdeflZDUs" title="DUNE Computing Tutorial Dec 2024 Data Management" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -57,6 +57,8 @@ DUNE offical data samples are produced using released code, cataloged with metad
 
 DUNE data is stored around the world and the storage elements are not always organized in a way that they can be easily inspected. For this purpose we use the [metacat][metacat] data catalog to describe the data and collections and the [rucio][rucio] file storage system to determine where replicas of files are.  There is also a legacy SAM data access system that can be used for older files. 
 
+Key idea:  metacat tells us *what* the file is and *how* it was made, with what software.  Rucio tells us *where* the file is, and gets it and keeps it where it is supposed to be.
+
 ### How can I help?
 
 If you want to access data, this module will help you find and examine it.
@@ -85,7 +87,7 @@ DUNE runs multiple experiments (far detectors, protodune-sp, protodune-dp hd-pro
 To find your data you need to specify at the minimum 
 
 - `core.run_type`  (the experiment)
-- `core.file_type` (mc or detecor)
+- `core.file_type` (mc or detector)
 - `core.data_tier` (the level of processing raw, full-reconstructed, root-tuple)
 
 and when searching for specific types of data
@@ -135,7 +137,7 @@ Use the example code at:
 
 >### Note: other means of authentication
 >Check out the [metacat documentation](https://metacat.readthedocs.io/en/latest/ui.html#user-authentication) for 
-kx509 and token authentication. 
+ token authentication. 
 {: .callout}
 
 then do queries to find particular sets of files. 
@@ -243,7 +245,7 @@ Rucio has two functions:
 1. A rule-based system to get files to Rucio Storage Elements around the world and keep them there.
 2. To return the "nearest" replica of any data file for use either in interactive or batch file use.  It is expected that most DUNE users will not be regularly using direct Rucio commands, but other wrapper scripts that calls them indirectly.
 
-As of the date of the December 2024 tutorial:
+As of the date of the 2025 tutorial:
 - The Rucio client is available in CVMFS and Spack
 - Most DUNE users are now enabled to use it. New users may not automatically be added. 
 
@@ -255,7 +257,6 @@ If you haven't already done this earlier in setup
 - On al9 type `spack load rucio-clients@33.3.0`  # see above for r-m-dd-config which will always get the current version
 
 ~~~
-# first get a kx509 proxy, then
 
 export RUCIO_ACCOUNT=$USER
 
@@ -275,6 +276,8 @@ root://eosctapublic.cern.ch:1094//eos/ctapublic/archive/neutplatform/protodune/r
 
 
 which is the locations of the file on disk and tape. We can use this to copy the file to our local disk or access the file via xroot. 
+
+NOTE if you see a path in /pnfs/usr/dune/tape_backed or on eosctapublic.cern.ch those are not generally accessible to the user.  Try to get the file from the remaining one (in this case dune.dcache.nikhef.nl)
 
 ### Finding files by characteristics using metacat
 
