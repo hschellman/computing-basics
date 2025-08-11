@@ -206,7 +206,7 @@ children:
 ~~~
 {: .output}   
 
-look in the glossary to see what those fields mean. 
+look in the [glossary][MetaCatGlossary] to see what those fields mean. 
 
 ### find out how much raw data there is in a run using the summary option
 
