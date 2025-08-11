@@ -223,12 +223,119 @@ Total size:   4092539942264 (4.093 TB)
 ~~~
 {: .output}
 
-To look at all the files in that run you need to use XRootD - **DO NOT TRY TO COPY 4 TB to your local area!!!***
+<!-- To look at all the files in that run you need to use XRootD - **DO NOT TRY TO COPY 4 TB to your local area!!!*** -->
 
+## Official datasets
 
+The production group make official datasets which are sets of files which share important characteristics such as experiement, data_tier, data_stream, processing version and processing configuration. 
 
-### What is(was) SAM?  
-Sequential Access with Metadata (SAM) is/was a data handling system developed at Fermilab.  It is designed to track locations of files and other file metadata.  It has been replaced by the combination of MetaCat and Rucio.  New files are not getting declared to SAM anymore.  Any SAM locations after June of 2024 should be presumed to be wrong.  Still being used in some legacy ProtoDUNE analyses.
+See [DUNE Physics Datasets](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=29787&filename=DUNEdataset_v1.pdf) for a detailed description. 
+
+You can explore and find the right dataset by using metacat dataset keys:
+
+First you need to know your namespace and then explore within it.
+
+~~~
+metacat namespace list # find likely namespaces
+metacat query "datasets matching fardet-vd:*official having core.data_tier=full-reconstructed"
+~~~
+{: .language-bash}
+
+Lots of output ... looks like there are 2 types of official ones - let's get "v2"
+
+~~~
+metacat query "datasets matching fardet-vd:*v2_official having core.data_tier=full-reconstructed"
+~~~
+{: .language-bash}
+
+and there are then several different generators. Let's explore reconstructed simulation of the vertical drift far detector. 
+
+~~~
+metacat query "datasets matching fardet-vd:*v2_official having core.data_tier=full-reconstructed and dune_mc.gen_fcl_filename=prodgenie_nu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg.fcl"
+~~~
+{: .language-bash}
+
+~~~
+fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_nu_1x8x6_3view_30deg_geov3__prodgenie_nu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official
+~~~
+{: .output}
+
+Ok, found the official neutrino beam dataset.  
+~~~
+metacat query "datasets matching fardet-vd:*v2_official having core.data_tier=full-reconstructed and dune_mc.gen_fcl_filename=prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg.fcl"
+~~~
+
+~~~
+fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3__prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official
+~~~
+{: .output}
+
+And the anti-neutrino dataset
+
+### What describes a dataset?
+
+Let's look at the metadata describing that anti-neutrino dataset: the -j means json output
+
+~~~
+metacat dataset show -j fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3__prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official
+~~~
+{: .language-bash}
+
+~~~
+{
+    "created_timestamp": 1722620726.662696,
+    "creator": "dunepro",
+    "description": "files where namespace='fardet-vd' and core.application.version=v09_81_00d02 and core.application.name=reco2 and core.data_stream=out1 and core.data_tier='full-reconstructed' and core.file_type=mc and core.run_type='fardet-vd' and dune.campaign=fd_mc_2023a_reco2 and dune.config_file=reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3.fcl and dune.requestid=ritm1780305 and dune_mc.detector_type='fardet-vd' and dune_mc.gen_fcl_filename=prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg.fcl and dune.output_status=confirmed and core.group=dune",
+    "file_count": 20648,
+    "file_meta_requirements": {},
+    "frozen": true,
+    "metadata": {
+        "core.application.name": "reco2",
+        "core.application.version": "v09_81_00d02",
+        "core.data_stream": "out1",
+        "core.data_tier": "full-reconstructed",
+        "core.file_type": "mc",
+        "core.group": "dune",
+        "core.run_type": "fardet-vd",
+        "datasetpar.deftag": "v2_official",
+        "datasetpar.max_time": null,
+        "datasetpar.min_time": null,
+        "datasetpar.namespace": "fardet-vd",
+        "dune.campaign": "fd_mc_2023a_reco2",
+        "dune.config_file": "reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3.fcl",
+        "dune.output_status": "confirmed",
+        "dune.requestid": "ritm1780305",
+        "dune_mc.detector_type": "fardet-vd",
+        "dune_mc.gen_fcl_filename": "prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg.fcl"
+    },
+    "monotonic": false,
+    "name": "fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3__prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official",
+    "namespace": "fardet-vd",
+    "updated_by": null,
+    "updated_timestamp": null
+}
+~~~
+{: .output}
+
+You can use any of those keys to refine dataset searches as we did above. You probably have to ask your physics group which are interesting. 
+
+### What files are in that dataset and how do I use them?
+
+~~~
+metacat query  "files from  fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3__prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official limit 10"
+~~~
+{: .languate-bash}
+
+will list the first 10 files in that dataset (you probably don't want to list all 20648)
+
+You can also use that query in your batch job to get the files you want. 
+
+### Finding those files
+
+To find your files, you need to use [Rucio](#Rucio) directly or give the justIN batch system your query and it will locate them for you. 
+
+<!-- ### What is(was) SAM?  
+Sequential Access with Metadata (SAM) is/was a data handling system developed at Fermilab.  It is designed to track locations of files and other file metadata.  It has been replaced by the combination of MetaCat and Rucio.  New files are not getting declared to SAM anymore.  Any SAM locations after June of 2024 should be presumed to be wrong.  Still being used in some legacy ProtoDUNE analyses. -->
 
 <!--This lecture will show you how to access data files that have been defined to the DUNE Data Catalog. Execute the following commands after logging in to the DUNE interactive node, and sourcing the main dune setups.
 
@@ -238,8 +345,9 @@ setup sam_web_client
 export SAM_EXPERIMENT=dune
 ~~~
 -->
+## Getting file locations
 
-### What is Rucio?
+### What is Rucio? <a name="Rucio"></a>
 Rucio is the next-generation Data Replica service and is part of DUNE's new Distributed Data Management (DDM) system that is currently in deployment. 
 Rucio has two functions:
 1. A rule-based system to get files to Rucio Storage Elements around the world and keep them there.
@@ -254,13 +362,17 @@ As of the date of the 2025 tutorial:
 If you haven't already done this earlier in setup
 
 - On sl7 type `setup rucio`
-- On al9 type `spack load rucio-clients@33.3.0`  # see above for r-m-dd-config which will always get the current version
+- On al9 type 
 
 ~~~
-
+spack load r-m-dd-config experiment=dune lab=fnal.gov # r stands for rucio
 export RUCIO_ACCOUNT=$USER
+~~~
+{: .language-bash}
 
+Then use it to find out about a file.  the --protocols flag makes certain you get the streaming `root:` location. 
 
+~~~
 rucio list-file-replicas hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5 --pfns --protocols=root
 ~~~
 {: .language-bash}
@@ -277,9 +389,9 @@ root://eosctapublic.cern.ch:1094//eos/ctapublic/archive/neutplatform/protodune/r
 
 which is the locations of the file on disk and tape. We can use this to copy the file to our local disk or access the file via xroot. 
 
-NOTE if you see a path in /pnfs/usr/dune/tape_backed or on eosctapublic.cern.ch those are not generally accessible to the user.  Try to get the file from the remaining one (in this case dune.dcache.nikhef.nl)
+NOTE if you see a path in `/pnfs/usr/dune/tape_backed` at Fermilab or on eos, `ctapublic.cern.ch` those are on tape and not generally accessible to the user.  Try to get the file from the remaining one (in this case dune.dcache.nikhef.nl)
 
-### Finding files by characteristics using metacat
+## Finding files by characteristics using metacat
 
 To list raw data files for a given run:
 ~~~
