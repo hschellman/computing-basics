@@ -13,7 +13,9 @@ You can store the code below as
 > Use the [Apptainer/sl7 method]({{ site.baseurl }}/sl7_setup.html) until we get larsoft working if you want to use the full DUNE software suite. 
 {: .callout}
 
-~~~
+{% include al9_setup_2025a.md %}
+
+<!-- ~~~
 # find a spack environment and set it up
 # setup spack  (pre spack 1.0 version)
 
@@ -46,7 +48,7 @@ spack load py-pip@23.1.2%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
 echo "justIN"
 spack load justin
 ~~~
-{: .language-bash}
+{: .language-bash} -->
 
 You can ignore most warning messages - this is still under development - but pay attention to this one.
 

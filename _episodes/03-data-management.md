@@ -1,5 +1,5 @@
 ---
-title: Data Management (2024 updated for metacat/justIN/rucio)
+title: Data Management (2025 updated for metacat/justIN/rucio)
 teaching: 30
 exercises: 15
 questions:
@@ -47,7 +47,7 @@ Our [DUNE Physics Analysis Review Procedures](https://docs.dunescience.org/cgi-b
 
     There should be sufficient instructions on how to reproduce the results included with the software. In particular, a good goal is that the working group conveners are able to remake plots, in case cosmetic changes need to be made. Software repositories should adhere to licensing and copyright guidelines detailed in DocDB-27141.
 
-2. Data and simulation samples must come from well-documented, reproducible production campaigns. For most analyses, input samples should be official, catalogued DUNE productions.
+2. **Data and simulation samples must come from well-documented, reproducible production campaigns. For most analyses, input samples should be official, catalogued DUNE productions.**
 
 
 
@@ -55,11 +55,19 @@ Our [DUNE Physics Analysis Review Procedures](https://docs.dunescience.org/cgi-b
 
 DUNE offical data samples are produced using released code, cataloged with metadata that describes the processing chain and stored so that they are accessible to collaborators.  
 
-DUNE data is stored around the world and the storage elements are not always organized in a way that they can be easily inspected. For this purpose we use the [metacat][metacat] data catalog to describe the data and collections and the [rucio][rucio] file storage system to determine where replicas of files are.  There is also a legacy SAM data access system that can be used for older files. 
+DUNE data is stored around the world and you cannot directly log into most of the systems. For this purpose we use the [metacat][metacat] data catalog to describe the data and collections and the [rucio][rucio] file storage system to determine where replicas of files are and provide a url that allows you to process them.  There is also a legacy SAM data access system that can be used for older files. 
 
-Key idea:  metacat tells us *what* the file is and *how* it was made, with what software.  Rucio tells us *where* the file is, and gets it and keeps it where it is supposed to be.
+There are currently > 27M files cataloged in metacat with a total size of > 48 PB.
+   
 
-### How can I help?
+Key idea:  
+
+- `metacat` tells us *what* the file is and *how* it was made, with what software.  
+- `rucio` tells us *where* the file is, and gets it and keeps it where it is supposed to be.
+
+All rucio entries should have a metacat entry describing them. With a few exceptions (retired, intermediate files), metacat entries correspond to real files in rucio.  
+
+### How do I use this. 
 
 If you want to access data, this module will help you find and examine it.
 
@@ -71,7 +79,7 @@ If you want to process data using the full power of DUNE computing, you should t
 
 ### What is metacat?
 
-Metacat is a file catalog - it allows you to search for files that have particular attributes and understand their provenance, including details on all of their processing steps. 
+Metacat is a file and dataset catalog - it allows you to search for files and datasets that have particular attributes and understand their provenance, including details on all of their processing steps. 
 It also allows for querying jointly the file catalog and the DUNE conditions database.
 
 You can find extensive documentation on metacat at:
@@ -95,6 +103,14 @@ and when searching for specific types of data
 - `core.data_stream` (physics, calibration, cosmics)
 - `core.runs[any]=<runnumber>`
 
+You probably also want to know about
+
+- `core.application.version` (version of code run)
+- `dune.config_file` (configuration file for the reconstruction)
+- `dune_mc.gen_fcl_filename` (configuration for the initial simulation physics)
+
+### Example of doing a metacat search
+
  Here is an example of a metacat query that gets you raw files from a recent 'hd-protodune' cosmics run.
 
 Note: there are example setups that do a full setup in the extras folder:
@@ -109,9 +125,9 @@ First get metacat if you have not already done so
 > ~~~
 > # If you have not already done a general SL7 software setup:
 > source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-> export DUNELAR_VERSION=v10_00_04d00
+<!-- > export DUNELAR_VERSION=v10_00_04d00
 > export DUNELAR_QUALIFIER=e26:prof 
-> setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
+> setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER -->
 > export METACAT_AUTH_SERVER_URL=https://metacat.fnal.gov:8143/auth/dune
 > export METACAT_SERVER_URL=https://metacat.fnal.gov:9443/dune_meta_prod/app 
 > 
@@ -125,6 +141,8 @@ First get metacat if you have not already done so
 > ## AL9
 
 Use the example code at: 
+
+{% include al9_setup_2025a.md %}
 
 [AL9 setup]({{ site.baseurl }}/al9_setup)
 
@@ -148,7 +166,7 @@ metacat query "files from dune:all where core.file_type=detector \
 ~~~
 {: .language-bash}
 
-should give you 2 files:
+this should give you 2 files:
 
 ~~~
 hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5

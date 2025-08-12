@@ -316,7 +316,8 @@ Here is how you set up basic DUNE software on Alma 9. We are using the super-com
 
 2. Log into a gpvm or lxplus
 
-~~~
+{% include al9_setup_2025a.md %}
+<!-- ~~~
 # find a spack environment and set it up
 # setup spack
 
@@ -350,7 +351,7 @@ echo "Justin"
 spack load justin
 
 ~~~
-{: .language-bash}
+{: .language-bash} -->
 
 
 > > ## You may see a rucio config error message that looks like this
@@ -409,10 +410,12 @@ Apptainer>
 
 You can then set up DUNE's code 
 
-~~~
+<!-- ~~~
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 ~~~
-{: .language-bash}
+{: .language-bash} -->
+
+{% include sl7_setup_2025.md %}
 
 You should see in your terminal the following output:
 ~~~
