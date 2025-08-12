@@ -140,7 +140,7 @@ First get metacat if you have not already done so
 
 > ## AL9
 
-Use the example code at: 
+Make certain you have AL9 set up
 
 {% include al9_setup_2025a.md %}
 
