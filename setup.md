@@ -410,12 +410,12 @@ Apptainer>
 
 You can then set up DUNE's code 
 
-<!-- ~~~
+~~~
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 ~~~
-{: .language-bash} -->
+{: .language-bash}
 
-{% include sl7_setup_2025.md %}
+<!-- {% include sl7_setup_2025.md %} -->
 
 You should see in your terminal the following output:
 ~~~
@@ -631,7 +631,7 @@ Storing condor credentials for dune
 ~~~
 {: .output}
 
-you only have to do the web thing once/month.
+you should only have to do the web thing once/month.
 
 #### 2. Tell the system where your token is
 
