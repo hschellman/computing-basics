@@ -251,7 +251,27 @@ The production group make official datasets which are sets of files which share 
 
 See [DUNE Physics Datasets](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=29787&filename=DUNEdataset_v1.pdf) for a detailed description. 
 
-You can explore and find the right dataset by using metacat dataset keys:
+### Fast web catalog queries
+
+You can do fast string queries based on keywords embedded in the dataset name.  
+
+Go to [dunecatalog](https://dune-tech.rice.edu/dunecatalog/) and log in with your services password.
+
+Choose your apparatus (Far Detector for example), use the category key to further refine your search and then type in keywords.  Here I chose the `Far Detectors` tab and the `FD-VD` category from the pulldown menu. 
+
+![Fast keyword search](../fig/keywordquery.png){: .image-with-shadow }
+
+If you click on a dataset you can see a sample of the files inside it. 
+
+
+You can find a more detailed tutorial for the dunecatalog site at:
+[Dune Catalog Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=33738&filename=DUNE%20Catalog%20Presentation.pdf&version=2)
+
+
+
+### Command line tools and advanced queries 
+
+You can also explore and find the right dataset on the command line by using metacat dataset keys:
 
 First you need to know your namespace and then explore within it.
 
@@ -292,25 +312,12 @@ fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x
 
 And the anti-neutrino dataset
 
-### Fast web catalog queries
+### you can use the web data catalog to do advance searches
 
-You can also do fast string queries based on keywords embedded in the dataset name.  
-
-Go to [dunecatalog](https://dune-tech.rice.edu/dunecatalog/) and log in with your services password.
-
-Choose your experiment (FD), use the category key to further refine your search and then type in keywords.  Here I chose the `Far Detectors` tab and the `FD-VD` category from the pulldown menu. 
-
-![Fast keyword search](../fig/keywordquery.png){: .image-with-shadow }
-
-You can find a tutorial for the dunecatalog site at:
-[Dune Catalog Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=33738&filename=DUNE%20Catalog%20Presentation.pdf&version=2)
-
-
-You can also do keyword/value queries like the ones above using the Other tab.
+You can also do keyword/value queries like the ones above using the Other tab on the web-based Data Catalog.
 
 ![Full query search](../fig/otherquery.png){: .image-with-shadow }
 
-If you click on a dataset you can see a sample of the files inside it. 
 
 ### What describes a dataset?
 
