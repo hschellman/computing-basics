@@ -128,7 +128,7 @@ Use the example code at:
 
 [AL9 setup]({{ site.baseurl }}/al9_setup)
 
-> ## For both
+<!-- > ## For both
 > ~~~
 > metacat auth login -m password $USER  # use your services password to authenticate
 > ~~~
@@ -138,7 +138,7 @@ Use the example code at:
 >### Note: other means of authentication
 >Check out the [metacat documentation](https://metacat.readthedocs.io/en/latest/ui.html#user-authentication) for 
  token authentication. 
-{: .callout}
+{: .callout} -->
 
 then do queries to find particular sets of files. 
 ~~~
@@ -206,6 +206,8 @@ children:
 ~~~
 {: .output}   
 
+### What do those fields mean? 
+
 look in the [glossary][MetaCatGlossary] to see what those fields mean. 
 
 ### find out how much raw data there is in a run using the summary option
@@ -272,6 +274,26 @@ fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x
 
 And the anti-neutrino dataset
 
+### Fast web catalog queries
+
+You can also do fast string queries based on keywords embedded in the dataset name.  
+
+Go to [dunecatalog](https://dune-tech.rice.edu/dunecatalog/) and log in with your services password.
+
+Choose your experiment (FD), use the category key to further refine your search and then type in keywords.  Here I chose the `Far Detectors` tab and the `FD-VD` category from the pulldown menu. 
+
+![Fast keyword search](../fig/keywordquery.png){: .image-with-shadow }
+
+You can find a tutorial for the dunecatalog site at:
+[Dune Catalog Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=33738&filename=DUNE%20Catalog%20Presentation.pdf&version=2)
+
+
+You can also do keyword/value queries like the ones above using the Other tab.
+
+![Full query search](../fig/otherquery.png){: .image-with-shadow }
+
+If you click on a dataset you can see a sample of the files inside it. 
+
 ### What describes a dataset?
 
 Let's look at the metadata describing that anti-neutrino dataset: the -j means json output
@@ -321,6 +343,8 @@ You can use any of those keys to refine dataset searches as we did above. You pr
 
 ### What files are in that dataset and how do I use them?
 
+You can either click on a dataset in the web data catalog or:
+
 ~~~
 metacat query  "files from  fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3__prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official limit 10"
 ~~~
@@ -328,11 +352,14 @@ metacat query  "files from  fardet-vd:fardet-vd__full-reconstructed__v09_81_00d0
 
 will list the first 10 files in that dataset (you probably don't want to list all 20648)
 
-You can also use that query in your batch job to get the files you want. 
+You can also use a similar query in your batch job to get the files you want. 
+
 
 ### Finding those files
 
 To find your files, you need to use [Rucio](#Rucio) directly or give the justIN batch system your query and it will locate them for you. 
+
+
 
 <!-- ### What is(was) SAM?  
 Sequential Access with Metadata (SAM) is/was a data handling system developed at Fermilab.  It is designed to track locations of files and other file metadata.  It has been replaced by the combination of MetaCat and Rucio.  New files are not getting declared to SAM anymore.  Any SAM locations after June of 2024 should be presumed to be wrong.  Still being used in some legacy ProtoDUNE analyses. -->
@@ -391,7 +418,9 @@ which is the locations of the file on disk and tape. We can use this to copy the
 
 NOTE if you see a path in `/pnfs/usr/dune/tape_backed` at Fermilab or on eos, `ctapublic.cern.ch` those are on tape and not generally accessible to the user.  Try to get the file from the remaining one (in this case dune.dcache.nikhef.nl)
 
-## Finding files by characteristics using metacat
+## More finding files by characteristics using metacat
+
+There isn't always an official dataset so you can also list files directly using metact.
 
 To list raw data files for a given run:
 ~~~
