@@ -35,7 +35,8 @@ you can store this as
 
 `mysl7.sh` and run it every time you log in.  
 
-~~~
+{% include sl7_setup_2025.md %}
+<!-- ~~~
 # use ups to find programs - this only works on SL7
 
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
@@ -76,4 +77,4 @@ export DUNELAR_QUALIFIER=e26:prof
 
 setup -B dunesw ${DUNELAR_VERSION} -q ${DUNELAR_QUALIFIER}
 ~~~
-{: .language-bash}
+{: .language-bash} -->
