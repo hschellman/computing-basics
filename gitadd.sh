@@ -14,6 +14,7 @@ git add _episodes/*.md
 #git add _episodes/09-grid-batch-debug.md
 #git add _episodes/10-closing-remarks.md
 git add _includes/*.html
+git add _includes/*.md
 git add *.yml
 git add _extras/*.md
 git add AUTHORS CITATION 
