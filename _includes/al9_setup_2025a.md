@@ -27,7 +27,7 @@ spack load ifdhc-config@2.6.20%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
 echo "PY-PIP"                       
 spack load py-pip@23.1.2%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
 
-echo "justIN"
-spack load justin
+echo "no justIN yet"
+#spack load justin
 ~~~
 {: .language-bash}

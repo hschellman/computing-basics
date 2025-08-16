@@ -410,39 +410,72 @@ As of the date of the 2025 tutorial:
 - The Rucio client is available in CVMFS and Spack
 - Most DUNE users are now enabled to use it. New users may not automatically be added. 
 
-### Let's find a file
+### You need to autheticate to use rucio
 
-If you haven't already done this earlier in setup
+### For SL7 use justin to get a token
+{% include sl7_token.md %}
+<!-- {: .callout} -->
 
-- On sl7 type `setup rucio`
-- On al9 type 
+### for AL9 use rucio to get a token
+{% include al9_token.md %}
+<!-- {: .callout} -->
 
-~~~
-spack load r-m-dd-config experiment=dune lab=fnal.gov # r stands for rucio
-export RUCIO_ACCOUNT=$USER
-~~~
-{: .language-bash}
-
-Then use it to find out about a file.  the --protocols flag makes certain you get the streaming `root:` location. 
+<!-- You need to authenticate to rucio:
 
 ~~~
-rucio list-file-replicas hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5 --pfns --protocols=root
+justin time
 ~~~
 {: .language-bash}
 
-returns 3 locations:
+The first time it will ask you to open a web browser, authenticate and enter the long string it delivers to you. 
 
 ~~~
-root://dune.dcache.nikhef.nl:1094/pnfs/nikhef.nl/data/dune/generic/rucio/hd-protodune/e5/57/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
-root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro//hd-protodune/raw/2024/detector/cosmics/None/00/02/72/96/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
-root://eosctapublic.cern.ch:1094//eos/ctapublic/archive/neutplatform/protodune/rawdata/np04//hd-protodune/raw/2024/detector/cosmics/None/00/02/72/96/np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+justin get-token
+~~~
+{: .language-bash}
+
+~~~
+To authorize this computer to run the justin command, visit this page with your
+usual web browser and follow the instructions within the next 10 minutes:
+https://dunejustin.fnal.gov/authorize/_W_azUJcLhYmAOqClYz9RAsnKbDgzQ6lNA
+
+Check that the Session ID displayed on that page is -cprbbe
+
+Once you've followed the instructions on that web page, you can run the justin
+command without needing to authorize this computer again for 7 days.
+~~~
+{.. .output}
+
+That gave you authorization to use justin. Now do the command again to get an actual token.
+
+~~~
+justin get-token
+~~~
+{.. .language-bash}
+
+You will have to do this sequence weekly as your token expires.  -->
+
+### finding a file
+
+Then use rucio to find out about a file's locations.  the --protocols flag makes certain you get the streaming `root:` location. 
+
+~~~
+rucio replica list file fardet-vd:prodmarley_nue_es_flat_radiological_decay0_dunevd10kt_1x8x14_3view_30deg_20250217T033222Z_gen_004122_supernova_g4stage1_g4stage2_detsim_reco.root --pfns --protocols=root
+~~~
+{: .language-bash}
+
+returns 2 locations:
+
+~~~
+root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro//fardet-vd/hit-reconstructed/2025/mc/out1/le_mc_2024a/00/00/51/85/prodmarley_nue_es_flat_radiological_decay0_dunevd10kt_1x8x14_3view_30deg_20250217T033222Z_gen_004122_supernova_g4stage1_g4stage2_detsim_reco.root
+root://meitner.tier2.hep.manchester.ac.uk:1094//cephfs/experiments/dune/RSE/fardet-vd/fd/a6/prodmarley_nue_es_flat_radiological_decay0_dunevd10kt_1x8x14_3view_30deg_20250217T033222Z_gen_004122_supernova_g4stage1_g4stage2_detsim_reco.root
 ~~~
 {: .output}
 
 
-which is the locations of the file on disk and tape. We can use this to copy the file to our local disk or access the file via xroot. 
+which  the locations of the file on disk and tape. We can use this to copy the file to our local disk or access the file via xroot. 
 
-NOTE if you see a path in `/pnfs/usr/dune/tape_backed` at Fermilab or on eos, `ctapublic.cern.ch` those are on tape and not generally accessible to the user.  Try to get the file from the remaining one (in this case dune.dcache.nikhef.nl)
+NOTE if you see a path in `/pnfs/usr/dune/tape_backed` at Fermilab or on eos, `ctapublic.cern.ch` those are on tape and not generally accessible to the user.  Try to get the file from the remaining one (in this case hep.manchester.ac.uk)
 
 ## More finding files by characteristics using metacat
 
