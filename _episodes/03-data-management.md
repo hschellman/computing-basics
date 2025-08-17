@@ -51,7 +51,7 @@ Our [DUNE Physics Analysis Review Procedures](https://docs.dunescience.org/cgi-b
 
 
 
-### How we do it
+### How we do it ?
 
 DUNE offical data samples are produced using released code, cataloged with metadata that describes the processing chain and stored so that they are accessible to collaborators.  
 
@@ -122,30 +122,16 @@ First get metacat if you have not already done so
 
 
 > ## SL7 
-> ~~~
-> # If you have not already done a general SL7 software setup:
-> source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-<!-- > export DUNELAR_VERSION=v10_00_04d00
-> export DUNELAR_QUALIFIER=e26:prof 
-> setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER -->
-> export METACAT_AUTH_SERVER_URL=https://metacat.fnal.gov:8143/auth/dune
-> export METACAT_SERVER_URL=https://metacat.fnal.gov:9443/dune_meta_prod/app 
 > 
-> # then you can set up metacat and rucio
-> setup metacat 
-> setup rucio
-> ~~~
-> {: .language-bash}
+> Make certain you have dune software  set up
+> [SL7 setup]({{ site.baseurl }}/sl7_setup)
 {: .callout}
 
 > ## AL9
+> Make certain you have AL9 set up
+> [AL9 setup]({{ site.baseurl }}/al9_setup)
+{: .callout}
 
-Make certain you have AL9 set up
-
-{% include al9_setup_2025a.md %}
-
-
-[AL9 setup]({{ site.baseurl }}/al9_setup)
 
 <!-- > ## For both
 > ~~~
@@ -159,19 +145,17 @@ Make certain you have AL9 set up
  token authentication. 
 {: .callout} -->
 
-then do queries to find particular sets of files. 
+### then do queries to find particular sets of files
+
 ~~~
-metacat query "files from dune:all where core.file_type=detector \
- and core.run_type=hd-protodune and core.data_tier=raw \
- and core.data_stream=cosmics and core.runs[any]=27296 limit 2"
+metacat query "files from dune:all where core.file_type=detector and core.run_type=hd-protodune and core.data_tier=raw and core.runs[any]=27331 limit 1"
 ~~~
 {: .language-bash}
 
-this should give you 2 files:
+this should give you a file:
 
 ~~~
-hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
-hd-protodune:np04hd_raw_run027296_0000_dataflow0_datawriter_0_20240619T110330.hdf5
+hd-protodune:np04hd_raw_run027331_0254_dataflow0_datawriter_0_20240620T173408.hdf5
 ~~~
 {: .output}
 
@@ -181,7 +165,7 @@ the string before the ':' is the namespace and the string after is the filename.
 You can find out more about your file by doing:
 
 ~~~
-metacat file show -m -l hd-protodune:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+metacat file show -m -l hd-protodune:np04hd_raw_run027331_0254_dataflow0_datawriter_0_20240620T173408.hdf5
 ~~~
 {: .language-bash}
 
@@ -189,39 +173,38 @@ which gives you a lot of information:
 
 ~~~
 checksums:
-    adler32   : 6a191436
-created_timestamp   :	2024-06-19 11:08:24.398197+00:00
+    adler32   : 5222f2ae
+created_timestamp   :	2024-06-20 17:38:45.141418+00:00
 creator             :	dunepro
-fid                 :	83302138
-name                :	np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330.hdf5
+fid                 :	83316551
+name                :	np04hd_raw_run027331_0254_dataflow0_datawriter_0_20240620T173408.hdf5
 namespace           :	hd-protodune
-retired             :	False
-retired_by          :	None
-retired_timestamp   :	None
-size                :	4232017188
-updated_by          :	None
-updated_timestamp   :	1718795304.398197
+size                :	4238541524
+updated_timestamp   :	1718905125.141418
 metadata:
-    core.data_stream    : cosmics
+    core.data_stream    : physics
     core.data_tier      : raw
-    core.end_time       : 1718795024.0
+    core.end_time       : 1718904863.0
     core.event_count    : 35
-    core.events         : [3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43, 47, 51, 55, 59, 63, 67, 71, 75, 79, 83, 87, 91, 95, 99, 103, 107, 111, 115, 119, 123, 127, 131, 135, 139]
+    core.events         : [35564, 35568, 35572, 35576, 35580, 35584, 35588, 35592, 35596, 35600, 35604, 35608, 35612, 35616, 35620, 35624, 35628, 35632, 35636, 35640, 35644, 35648, 35652, 35656, 35660, 35664, 35668, 35672, 35676, 35680, 35684, 35688, 35692, 35696, 35700]
     core.file_content_status: good
     core.file_format    : hdf5
     core.file_type      : detector
-    core.first_event_number: 3
-    core.last_event_number: 139
+    core.first_event_number: 35564
+    core.last_event_number: 35700
     core.run_type       : hd-protodune
-    core.runs           : [27296]
-    core.runs_subruns   : [2729600001]
-    core.start_time     : 1718795010.0
+    core.runs           : [27331]
+    core.runs_subruns   : [2733100001]
+    core.start_time     : 1718904848.0
     dune.daq_test       : False
     retention.class     : physics
     retention.status    : active
 children:
-   hd-protodune-det-reco:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330_reco_stage1_20240621T175057_keepup_hists.root (eywzUgkZRZ6llTsU)
-   hd-protodune-det-reco:np04hd_raw_run027296_0000_dataflow3_datawriter_0_20240619T110330_reco_stage1_reco_stage2_20240621T175057_keepup.root (GHSm3owITS20vn69)
+   hd-protodune-det-reco:np04hd_run27331_calibana_merged_1.root (cl7b7XQpTpS3PGm5)
+   hd-protodune-det-reco:np04hd_raw_run027331_0254_dataflow0_datawriter_0_20240620T173408_reco_stage1_reco_stage2_20240926T225231_keepup_hists.root (Kf6CttcJRJu2uk58)
+   hd-protodune-det-reco:np04hd_raw_run027331_0254_dataflow0_datawriter_0_20240620T173408_reco_stage1_reco_stage2_20240926T225231_keepup.root (sxh5FHKLTGym6pDp)
+   hd-protodune-det-reco:np04hd_raw_run027331_0254_dataflow0_datawriter_0_20240620T173408_reco_stage1_reco_stage2_20240623T013207_keepup.root (Xl9QXEo0RouAqO0s)
+   hd-protodune-det-reco:np04hd_raw_run027331_0254_dataflow0_datawriter_0_20240620T173408_reco_stage1_20240623T013207_keepup_hists.root (xWIH9tmnSWqWBJE5)
 ~~~
 {: .output}   
 
@@ -229,26 +212,40 @@ children:
 
 look in the [glossary][MetaCatGlossary] to see what those fields mean. 
 
+
+> ### Warning - there are multiple child files that look similar
+> Files can be reprocessed with different versions and can be reprocessesd twice if the batch system gets confused.  Experts can tell them apart with specific queries about reconstruction versions and file status (in this case there were 2 reconstruction versions core.application.version =  v09_90_02d00
+and v09_91_02d01).
+>
+> **If you are doing real analysis please use the [official datasets](#Official_Datasets) which experts have defined** 
+> 
+> if no official dataset exists, you need to require additional fields like:
+> `core.application.version=v09_91_02d01` and `dune.config_file=standard_reco_stage2_calibration_protodunehd_keepup.fcl` to make certain you are not looking at 2 versions of the same file.
+{: .callout}
+
+
 ### find out how much raw data there is in a run using the summary option
 
 ~~~
 metacat query -s "files from dune:all where core.file_type=detector \
  and core.run_type=hd-protodune and core.data_tier=raw \
- and core.data_stream=cosmics and core.runs[any]=27296"
+ and core.data_stream=physics and core.runs[any]=27331"
 ~~~
 {: .language-bash}
 
 ~~~
-Files:        963
-Total size:   4092539942264 (4.093 TB)
+Files:        4144
+Total size:   17553648200600 (17.554 TB)
 ~~~
 {: .output}
 
+
+
 <!-- To look at all the files in that run you need to use XRootD - **DO NOT TRY TO COPY 4 TB to your local area!!!*** -->
 
-## Official datasets
+## Official datasets <a name="Official_Datasets"></a>
 
-The production group make official datasets which are sets of files which share important characteristics such as experiement, data_tier, data_stream, processing version and processing configuration. 
+The production group make official datasets which are sets of files which share important characteristics such as experiment, data_tier, data_stream, processing version and processing configuration. 
 
 See [DUNE Physics Datasets](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=29787&filename=DUNEdataset_v1.pdf) for a detailed description. 
 
@@ -278,6 +275,14 @@ First you need to know your namespace and then explore within it.
 
 ~~~
 metacat namespace list # find likely namespaces
+~~~
+{: .language-bash}
+
+There are official looking ones like `hd-protodune-det-reco` and ones for users doing production testing like `schellma`.  The default for general use is `usertests`
+
+Let's look for some reconstructed Monte Carlo from the VD far detector. 
+
+~~~
 metacat query "datasets matching fardet-vd:*official having core.data_tier=full-reconstructed"
 ~~~
 {: .language-bash}
@@ -296,24 +301,28 @@ metacat query "datasets matching fardet-vd:*v2_official having core.data_tier=fu
 ~~~
 {: .language-bash}
 
+Ok, found the official neutrino beam dataset:
+
 ~~~
 fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_nu_1x8x6_3view_30deg_geov3__prodgenie_nu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official
 ~~~
 {: .output}
 
-Ok, found the official neutrino beam dataset.  
+  
 ~~~
 metacat query "datasets matching fardet-vd:*v2_official having core.data_tier=full-reconstructed and dune_mc.gen_fcl_filename=prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg.fcl"
 ~~~
+
+And the anti-neutrino dataset:
 
 ~~~
 fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3__prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official
 ~~~
 {: .output}
 
-And the anti-neutrino dataset
 
-### you can use the web data catalog to do advance searches
+
+### you can use the web data catalog to do advanced searches
 
 You can also do keyword/value queries like the ones above using the Other tab on the web-based Data Catalog.
 
@@ -381,9 +390,9 @@ will list the first 10 files in that dataset (you probably don't want to list al
 You can also use a similar query in your batch job to get the files you want. 
 
 
-### Finding those files
+### Finding those files on disk
 
-To find your files, you need to use [Rucio](#Rucio) directly or give the justIN batch system your query and it will locate them for you. 
+To find your files, you need to use [Rucio](#Rucio) directly or give the [justIN](https://justin.dune.hep.ac.uk/docs/tutorials.dune.md) batch system your query and it will locate them for you. 
 
 
 
@@ -398,7 +407,7 @@ setup sam_web_client
 export SAM_EXPERIMENT=dune
 ~~~
 -->
-## Getting file locations
+## Getting file locations using Rucio
 
 ### What is Rucio? <a name="Rucio"></a>
 Rucio is the next-generation Data Replica service and is part of DUNE's new Distributed Data Management (DDM) system that is currently in deployment. 
@@ -412,11 +421,11 @@ As of the date of the 2025 tutorial:
 
 ### You need to autheticate to use rucio
 
-### For SL7 use justin to get a token
+#### For SL7 use justin to get a token
 {% include sl7_token.md %}
 <!-- {: .callout} -->
 
-### for AL9 use rucio to get a token
+#### for AL9 use rucio to get a token
 {% include al9_token.md %}
 <!-- {: .callout} -->
 
