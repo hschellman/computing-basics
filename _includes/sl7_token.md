@@ -1,7 +1,5 @@
 
-To get a token that allows you to access files (and rucio) in SL7, do the normal [setup for dunesw]{{ site.baseurl }}(sl7_setup)
-
-then:
+To get a token that allows you to access files (and rucio) in SL7
 
 ~~~
 setup justin
