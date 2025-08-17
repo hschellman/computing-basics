@@ -2,9 +2,6 @@
 # use ups to find programs - this only works on SL7
 
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-setup metacat
-setup rucio
-
 
 # do some data access setup
 export IFDH_CP_MAXRETRIES=0\0\0\0\0  # no retries
@@ -31,5 +28,8 @@ export DUNELAR_VERSION=v10_07_00d00 # you want to update this
 export DUNELAR_QUALIFIER=e26:prof # you want to update this
 
 setup -B dunesw ${DUNELAR_VERSION} -q ${DUNELAR_QUALIFIER}
+
+setup metacat
+setup rucio
 ~~~
 {: .language-bash}

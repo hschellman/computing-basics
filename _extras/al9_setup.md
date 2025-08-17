@@ -10,7 +10,7 @@ You can store the code below as
  `myal9.sh` and run it every time you log in. 
 
 > ## Note - the full LArSoft suite doesn't work yet with spack
-> Use the [Apptainer/sl7 method]({{ site.baseurl }}/sl7_setup.html) until we get larsoft working if you want to use the full DUNE software suite. 
+> Use the [Apptainer/ method]({{ site.baseurl }}/sl7_setup.html) until we get larsoft working if you want to use the full DUNE software suite. 
 {: .callout}
 
 {% include al9_setup_2025a.md %}
