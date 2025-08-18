@@ -9,7 +9,6 @@ export DATA_DISPATCHER_URL=https://metacat.fnal.gov:9443/dune/dd/data
 export DATA_DISPATCHER_AUTH_URL=https://metacat.fnal.gov:8143/auth/dune
 export METACAT_SERVER_URL=https://metacat.fnal.gov:9443/dune_meta_prod/app
 export METACAT_AUTH_SERVER_URL=https://metacat.fnal.gov:8143/auth/dune
-export RUCIO_ACCOUNT=justinreadonly
 
 # access some disks
 export DUNEDATA=/exp/dune/data/users/$USER
@@ -31,6 +30,7 @@ setup -B dunesw ${DUNELAR_VERSION} -q ${DUNELAR_QUALIFIER}
 
 setup metacat
 setup rucio
+export RUCIO_ACCOUNT=justinreadonly
 setup justin
 ~~~
 {: .language-bash}

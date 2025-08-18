@@ -34,7 +34,7 @@ spack load gcc@12.2.0
 
 echo "Rucio and metacat"
 spack load r-m-dd-config experiment=dune lab=fnal.gov
-export RUCIO_ACCOUNT=${USER}
+export RUCIO_ACCOUNT=justinreadonly
 export SAM_EXPERIMENT=dune
 
 echo "IFDHC"

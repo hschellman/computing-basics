@@ -318,25 +318,6 @@ See the next episode on [data management]({{ site.baseurl }}/03-data-management)
 
 > ## Note Files in /tape_backed/ may not be immediately accessible, those in /persistent/ and /scratch/ are. 
 {: .callout}
-
-
-<!-- > ## Exercise 2
-> Using a combination of `ifdh` and `xrootd` commands discussed previously:
-> * Use `ifdh locateFile <file> root` to find the directory for this file `PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root`
-> * Use `xrdcp` to copy that file to `/pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2024_data_file`
-> * Using `xrdfs` and the `ls` option, count the number of files in the same directory as `PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root`
-{: .challenge}
-
-Note that redirecting the standard output of a command into the command `wc -l` will count the number of lines in the output text. e.g. `ls -alrth ~/ | wc -l`
-
-~~~
-ifdh locateFile PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root root
-xrdcp root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/01/67/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root root://fndca1.fnal.gov:1094/pnfs/fnal.gov/usr/dune/scratch/users/${USER}/DUNE_tutorial_2024_data_file/PDSPProd4a_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_off_43352322_0_20210427T162252Z.root
-xrdfs root://fndca1.fnal.gov:1094/ ls /pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodune-sp/full-reconstructed/2021/mc/out1/PDSPProd4a/18/80/01/67/ | wc -l
-~~~
-{: .language-bash} -->
-
--->
   
 > ## Is my file available or stuck on tape?
 > /tape_backed/ storage at Fermilab is migrated to tape and may not be on disk?

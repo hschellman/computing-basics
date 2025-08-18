@@ -37,6 +37,6 @@ YgZTGDqHQg6NOO77NsCY5J88uyIkkoZ1tRb6iTXK0j5RsX0AjA
 ~~~
 {: .bash} -->
 
-You should be able to read files at remove sites now. 
+You should be able to read files at remote sites now. 
 You may need to repeat the `htgettoken` as the interactive tokens are pretty short-lived.  Batch jobs do their own tokens. 
 
