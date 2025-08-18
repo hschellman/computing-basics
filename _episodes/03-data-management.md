@@ -419,13 +419,15 @@ As of the date of the 2025 tutorial:
 - The Rucio client is available in CVMFS and Spack
 - Most DUNE users are now enabled to use it. New users may not automatically be added. 
 
-### You need to autheticate to use rucio
+### You will need to authenticate to use read files
 
-#### For SL7 use justin to get a token
+> #### For SL7 use justin to get a token
+{:.callout}
 {% include sl7_token.md %}
 <!-- {: .callout} -->
 
-#### for AL9 use rucio to get a token
+> #### for AL9 use htgettoken to get a token
+{:.callout}
 {% include al9_token.md %}
 <!-- {: .callout} -->
 
@@ -484,7 +486,22 @@ root://meitner.tier2.hep.manchester.ac.uk:1094//cephfs/experiments/dune/RSE/fard
 
 which  the locations of the file on disk and tape. We can use this to copy the file to our local disk or access the file via xroot. 
 
-NOTE if you see a path in `/pnfs/usr/dune/tape_backed` at Fermilab or on eos, `ctapublic.cern.ch` those are on tape and not generally accessible to the user.  Try to get the file from the remaining one (in this case hep.manchester.ac.uk)
+> ## Testing - access a file
+> Try to access the file at manchester using the command:
+> ~~~
+> root -l root://meitner.tier2.hep.manchester.ac.uk:1094//cephfs/experiments/dune/RSE/fardet-vd/fd/a6/prodmarley_nue_es_flat_radiological_decay0_dunevd10kt_1x8x14_3view_30deg_20250217T033222Z_gen_004122_supernova_g4stage1_g4stage2_detsim_reco.root
+> _file0->ls
+> ~~~
+> {: .language-bash}
+{: .challenge}
+
+It will complain because you haven't loaded all the information needed to read an artroot file but you should be able to read it. 
+
+
+> ## NOTE if you see a path in `/pnfs/usr/dune/tape_backed` at Fermilab or on eos, `ctapublic.cern.ch` 
+> those are on tape and not generally accessible to the user.  Try to get the file from the remaining one (in this case hep.manchester.ac.uk)
+{: .callout}
+
 
 ## More finding files by characteristics using metacat
 

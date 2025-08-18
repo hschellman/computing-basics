@@ -482,10 +482,10 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 
 
 
-## 5. Exercise! (it's easy)
+## 5. Exercise! (For SL7 - it's easy)
 This exercise will help organizers see if you reached this step or need help.
 
-1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2025.sh```.  
+1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2025_sl7.sh```.  
 
 
 Launch the *Apptainer* as described above in the [SL7 version](#SL7_setup) 
@@ -501,7 +501,7 @@ alias dune_setup7='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_du
 {: .source}
 When you start the training, you will have to source this file:
 ~~~
-source ~/dune_presetup_2025.sh
+source ~/dune_presetup_2025_sl7.sh
 ~~~
 {: .language-bash}
 Then, to setup DUNE, use the created alias:
@@ -510,6 +510,37 @@ dune_setup7
 setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
 ~~~
 {: .language-bash}
+
+2) Create working directories in the `/exp/dune/app` and `/pnfs/dune` areas (these will be explained later in the training):
+~~~
+mkdir -p /exp/dune/app/users/${USER}
+mkdir -p /pnfs/dune/scratch/users/${USER}
+mkdir -p /pnfs/dune/persistent/users/${USER}
+~~~
+{: .language-bash}
+
+3) Print the date and add the output to a file named `my_first_login.txt`:
+~~~
+date >& /exp/dune/app/users/${USER}/my_first_login.txt
+~~~
+{: .language-bash}
+4) With the above, we will check if you reach this point. However we want to tailor this tutorial to your preferences as much as possible. We will let you decide which animals you would like to see in future material, between: "puppy", "cat", "squirrel", "sloth", "unicorn pegasus llama" (or "prefer not to say" of course). Write your desired option on the second line of the file you just created above.
+
+## 5. Exercise! (For AL9 - it's easy)
+This exercise will help organizers see if you reached this step or need help.
+
+1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2025_al9.sh```.  
+
+And copy this into it:
+
+{% include al9_setup_2025a.md %}
+
+When you start the training, you will have to source this file:
+~~~
+source ~/dune_presetup_2025_al9.sh
+~~~
+{: .language-bash}
+
 
 2) Create working directories in the `/exp/dune/app` and `/pnfs/dune` areas (these will be explained later in the training):
 ~~~
