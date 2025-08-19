@@ -4,6 +4,25 @@ permalink: sl7_speedrun
 keypoints:
 - all in one place
 --- 
+Start the Apptainer
+
+
+> ## Choose your apptainer
+> 
+> > ## gpvm apptainer
+> > ~~~
+> > {% include apptainer_gpvm.md %}
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
+> > ## cern apptainer
+> > ~~~
+> > {% include apptainer_cern.md %}
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
+{: .challenge}
+
 
 {% include sl7_setup_2025.md %}
 {% include sl7_token.md %}

@@ -318,6 +318,7 @@ Here is how you set up basic DUNE software on Alma 9. We are using the super-com
 
 {% include al9_setup_2025a.md %}
 
+<!-- 
 
 > > ## You may see a rucio config error message that looks like this
 > > ~~~
@@ -328,6 +329,7 @@ Here is how you set up basic DUNE software on Alma 9. We are using the super-com
 > This happens if you've run older versions of rucio that used kx509 authentication.  Remove `$HOME/.config/rucio/dune/etc/rucio.cfg` as it advises and rerun the `spack load r-m-dd-config` command to reset the config file.  You should not need to do this again.
 {: .callout}
 
+ -->
 
 > ## Optional
 > > ## See if ROOT works
@@ -356,14 +358,21 @@ To set up your environment in SL7, the commands are:
 
 Log into a DUNE machine running Alma9
 
-Launch an SL7 container
 
-~~~
-/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
--B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid \
-/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
-~~~
-{: .language-bash}
+> ### Launch an SL7 container
+> 
+> > ## gpvm apptainer
+> > ~~~
+> > {% include apptainer_gpvm.md %}
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
+> > ## cern apptainer
+> > ~~~
+> > {% include apptainer_cern.md %}
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
 
 You will then be in a container which looks like:
 
@@ -388,10 +397,10 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 ~~~
 {: .output}
 
-> ## Optional
-> > ### See if ROOT works
-> > Try testing ROOT to make certain things are working
-> >
+
+> ### See if ROOT works
+>
+> > ## Try testing ROOT to make certain things are working
 > > ~~~
 > > setup root v6_28_12 -q e26:p3915:prof # sets up root for you  
 > > root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
@@ -399,7 +408,7 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 > > {: .language-bash}
 > > You should see a plot that updates and then terminates.  You may need to `export DISPLAY=0:0`.
 > {: .solution}
-{: .callout}
+{: .challenge}
 
 ### Caveats for later
 
@@ -672,9 +681,7 @@ log into `lxplus.cern.ch`
 fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightly different version as mounts are different.
 
 ~~~
-/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
--B /cvmfs,/afs,/opt,/run/user,/etc/hostname --ipc --pid \
-/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
+{% include apptainer_cern.md %}
 ~~~
 {: .language-bash}
 
