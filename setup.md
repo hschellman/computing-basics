@@ -283,76 +283,10 @@ A simpler solution would be to rename your login scripts (for instance .bashrc a
 > You are going to be doing some setup for dune, which you will also need to  do when you submit batch jobs.  It is much easier to make a script `setup_dune.sh` which you execute every time you log in.  Then you can duplicate the contents of that script in the script you use to run batch jobs on remote machines.  It also makes it much easier for people to help you debug your setup. 
 {: .callout}
 
-## 4.1 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>
 
-<!-- Try testing ROOT to make certain things are working
+## 4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>
 
-~~~
-setup root -v v6_28_12 -q e26:p3915:prof # sets up root for you  
-
-#  right now setup seems to spew out 1000's of lines of verbose output just doing its job. 
-
-root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
-~~~
-{: .language-bash}
-
-You should see a plot that updates and then terminates.   You may need to `export DISPLAY=0:0` .
-
-### Caveats for later
-
-You cannot submit jobs from the Container - you need to open a separate window, not do the apptainer and submit your jobs from that window. 
-
-
-## 4.2 Setting up DUNE software - Alma9 version
--->
-
-We are moving to the Alma9 version of unix.  Not all DUNE code has been ported yet but if you are doing basic root analysis work, try it out. 
-
-Alma9 is the operating system you get when you log onto fnal unix or lxplus at CERN.
-
-Here is how you set up basic DUNE software on Alma 9. We are using the super-computer packaging system [Spack][Spack documentation] to give versioned access to code.
-
-1. login into a unix machine at FNAL or CERN
-
-2. Log into a gpvm or lxplus
-
-{% include al9_setup_2025a.md %}
-
-<!-- 
-
-> > ## You may see a rucio config error message that looks like this
-> > ~~~
-> > ==> Warning: Your rucio config /nashome/X/XXXXX/.config/rucio/dune/etc/rucio.cfg does not list oidc authentication
-> > If you remove it and spack load r-m-dd-config again it will get regenerated with oidc (Token) authentication
-> > ~~~
-> > {: .output}
-> This happens if you've run older versions of rucio that used kx509 authentication.  Remove `$HOME/.config/rucio/dune/etc/rucio.cfg` as it advises and rerun the `spack load r-m-dd-config` command to reset the config file.  You should not need to do this again.
-{: .callout}
-
- -->
-
-> ## Optional
-> > ## See if ROOT works
-> > Try testing ROOT to make certain things are working
-> >
-> > ~~~ 
-> > root -l -q $ROOTSYS/share/doc/root/tutorials/dataframe/df013_InspectAnalysis.C
-> > # (the spack version of root seems to bury the tutorials.)
-> > ~~~
-> > {: .language-bash}
-> > You should see a plot that updates and then terminates.   
-> {: .solution}
-{: .callout}
-
-
-### Caveats
-
-We don't have a full ability to rebuild DUNE Software packages such as LArSoft using Spack yet.  We will be adding more functionality soon.  Unless you are doing simple ROOT based analysis you will need to use the [SL7 Container](#SL7_setup) method for now. 
-
-
-## 4.2 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>
-
-See [SL7_to_Alma9][SL7_to_Alma9] for more information 
+<!-- See [SL7_to_Alma9][SL7_to_Alma9] for more information  -->
 
 To set up your environment in SL7, the commands are:
 
@@ -409,16 +343,86 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 > > You should see a plot that updates and then terminates.  You may need to `export DISPLAY=0:0`.
 > {: .solution}
 {: .challenge}
+<!-- 
 
 ### Caveats for later
 
-> ## Note: You cannot submit jobs from the Container
-> You cannot submit jobs from the Container - you need to open a separate window. In that window do the minimal [Alma9](#AL9_setup) setup above and submit your jobs from that window. 
+> ## Note: You cannot submit basic grid jobs from the Container
+> You cannot submit jobsub jobs from the Container - you need to open a separate window. In that window do the minimal [Alma9](#AL9_setup) setup above and submit your jobs from that window. 
 >
 >You may need to print your submit command to the screen or a file to do so if your submission is done from a script that uses ups. 
+
+{: .callout} 
+
+-->
+## 4.2 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>
+
+<!-- Try testing ROOT to make certain things are working
+
+~~~
+setup root -v v6_28_12 -q e26:p3915:prof # sets up root for you  
+
+#  right now setup seems to spew out 1000's of lines of verbose output just doing its job. 
+
+root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
+~~~
+{: .language-bash}
+
+You should see a plot that updates and then terminates.   You may need to `export DISPLAY=0:0` .
+
+### Caveats for later
+
+You cannot submit jobs from the Container - you need to open a separate window, not do the apptainer and submit your jobs from that window. 
+
+
+## 4.2 Setting up DUNE software - Alma9 version
+-->
+
+We are moving to the Alma9 version of unix.  Not all DUNE code has been ported yet but if you are doing basic root analysis work, try it out. 
+
+Alma9 is the operating system you get when you log onto fnal unix or lxplus at CERN.
+
+Here is how you set up basic DUNE software on Alma 9. We are using the super-computer packaging system [Spack][Spack documentation] to give versioned access to code.
+
+1. login into a unix machine at FNAL (dunegpvmXX) or CERN (lxplus)
+
+2. run this setup 
+
+{% include al9_setup_2025a.md %}
+
+<!-- 
+
+> > ## You may see a rucio config error message that looks like this
+> > ~~~
+> > ==> Warning: Your rucio config /nashome/X/XXXXX/.config/rucio/dune/etc/rucio.cfg does not list oidc authentication
+> > If you remove it and spack load r-m-dd-config again it will get regenerated with oidc (Token) authentication
+> > ~~~
+> > {: .output}
+> This happens if you've run older versions of rucio that used kx509 authentication.  Remove `$HOME/.config/rucio/dune/etc/rucio.cfg` as it advises and rerun the `spack load r-m-dd-config` command to reset the config file.  You should not need to do this again.
 {: .callout}
 
-> ## 4.3 Optional
+ -->
+
+> ## Optional
+> > ## See if ROOT works
+> > Try testing ROOT to make certain things are working
+> >
+> > ~~~ 
+> > root -l -q $ROOTSYS/share/doc/root/tutorials/dataframe/df013_InspectAnalysis.C
+> > # (the spack version of root seems to bury the tutorials.)
+> > ~~~
+> > {: .language-bash}
+> > You should see a plot that updates and then terminates.   
+> {: .solution}
+{: .callout}
+
+
+### Caveats
+
+We don't have a full ability to rebuild DUNE Software packages such as LArSoft using Spack yet.  We will be adding more functionality soon.  Unless you are doing simple ROOT based analysis you will need to use the [SL7 Container](#SL7_setup) method for now. 
+
+
+> ## 4.3 Optional - make an alias!
 > > ## See how you can make an alias so you don't have to type everything
 > > You can store this in your (minimal) .bashrc or .profile if you want this alias to be available in all sessions. The alias will be defined but not executed. Only if you type the command `dune_setup7` yourself.> Not familiar with aliases? Read below.
 > > 
@@ -427,7 +431,7 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 > > alias my_custom_commmand='the_long_command_you_want_to_alias_in_a_shorter_custom_name'
 > > ~~~
 > > {: .source}
-> > For DUNE setup, you can type for instance:
+> > For DUNE SL7 setup, you can type for instance:
 > > ~~~
 > > alias dune_setup7='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
 > > ~~~
@@ -552,7 +556,7 @@ Your certificate is valid until: Wed Jan 27 18:03:55 2021
 ~~~
 {: .output} -->
 
-To access the grid resources, you will need a token. 
+To access remote data and grid resources, you will need a token. 
 
 
 
@@ -603,7 +607,14 @@ With this done, you should be able to submit jobs and access remote DUNE storage
 
 We have moved from proxies to tokens for authentication as of 2025.
 
+
 #### 1. Get and store your token
+
+[Scientific Linux 7]({{ site.baseurl }}/Tokens/index.html#sl7-tokens-)
+
+[Alma 9]({{ site.baseurl }}/Tokens/index.html#al9-tokens-)
+
+<!-- 
 
 ~~~
 htgettoken -i dune --vaultserver htvaultprod.fnal.gov 
@@ -635,7 +646,7 @@ Storing condor credentials for dune
 ~~~
 {: .output}
 
-you should only have to do the web thing once/month.
+you should only have to do the web thing once/month
 
 #### 2. Tell the system where your token is
 
@@ -648,6 +659,7 @@ export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 the `id -u` just returns your numerical user ID 
 
 With this done, you should be able to submit jobs and access remote DUNE storage systems via xroot. 
+ -->
 
 
 
