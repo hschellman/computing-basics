@@ -18,7 +18,7 @@ The JustIn system is described in detail at:
 
 __[JustIn Home](https://justin.dune.hep.ac.uk/dashboard/)__
 
-__[JustIn Docs](https://justin.dune.hep.ac.uk/docs/)__
+__[JustIn Docs](https://dunejustin.fnal.gov/docs/)__
 
 
 > ## Note More documentation coming soon
@@ -541,7 +541,7 @@ justintime
 Links
 MetacatWEB interface:    https://metacat.fnal.gov:9443/dune_meta_prod/app/auth/login
 
-justIN: https://justin.dune.hep.ac.uk/docs/
+justIN: https://dunejustin.fnal.gov/docs/
 
 Slack channels:  #workflow
 

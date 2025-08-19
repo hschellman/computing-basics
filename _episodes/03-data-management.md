@@ -392,7 +392,7 @@ You can also use a similar query in your batch job to get the files you want.
 
 ### Finding those files on disk
 
-To find your files, you need to use [Rucio](#Rucio) directly or give the [justIN](https://justin.dune.hep.ac.uk/docs/tutorials.dune.md) batch system your query and it will locate them for you. 
+To find your files, you need to use [Rucio](#Rucio) directly or give the [justIN](https://dunejustin.fnal.gov/docs/tutorials.dune.md) batch system your query and it will locate them for you. 
 
 
 
@@ -577,7 +577,7 @@ You can stream files worldwide if you have a DUNE VO certificate as described in
 To learn more about using Rucio and Metacat to run over large data samples go here:
 
 > # Full justIN/Rucio/Metacat Tutorial
-> The [justIN tutorial](https://justin.dune.hep.ac.uk/docs/tutorials.dune.md)
+> The [justIN tutorial](https://dunejustin.fnal.gov/docs/tutorials.dune.md)
 >  and [justIN/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145)  
 {: .challenge}
 
@@ -611,7 +611,7 @@ When we are analyzing large numbers of files in a group of batch jobs, we use a 
 
 - [DataCatalogDocs][DataCatalogDocs]  
 - The [Justin/Rucio/Metacat Tutorial](https://docs.dunescience.org/cgi-bin/sso/RetrieveFile?docid=30145) 
-- [justin tutorial](https://justin.dune.hep.ac.uk/docs/tutorials.dune.md)
+- [justin tutorial](https://dunejustin.fnal.gov/docs/tutorials.dune.md)
 
 
 
