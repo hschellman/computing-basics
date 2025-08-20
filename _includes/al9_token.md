@@ -2,13 +2,14 @@
 
 Make certain you have [al9 set up]({{ site.baseurl }}/al9_setup)
 
-Get rucio:
+<!-- Get rucio:
 
 ~~~
 spack load r-m-dd-config experiment=dune lab=fnal.gov # r stands for rucio
 export RUCIO_ACCOUNT=justinreadonly
 ~~~
-{: .language-bash}
+{: .language-bash} 
+-->
 
 Then use htgettoken to get a token so you can read the files you find. 
 

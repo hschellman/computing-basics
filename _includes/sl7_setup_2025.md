@@ -16,11 +16,6 @@ export DUNEAPP=/exp/dune/app/users/$USER
 export PERSISTENT=/pnfs/dune/persistent/users/$USER
 export SCRATCH=/pnfs/dune/scratch/users/$USER
 
-# do some authentication
-
-htgettoken -i dune --vaultserver htvaultprod.fnal.gov
-export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
-
 # set up the full DUNE SW suite
 
 export DUNELAR_VERSION=v10_07_00d00 # you want to update this

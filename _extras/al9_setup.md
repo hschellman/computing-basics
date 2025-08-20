@@ -13,7 +13,13 @@ You can store the code below as
 > Use the [Apptainer/ method]({{ site.baseurl }}/sl7_setup.html) until we get larsoft working if you want to use the full DUNE software suite. 
 {: .callout}
 
+## Set up software
+
 {% include al9_setup_2025a.md %}
+
+## Get a token
+
+{% include al9_token.md %}
 
 <!-- ~~~
 # find a spack environment and set it up
@@ -50,6 +56,7 @@ spack load justin
 ~~~
 {: .language-bash} -->
 
+<!-- 
 You can ignore most warning messages - this is still under development - but pay attention to this one.
 
 > ## Note
@@ -61,4 +68,6 @@ You can ignore most warning messages - this is still under development - but pay
 > > {: .output}
 > > This happens if you've run older versions of rucio that used kx509 authentication.  Remove `$HOME/.config/rucio/dune/etc/rucio.cfg` as it advises and rerun the `spack load r-m-dd-config` command to reset the config file.  You should not need to do this again.
 > {: .solution}
-{: .callout}
+{: .callout} 
+
+-->
