@@ -1,4 +1,10 @@
 
+> ## RUCIO authentication does not work on AL9 for now
+> Please use [SL7]({{ site.baseurl }}/sl7_setup) if you need to use rucio
+>
+> normal tokens (below) for xroot access do work
+> 
+{: .caution}
 
 Make certain you have [al9 set up]({{ site.baseurl }}/al9_setup)
 
