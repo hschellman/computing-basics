@@ -21,6 +21,8 @@ eventbrite:
 
 This tutorial will teach you the basics of DUNE Computing. 
 
+**If attending a live tutorial, you need to complete the [Setup]({{ site.baseurl }}/setup) beforehand.  It ensures that you have a computer account at CERN or FNAL and tests that you can log in and find your disk areas.**
+
 Instructors will engage students with hands-on lessons focused in three areas:
 
 0. Basics of logging on, getting accounts, disk spaces
@@ -28,8 +30,8 @@ Instructors will engage students with hands-on lessons focused in three areas:
 2. How to find futher training materials for DUNE and HEP software
 
 Other modules 
-1. Introduction to LArSoft
-2. Introduction to batch systems
+1. [Introduction to LArSoft](https:dune.github.io/computing-basics-larsoft)
+2. [Introduction to batch systems](https:dune.github.io/computing-basics-batch)
 
 Mentors will answer your questions and provide technical support.
 

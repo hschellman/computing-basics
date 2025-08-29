@@ -699,7 +699,7 @@ fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightl
 
 You may have to add some mounts - here I added `/afs/` but removed `/nashome/`, `/exp/`, `/etc/krb5.conf` and `/pnfs/`.
 
-You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}/03.3-cvmfs).
+You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}/02.3-cvmfs).
 
 Set up the DUNE software 
 
