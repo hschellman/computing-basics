@@ -302,13 +302,16 @@ This even works if the file is in Europe - which you cannot do with a direct /pn
 
 ~~~
 #Need to setup root executable in the environment first...
-export DUNELAR_VERSION=v09_90_01d00
+export DUNELAR_VERSION=v10_07_00d00
 export DUNELAR_QUALIFIER=e26:prof
 export UPS_OVERRIDE=“-H Linux64bit+3.10-2.17"
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
+~~~
+{: .language-bash}
 
-root -l root://dune.dcache.nikhef.nl:1094/pnfs/nikhef.nl/data/dune/generic/rucio/usertests/b4/03/prod_beam_p1GeV_cosmics_protodunehd_20240405T005104Z_188961_006300_g4_stage1_g4_stage2_sce_E500_detsim_reco_20240426T232530Z_rerun_reco.root
+~~~
+{% include examplerootfile.md %}
 ~~~
 {: .language-bash}
 
