@@ -283,7 +283,79 @@ A simpler solution would be to rename your login scripts (for instance .bashrc a
 > You are going to be doing some setup for dune, which you will also need to  do when you submit batch jobs.  It is much easier to make a script `setup_dune.sh` which you execute every time you log in.  Then you can duplicate the contents of that script in the script you use to run batch jobs on remote machines.  It also makes it much easier for people to help you debug your setup. 
 {: .callout}
 
-## 4.1 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>
+
+## 4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>
+
+<!-- See [SL7_to_Alma9][SL7_to_Alma9] for more information  -->
+
+To set up your environment in SL7, the commands are:
+
+Log into a DUNE machine running Alma9
+
+
+> ### Launch an SL7 container
+> 
+> > ## gpvm apptainer
+> > ~~~
+> > {% include apptainer_gpvm.md %}
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
+> > ## cern apptainer
+> > ~~~
+> > {% include apptainer_cern.md %}
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
+
+You will then be in a container which looks like:
+
+~~~
+Apptainer>
+~~~
+{: .output}
+
+You can then set up DUNE's code 
+
+~~~
+source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
+~~~
+{: .language-bash}
+
+<!-- {% include sl7_setup_2025.md %} -->
+
+You should see in your terminal the following output:
+~~~
+Setting up larsoft UPS area... /cvmfs/larsoft.opensciencegrid.org/products/
+Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
+~~~
+{: .output}
+
+
+> ### See if ROOT works
+>
+> > ## Try testing ROOT to make certain things are working
+> > ~~~
+> > setup root v6_28_12 -q e26:p3915:prof # sets up root for you  
+> > root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
+> > ~~~
+> > {: .language-bash}
+> > You should see a plot that updates and then terminates.  You may need to `export DISPLAY=0:0`.
+> {: .solution}
+{: .challenge}
+<!-- 
+
+### Caveats for later
+
+> ## Note: You cannot submit basic grid jobs from the Container
+> You cannot submit jobsub jobs from the Container - you need to open a separate window. In that window do the minimal [Alma9](#AL9_setup) setup above and submit your jobs from that window. 
+>
+>You may need to print your submit command to the screen or a file to do so if your submission is done from a script that uses ups. 
+
+{: .callout} 
+
+-->
+## 4.2 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>
 
 <!-- Try testing ROOT to make certain things are working
 
@@ -312,47 +384,13 @@ Alma9 is the operating system you get when you log onto fnal unix or lxplus at C
 
 Here is how you set up basic DUNE software on Alma 9. We are using the super-computer packaging system [Spack][Spack documentation] to give versioned access to code.
 
-1. login into a unix machine at FNAL or CERN
+1. login into a unix machine at FNAL (dunegpvmXX) or CERN (lxplus)
 
-2. Log into a gpvm or lxplus
+2. run this setup 
 
 {% include al9_setup_2025a.md %}
-<!-- ~~~
-# find a spack environment and set it up
-# setup spack
 
-source /cvmfs/larsoft.opensciencegrid.org/spack-v0.22.0-fermi/setup-env.sh
-export CVSROOT=minervacvs@cdcvs.fnal.gov:/cvs/mnvsoft
-
-# get the packages you need to run this - this will become simple in future
-echo "ROOT"
-spack load root@6.28.12%gcc@12.2.0 arch=linux-almalinux9-x86_64_v3
-
-echo "CMAKE"
-spack load cmake@3.27.9%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
-
-echo "GCC"
-spack load gcc@12.2.0
-
-echo "Rucio and metacat"
-spack load r-m-dd-config experiment=dune lab=fnal.gov
-export RUCIO_ACCOUNT=${USER}
-export SAM_EXPERIMENT=dune
-
-echo "IFDHC"
-spack load ifdhc@2.8.0%gcc@12.2.0 arch=linux-almalinux9-x86_64_v3
-spack load ifdhc-config@2.6.20%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
-
-
-echo "PY-PIP"                       
-spack load py-pip@23.1.2%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
-
-echo "Justin"
-spack load justin
-
-~~~
-{: .language-bash} -->
-
+<!-- 
 
 > > ## You may see a rucio config error message that looks like this
 > > ~~~
@@ -360,10 +398,10 @@ spack load justin
 > > If you remove it and spack load r-m-dd-config again it will get regenerated with oidc (Token) authentication
 > > ~~~
 > > {: .output}
-> > This happens if you've run older versions of rucio that used kx509 authentication.  Remove `$HOME/.config/rucio/dune/etc/rucio.cfg` as it advises and rerun the `spack load r-m-dd-config` command to reset the config file.  You should not need to do this again.
-<!-- > {: .solution} -->
+> This happens if you've run older versions of rucio that used kx509 authentication.  Remove `$HOME/.config/rucio/dune/etc/rucio.cfg` as it advises and rerun the `spack load r-m-dd-config` command to reset the config file.  You should not need to do this again.
 {: .callout}
 
+ -->
 
 > ## Optional
 > > ## See if ROOT works
@@ -384,68 +422,7 @@ spack load justin
 We don't have a full ability to rebuild DUNE Software packages such as LArSoft using Spack yet.  We will be adding more functionality soon.  Unless you are doing simple ROOT based analysis you will need to use the [SL7 Container](#SL7_setup) method for now. 
 
 
-## 4.2 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>
-
-See [SL7_to_Alma9][SL7_to_Alma9] for more information 
-
-To set up your environment in SL7, the commands are:
-
-Log into a DUNE machine running Alma9
-
-Launch an SL7 container
-
-~~~
-/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
--B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid \
-/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
-~~~
-{: .language-bash}
-
-You will then be in a container which looks like:
-
-~~~
-Apptainer>
-~~~
-{: .output}
-
-You can then set up DUNE's code 
-
-~~~
-source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-~~~
-{: .language-bash}
-
-<!-- {% include sl7_setup_2025.md %} -->
-
-You should see in your terminal the following output:
-~~~
-Setting up larsoft UPS area... /cvmfs/larsoft.opensciencegrid.org/products/
-Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
-~~~
-{: .output}
-
-> ## Optional
-> > ### See if ROOT works
-> > Try testing ROOT to make certain things are working
-> >
-> > ~~~
-> > setup root v6_28_12 -q e26:p3915:prof # sets up root for you  
-> > root -l -q $ROOTSYS/tutorials/dataframe/df013_InspectAnalysis.C
-> > ~~~
-> > {: .language-bash}
-> > You should see a plot that updates and then terminates.  You may need to `export DISPLAY=0:0`.
-> {: .solution}
-{: .callout}
-
-### Caveats for later
-
-> ## Note: You cannot submit jobs from the Container
-> You cannot submit jobs from the Container - you need to open a separate window. In that window do the minimal [Alma9](#AL9_setup) setup above and submit your jobs from that window. 
->
->You may need to print your submit command to the screen or a file to do so if your submission is done from a script that uses ups. 
-{: .callout}
-
-> ## 4.3 Optional
+> ## 4.3 Optional - make an alias!
 > > ## See how you can make an alias so you don't have to type everything
 > > You can store this in your (minimal) .bashrc or .profile if you want this alias to be available in all sessions. The alias will be defined but not executed. Only if you type the command `dune_setup7` yourself.> Not familiar with aliases? Read below.
 > > 
@@ -454,7 +431,7 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 > > alias my_custom_commmand='the_long_command_you_want_to_alias_in_a_shorter_custom_name'
 > > ~~~
 > > {: .source}
-> > For DUNE setup, you can type for instance:
+> > For DUNE SL7 setup, you can type for instance:
 > > ~~~
 > > alias dune_setup7='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
 > > ~~~
@@ -482,17 +459,17 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 
 
 
-## 5. Exercise! (it's easy)
+## 5. Exercise! (For SL7 - it's easy)
 This exercise will help organizers see if you reached this step or need help.
 
-1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2025.sh```.  
+1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2025_sl7.sh```.  
 
 
 Launch the *Apptainer* as described above in the [SL7 version](#SL7_setup) 
 
 Write in it the following:
 ~~~
-export DUNELAR_VERSION=v10_00_04d00
+export DUNELAR_VERSION=v10_07_00d00
 export DUNELAR_QUALIFIER=e26:prof
 
 export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
@@ -501,7 +478,7 @@ alias dune_setup7='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_du
 {: .source}
 When you start the training, you will have to source this file:
 ~~~
-source ~/dune_presetup_2025.sh
+source ~/dune_presetup_2025_sl7.sh
 ~~~
 {: .language-bash}
 Then, to setup DUNE, use the created alias:
@@ -510,6 +487,37 @@ dune_setup7
 setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
 ~~~
 {: .language-bash}
+
+2) Create working directories in the `/exp/dune/app` and `/pnfs/dune` areas (these will be explained later in the training):
+~~~
+mkdir -p /exp/dune/app/users/${USER}
+mkdir -p /pnfs/dune/scratch/users/${USER}
+mkdir -p /pnfs/dune/persistent/users/${USER}
+~~~
+{: .language-bash}
+
+3) Print the date and add the output to a file named `my_first_login.txt`:
+~~~
+date >& /exp/dune/app/users/${USER}/my_first_login.txt
+~~~
+{: .language-bash}
+4) With the above, we will check if you reach this point. However we want to tailor this tutorial to your preferences as much as possible. We will let you decide which animals you would like to see in future material, between: "puppy", "cat", "squirrel", "sloth", "unicorn pegasus llama" (or "prefer not to say" of course). Write your desired option on the second line of the file you just created above.
+
+## 5. Exercise! (For AL9 - it's easy)
+This exercise will help organizers see if you reached this step or need help.
+
+1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2025_al9.sh```.  
+
+And copy this into it:
+
+{% include al9_setup_2025a.md %}
+
+When you start the training, you will have to source this file:
+~~~
+source ~/dune_presetup_2025_al9.sh
+~~~
+{: .language-bash}
+
 
 2) Create working directories in the `/exp/dune/app` and `/pnfs/dune` areas (these will be explained later in the training):
 ~~~
@@ -548,7 +556,7 @@ Your certificate is valid until: Wed Jan 27 18:03:55 2021
 ~~~
 {: .output} -->
 
-To access the grid resources, you will need a token. 
+To access remote data and grid resources, you will need a token. 
 
 
 
@@ -599,7 +607,14 @@ With this done, you should be able to submit jobs and access remote DUNE storage
 
 We have moved from proxies to tokens for authentication as of 2025.
 
+
 #### 1. Get and store your token
+
+[Scientific Linux 7]({{ site.baseurl }}/Tokens/index.html#sl7-tokens-)
+
+[Alma 9]({{ site.baseurl }}/Tokens/index.html#al9-tokens-)
+
+<!-- 
 
 ~~~
 htgettoken -i dune --vaultserver htvaultprod.fnal.gov 
@@ -631,7 +646,7 @@ Storing condor credentials for dune
 ~~~
 {: .output}
 
-you should only have to do the web thing once/month.
+you should only have to do the web thing once/month
 
 #### 2. Tell the system where your token is
 
@@ -644,6 +659,7 @@ export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 the `id -u` just returns your numerical user ID 
 
 With this done, you should be able to submit jobs and access remote DUNE storage systems via xroot. 
+ -->
 
 
 
@@ -677,15 +693,13 @@ log into `lxplus.cern.ch`
 fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightly different version as mounts are different.
 
 ~~~
-/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
--B /cvmfs,/afs,/opt,/run/user,/etc/hostname --ipc --pid \
-/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
+{% include apptainer_cern.md %}
 ~~~
 {: .language-bash}
 
 You may have to add some mounts - here I added `/afs/` but removed `/nashome/`, `/exp/`, `/etc/krb5.conf` and `/pnfs/`.
 
-You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}/03.3-cvmfs).
+You should then be able to proceed with much of the tutorial thanks to the wonder that is [`/cvmfs/`]({{ site.baseurl }}/02.3-cvmfs).
 
 Set up the DUNE software 
 

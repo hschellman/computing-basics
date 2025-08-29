@@ -16,8 +16,7 @@ spack load gcc@12.2.0
 
 echo "Rucio and metacat"
 spack load r-m-dd-config experiment=dune lab=fnal.gov
-export RUCIO_ACCOUNT=${USER}
-export SAM_EXPERIMENT=dune
+export RUCIO_ACCOUNT=justinreadonly
 
 echo "IFDHC"
 spack load ifdhc@2.8.0%gcc@12.2.0 arch=linux-almalinux9-x86_64_v3
@@ -27,7 +26,7 @@ spack load ifdhc-config@2.6.20%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
 echo "PY-PIP"                       
 spack load py-pip@23.1.2%gcc@11.4.1 arch=linux-almalinux9-x86_64_v3
 
-echo "justIN"
-spack load justin
+echo "no justIN yet"
+#spack load justin
 ~~~
 {: .language-bash}
