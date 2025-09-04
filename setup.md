@@ -734,8 +734,8 @@ PDSPProd4_protoDUNE_sp_reco_stage1_p1GeV_35ms_sce_datadriven_41094796_0_20210121
 {: .output}
 
 ### 5. Notify us
-You should be good to go, and you might revisit [Indico event page][indico-event-page].
-If however you are experiencing issues, please contact us as soon as possible. Be sure to mention "Setup on CERN machines" if that is the case, and we will do our best to assist you.
+You should be good to go.
+If you are experiencing issues, please contact us as soon as possible. Be sure to mention "Setup on CERN machines" if that is the case, and we will do our best to assist you.
 
 > ## Success
 > If you can list the files above, you should be able to do most of the tutorial on LArSoft.

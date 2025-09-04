@@ -30,10 +30,15 @@ Start the Apptainer
 ## check root
 
 ~~~
-{% include examplerootfile.md}
+{% include examplerootfile.md %}
 .q
 ~~~
 {: .language-bash} 
 
 ## check rucio
+
+~~~
+{% include examplefindfile.md %}
+~~~
+{: .language-bash} 
 

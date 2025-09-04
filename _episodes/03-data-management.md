@@ -643,13 +643,13 @@ When we are analyzing large numbers of files in a group of batch jobs, we use a 
 > How do we determine a DUNE data file location?
 > <ol type="A">
 > <li>Do `ls -R` on /pnfs/dune and grep</li>
-> <li>Use `rucio list-file-replicas` (namespace:filename) --pnfs --protocols=root</li>
+> <li>Use `rucio replica list file` (namespace:filename) --pnfs --protocols=root</li>
 > <li>Ask the data management group</li>
 > <li>None of the Above</li>
 > </ol>
 >
 > > ## Answer
-> > The correct answer is B - use `rucio list-file-replicas` (namespace:filename).
+> > The correct answer is B - use `rucio replica list file` (namespace:filename).
 > > {: .output}
 > > Comment here
 > {: .solution}
