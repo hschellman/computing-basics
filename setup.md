@@ -284,7 +284,8 @@ A simpler solution would be to rename your login scripts (for instance .bashrc a
 {: .callout}
 
 
-## 4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>
+## Software setup <a name="software_setup"></a>
+### 4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>
 
 <!-- See [SL7_to_Alma9][SL7_to_Alma9] for more information  -->
 
@@ -355,7 +356,7 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 {: .callout} 
 
 -->
-## 4.2 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>
+### 4.2 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>
 
 <!-- Try testing ROOT to make certain things are working
 
@@ -403,7 +404,7 @@ Here is how you set up basic DUNE software on Alma 9. We are using the super-com
 
  -->
 
-> ## Optional
+> ### Optional
 > > ## See if ROOT works
 > > Try testing ROOT to make certain things are working
 > >
