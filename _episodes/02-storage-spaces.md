@@ -102,13 +102,20 @@ Each has its own advantages and limitations, and knowing which one to use when i
 
 ## Grid-accessible storage volumes
 
-At Fermilab, an instance of dCache+CTA is used for large-scale, distributed storage with capacity for more than 100 PB of storage and O(10000) connections. Whenever possible, these storage elements should be accessed over xrootd (see next section) as the mount points on interactive nodes are slow, unstable, and can cause the node to become unusable. Here are the different dCache volumes:
+- At Fermilab, an instance of dCache+CTA is used for large-scale, distributed storage with capacity for more than 100 PB of storage and O(10000) connections. 
+- At CERN, the analog is EOS+CASTOR
+
+At Fermilab (CTA) and CERN (CASTOR), files are backed up to tape and may not be immediately accessible.
+
+DUNE also maintains disk copies of most recent files across many sites worldwide.
+
+Whenever possible, these storage elements should be accessed over xrootd (see next section) as the mount points on interactive nodes are slow, unstable, and can cause the node to become unusable. Here are the different dCache volumes:
 
 **Persistent dCache**: the data in the file is actively available for reads at any time and will not be removed until manually deleted by user.  The persistent dCache contains 3 logical areas: (1) /pnfs/dune/persistent/users in which every user has a quota up to 5TB total  (2) /pnfs/dune/persistent/physicsgroups.  This is dedicated for DUNE Physics groups and managed by the respective physics conveners of those physics groups. 
 https://wiki.dunescience.org/wiki/DUNE_Computing/Using_the_Physics_Groups_Persistent_Space_at_Fermilab gives more details on how to get 
 access to these groups.  In general, if you need to store more than 5TB in persistent dCache you should be working with the Physics Groups areas. (3) the "staging" area /pnfs/dune/persistent/staging which is not accessible by regular users but is by far the largest of the three.  It is used for official datasets.
 
-<!-- FIXME - comment about read/write permissions with tokes -->
+<!-- FIXME - comment about read/write permissions with tokens -->
 
 <!-- FIXME - comment on quotas -->
 
@@ -123,12 +130,12 @@ Files are not available for immediate read on disk, but needs to be 'staged' fro
 
 **Rucio Storage Elements**: Rucio Storage Elements (or RSEs) are storage elements provided by collaborating institution for official DUNE datasets.  Data stored in DUNE RSE's must be fully cataloged in the [metacat][metacat] catalog and is managed by the DUNE data management team. This is where you find the official data samples.
 
-**CVMFS**: CERN Virtual Machine File System is a centrally managed storage area that is distributed over the network, and utilized to distribute common software and a limited set of reference files. CVMFS is mounted over the network, and can be utilized on grid nodes, interactive nodes, and personal desktops/laptops. It is read only, and the most common source for centrally maintained versions of experiment software libraries/executables. CVMFS is mounted at `/cvmfs/` and access is POSIX-like, but read only. 
+**CVMFS**: CERN Virtual Machine File System is a centrally managed storage area that is distributed over the network, and utilized to distribute common software and a limited set of reference files. CVMFS is mounted over the network, and can be utilized on grid nodes, interactive nodes, and personal desktops/laptops. It is read only, and the most common source for centrally maintained versions of experiment software libraries/executables. CVMFS is mounted at `/cvmfs/` and access is POSIX-like, but read only.  
 
-add in RCDS and StashCache
+See [CVMFS]({{ site.baseurl }}/02.3-cvmfs) for more information.
 
 > ## Note - When reading from dcache always use the root: syntax, not direct /pnfs
-> The Fermilab dcache areas have NFS mounts.  These are for your convenience, they allow you to look at the directory structure and, for example, remove files.  However, NFS access is slow, inconsistent, and can hang the machine if I/O heavy processes use it.  Always use the `xroot root://<site>` ... when reading/accessing files instead of `/pnfs/` directly.  Once you have your dune environment set up the `pnfs2xrootd` command can do the conversion to `root:` format for you (only for files at FNAL for now). 
+> The Fermilab dcache areas have NFS mounts.  These are for your convenience, they allow you to look at the directory structure and, for example, remove files.  However, NFS access is slow, inconsistent, and can hang the machine if I/O heavy processes use it.  Always use the `xroot root://<site>` ... when reading/accessing files instead of `/pnfs/` directly.  Once you have your [dune environment set up](software_setup) the `pnfs2xrootd` command can do the conversion to `root:` format for you (only for files at FNAL for now). 
 {: .callout} 
 
 ## Summary on storage spaces
@@ -205,7 +212,7 @@ ifdh cp root://fndcadoor.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepr
 ~~~
 {: .language-bash}
 
-TODO - make certain we have a valid file
+<!-- FIXME - make certain we have a valid file -->
 
 Note, if the destination for an ifdh cp command is a directory instead of filename with full path, you have to add the "-D" option to the command line.
 
@@ -254,7 +261,7 @@ lar -c <input.fcl> <xrootd_uri>
 ~~~
 {: .language-bash}
 
-TODO - HDF5 voodoo? 
+<!-- FIXME - HDF5 voodoo?  -->
 
 to stream into a larsoft module configured within the fhicl file. As well, it can be implemented in standalone C++ as
 
@@ -298,7 +305,7 @@ root -l <that long root: path>
 
 to open the root file.  
 
-This even works if the file is in Europe - which you cannot do with a direct /pnfs! (NOTE! not all storage elements accept tokens so this may stop)
+This even works if the file is in Europe - which you cannot do with a direct /pnfs! (NOTE! not all storage elements accept tokens so this may not work for all files)
 
 ~~~
 #Need to setup root executable in the environment first...
@@ -323,7 +330,7 @@ See the next episode on [data management]({{ site.baseurl }}/03-data-management)
 {: .callout}
   
 > ## Is my file available or stuck on tape?
-> /tape_backed/ storage at Fermilab is migrated to tape and may not be on disk?
+> files in /tape_backed/ storage at Fermilab are migrated to tape and may not be on disk?
 > You can check this by doing the following **in an AL9 window**
 > ~~~
 > gfal-xattr  <xrootpath> user.status
@@ -336,9 +343,10 @@ See the next episode on [data management]({{ site.baseurl }}/03-data-management)
 > {: .output}
 > if it is only on tape you get
 > ~~~
-> NEARLINE
+> NEARLINE 
 > ~~~
 > {: .output}
+> or 'UNKNOWN'
 >  (This command doesn't work on SL7 so use an AL9 window)
 {: .challenge}
 

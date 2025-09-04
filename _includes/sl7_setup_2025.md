@@ -5,8 +5,6 @@ source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 
 # do some data access setup
 export IFDH_CP_MAXRETRIES=0\0\0\0\0  # no retries
-export DATA_DISPATCHER_URL=https://metacat.fnal.gov:9443/dune/dd/data
-export DATA_DISPATCHER_AUTH_URL=https://metacat.fnal.gov:8143/auth/dune
 export METACAT_SERVER_URL=https://metacat.fnal.gov:9443/dune_meta_prod/app
 export METACAT_AUTH_SERVER_URL=https://metacat.fnal.gov:8143/auth/dune
 
