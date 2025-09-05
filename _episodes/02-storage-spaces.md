@@ -347,7 +347,7 @@ See the next episode on [data management]({{ site.baseurl }}/03-data-management)
 > ~~~
 > {: .output}
 > or 'UNKNOWN'
->  (This command doesn't work on SL7 so use an AL9 window)
+>  (This command doesn't always work on SL7 so use an AL9 window)
 {: .challenge}
 
 

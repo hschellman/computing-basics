@@ -29,3 +29,6 @@ justin get-token
 {: .language-bash}
 
 You will have to do this sequence weekly as your justin access expires. 
+
+> ## Note: 
+> Despite the name of this command it gets you both a token and a special X.509 proxy and it is the latter you are actually using to talk to rucio in these SL7 examples

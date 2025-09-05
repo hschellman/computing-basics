@@ -280,6 +280,14 @@ metacat namespace list # find likely namespaces
 
 There are official looking ones like `hd-protodune-det-reco` and ones for users doing production testing like `schellma`.  The default for general use is `usertests`
 
+Creation of namespaces by non-privileged users is currently disabled. A tool is in progress which will automatically make one namespace for each user
+
+### metacat web interface
+
+Metacat also has a web interface that is useful in exploring file parentage [metacat gui](https://metacat.fnal.gov:9443/dune_meta_prod/app/gui)
+
+### Example of finding reconstructed Monte Carlo
+
 Let's look for some reconstructed Monte Carlo from the VD far detector. 
 
 ~~~
@@ -498,14 +506,14 @@ which  the locations of the file on disk and tape. We can use this to copy the f
 It will complain because you haven't loaded all the information needed to read an artroot file but you should be able to read it. 
 
 
-> ## NOTE if you see a path in `/pnfs/usr/dune/tape_backed` at Fermilab or on eos, `ctapublic.cern.ch` 
+> ## NOTE if you see a path in `/pnfs/usr/dune/tape_backed` at Fermilab or on `eosctapublic.cern.ch` 
 > those are on tape and not generally accessible to the user.  Try to get the file from the remaining one (in this case hep.manchester.ac.uk)
 {: .callout}
 
 
 ## More finding files by characteristics using metacat
 
-There isn't always an official dataset so you can also list files directly using metact.
+There isn't always an official dataset so you can also list files directly using metacat.
 
 To list raw data files for a given run:
 ~~~
