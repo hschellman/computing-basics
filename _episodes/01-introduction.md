@@ -28,7 +28,7 @@ The May 2023 DUNE computing training spanned two days: [Indico site](https://ind
 
 --> 
 
-This is a short 3 hour version of the basics.  We will be adding/offering additional tutorials.  An important one that is coming soon is:
+This is a short 3 hour version of the basics.  We will be adding/offering additional tutorials.  An important recent one is:
 
 [The LArSoft tutorial at CERN, February 3-7, 2025](https://indico.cern.ch/event/1461779/) password on the [tutorials page](https://wiki.dunescience.org/wiki/Computing_tutorials)
 

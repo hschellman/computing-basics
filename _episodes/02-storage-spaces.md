@@ -311,7 +311,7 @@ This even works if the file is in Europe - which you cannot do with a direct /pn
 #Need to setup root executable in the environment first...
 export DUNELAR_VERSION=v10_07_00d00
 export DUNELAR_QUALIFIER=e26:prof
-export UPS_OVERRIDE=“-H Linux64bit+3.10-2.17"
+export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
 ~~~
