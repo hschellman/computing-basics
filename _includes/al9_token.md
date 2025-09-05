@@ -1,11 +1,13 @@
 
-> ## RUCIO authentication does not work on AL9 for now
-> Please use [SL7]({{ site.baseurl }}/sl7_setup) if you need to use rucio
+> ## Note: The justin get-token method for authentication does not currently work on AL9 
+> The justin get-token command is not distributed on AL9/Spack currently.
+> Please use [SL7]({{ site.baseurl }}/sl7_setup) if you need to use rucio.
 >
-> normal tokens (below) for xroot access do work
+> normal tokens (below) for `xroot` access do work
 > 
 {: .caution}
 
+### getting a token for xroot access in AL9
 Make certain you have [al9 set up]({{ site.baseurl }}/al9_setup)
 
 <!-- Get rucio:

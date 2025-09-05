@@ -10,24 +10,24 @@ keypoints:
 
 ( I put this command in a file called apptainer.sh so I don't have to retype all the time.)
 
-###  FNAL
+Start the Apptainer
 
-~~~
-/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
--B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid \
-/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
-~~~
-{: .language-bash}
- 
-### CERN 
 
-~~~
-/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash\
--B /cvmfs,/afs,/opt,/run/user,/etc/hostname,/etc/krb5.conf --ipc --pid \
-/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
-~~~
-{: .language-bash}
-
+> ## Choose your apptainer
+> 
+> > ## gpvm apptainer
+> > ~~~
+> > {% include apptainer_gpvm.md %}
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
+> > ## cern apptainer
+> > ~~~
+> > {% include apptainer_cern.md %}
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
+{: .challenge}
 
 ## then do the following 
 
