@@ -30,8 +30,8 @@ Instructors will engage students with hands-on lessons focused in three areas:
 2. How to find futher training materials for DUNE and HEP software
 
 Other modules 
-1. [Introduction to LArSoft](https:dune.github.io/computing-basics-larsoft)
-2. [Introduction to batch systems](https:dune.github.io/computing-basics-batch)
+1. [Introduction to LArSoft](https://dune.github.io/computing-basics-larsoft)
+2. [Introduction to batch systems](https://dune.github.io/computing-basics-batch)
 
 Mentors will answer your questions and provide technical support.
 
