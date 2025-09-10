@@ -101,7 +101,7 @@ You should join the DUNE Slack instance and look in [#computing-training-basics]
 
 go to [https://atwork.dunescience.org/tools/](https://atwork.dunescience.org/tools/) scroll down to Slack and request an invite.  Please do not do this if you are already in DUNE Slack.
 
-The livedoc is here [livedoc](https://docs.google.com/document/d/1QNK-hKPqLIVaecRyg9q4QZOHNwAZgq32oHVuboG_AvQ/edit?usp=sharing)
+The livedoc is here [livedoc](https://docs.google.com/document/d/1i7up8WZjTkOUnl5S71psNa5G3zT-g8VDyaOdINXVBvE/edit?tab=t.0)
 
 
 

@@ -75,9 +75,12 @@ You will need to be a DUNE Collaborator (listed member), and have a valid FNAL o
 
 Then we will proceed through the episodes - the live tutorial currently goes to episode 5. 
 
-Ask questions on [Slack](https://dunescience.slack.com/archives/C02TJDHUQPR) anytime or - during the live lessons - on the [livedoc](https://docs.google.com/document/d/1QNK-hKPqLIVaecRyg9q4QZOHNwAZgq32oHVuboG_AvQ/edit?usp=sharing).
+Ask questions on [Slack](https://dunescience.slack.com/archives/C02TJDHUQPR) anytime or - during the live lessons - on the [livedoc](https://docs.google.com/document/d/1i7up8WZjTkOUnl5S71psNa5G3zT-g8VDyaOdINXVBvE/edit?tab=t.0).
 
-<!-- If there is a live session the schedule will appear here -->
+<!-- If there is a live session the schedule will appear here 
+
+https://docs.google.com/document/d/1i7up8WZjTkOUnl5S71psNa5G3zT-g8VDyaOdINXVBvE/edit?tab=t.0#heading=h.gbjqf5tvtt25
+-->
 
 <!--<h2 id="schedule">Schedule by Day</h2>
 
