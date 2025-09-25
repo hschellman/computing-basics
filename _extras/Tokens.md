@@ -9,3 +9,5 @@ title: Tokens
 ## AL9 Tokens <a name="AL9_token"></a>
 
 {% include al9_token.md %}
+
+Check your token `httogendecode`

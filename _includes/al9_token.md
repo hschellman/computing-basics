@@ -22,7 +22,7 @@ export RUCIO_ACCOUNT=justinreadonly
 Then use htgettoken to get a token so you can read the files you find. 
 
 ~~~
-htgettoken -i dune --vaultserver htvaultprod.fnal.gov #:8200
+htgettoken -i dune --vaultserver htvaultprod.fnal.gov -r interactive 
 export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 ~~~
 {: .language-bash}

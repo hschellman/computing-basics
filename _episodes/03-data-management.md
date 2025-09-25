@@ -94,9 +94,9 @@ DUNE runs multiple experiments (far detectors, protodune-sp, protodune-dp hd-pro
 
 To find your data you need to specify at the minimum 
 
-- `core.run_type`  (the experiment)
+- `core.run_type`  (the experiment:  fardet-vd, hd-protodune ...)
 - `core.file_type` (mc or detector)
-- `core.data_tier` (the level of processing raw, full-reconstructed, root-tuple)
+- `core.data_tier` (the level of processing raw, full-reconstructed, root-tuple ...)
 
 and when searching for specific types of data
 
@@ -498,7 +498,7 @@ which  the locations of the file on disk and tape. We can use this to copy the f
 > Try to access the file at manchester using the command:
 > ~~~
 > root -l root://meitner.tier2.hep.manchester.ac.uk:1094//cephfs/experiments/dune/RSE/fardet-vd/fd/a6/prodmarley_nue_es_flat_radiological_decay0_dunevd10kt_1x8x14_3view_30deg_20250217T033222Z_gen_004122_supernova_g4stage1_g4stage2_detsim_reco.root
-> _file0->ls
+> _file0->ls()
 > ~~~
 > {: .language-bash}
 {: .challenge}

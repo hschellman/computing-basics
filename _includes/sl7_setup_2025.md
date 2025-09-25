@@ -21,9 +21,5 @@ export DUNELAR_QUALIFIER=e26:prof # you want to update this
 
 setup -B dunesw ${DUNELAR_VERSION} -q ${DUNELAR_QUALIFIER}
 
-setup metacat
-setup rucio
-export RUCIO_ACCOUNT=justinreadonly
-setup justin
 ~~~
 {: .language-bash}

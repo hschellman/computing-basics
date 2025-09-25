@@ -196,21 +196,17 @@ Here is an example to copy a file. Refer to the [Mission Setup]({{ site.baseurl 
 > For now do this in the Apptainer
 {: .challenge}
 
-~~~
-/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
--B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid \
-/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
-~~~
-{: .language-bash}
+Do the standard [sl7 setup]({{ site.baseurl }}/setup_sl7) 
 
-once in the Apptainer
+
+once you are set up 
 ~~~
-source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-setup ifdhc
-export IFDH_TOKEN_ENABLE=1
+export IFDH_TOKEN_ENABLE=1 # only need to do this once
 ifdh cp root://fndcadoor.fnal.gov:1094/pnfs/fnal.gov/usr/dune/tape_backed/dunepro/physics/full-reconstructed/2023/mc/out1/MC_Winter2023_RITM1592444_reReco/54/05/35/65/NNBarAtm_hA_BR_dune10kt_1x2x6_54053565_607_20220331T192335Z_gen_g4_detsim_reco_65751406_0_20230125T150414Z_reReco.root /dev/null
 ~~~
 {: .language-bash}
+
+This should go quickly as you are not actually writing the file. 
 
 <!-- FIXME - make certain we have a valid file -->
 
