@@ -212,7 +212,7 @@ This should go quickly as you are not actually writing the file.
 
 Note, if the destination for an ifdh cp command is a directory instead of filename with full path, you have to add the "-D" option to the command line.
 
-Prior to attempting the first exercise, please take a look at the full list of IFDH commands, to be able to complete the exercise. In particular, mkdir, cp, rmdir,
+Prior to attempting the first exercise, please take a look at the full list of IFDH commands, to be able to complete the exercise. In particular, cp, rmdir,
 
 **Resource:** [ifdh commands](https://cdcvs.fnal.gov/redmine/projects/ifdhc/wiki/Ifdh_commands)
 

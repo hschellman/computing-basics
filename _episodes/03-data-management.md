@@ -77,7 +77,11 @@ If you want to process data using the full power of DUNE computing, you should t
  
 ## How to find and access official data
 
-### What is metacat?
+{% include OfficialDatasets_include.md %}
+
+You can also query the catalogs yourself using [metacat][metacat] and [rucio][rucio] catalogs.  Metacat contains information about file content and official datasets, rucio stores the physical location of those files.  Files should have entries in both catalogs.  Generally you ask metacat first to find the files you want and then ask rucio for their location.
+
+## What is metacat?
 
 Metacat is a file and dataset catalog - it allows you to search for files and datasets that have particular attributes and understand their provenance, including details on all of their processing steps. 
 It also allows for querying jointly the file catalog and the DUNE conditions database.
@@ -243,7 +247,7 @@ Total size:   17553648200600 (17.554 TB)
 
 <!-- To look at all the files in that run you need to use XRootD - **DO NOT TRY TO COPY 4 TB to your local area!!!*** -->
 
-## Official datasets <a name="Official_Datasets"></a>
+<!-- ## Official datasets <a name="Official_Datasets"></a>
 
 The production group make official datasets which are sets of files which share important characteristics such as experiment, data_tier, data_stream, processing version and processing configuration. 
 
@@ -335,8 +339,8 @@ fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x
 You can also do keyword/value queries like the ones above using the Other tab on the web-based Data Catalog.
 
 ![Full query search](../fig/otherquery.png){: .image-with-shadow }
-
-
+ -->
+ 
 ### What describes a dataset?
 
 Let's look at the metadata describing that anti-neutrino dataset: the -j means json output
