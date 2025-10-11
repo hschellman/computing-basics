@@ -13,7 +13,7 @@ Go to [dunecatalog](https://dune-tech.rice.edu/dunecatalog/) and log in with you
 
 Choose your apparatus (Far Detector for example), use the category key to further refine your search and then type in keywords.  Here I chose the `Far Detectors` tab and the `FD-VD` category from the pulldown menu. 
 
-![Fast keyword search](../fig/keywordquery.png){: .image-with-shadow }
+![Fast keyword search]({{ site.baseurl }}/fig/keywordquery.png){: .image-with-shadow }
 
 If you click on a dataset you can see a sample of the files inside it. 
 
@@ -90,5 +90,5 @@ fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x
 
 You can also do keyword/value queries like the ones above using the Other tab on the web-based Data Catalog.
 
-![Full query search](../fig/otherquery.png){: .image-with-shadow }
+![Full query search]({{ site.baseurl }}/fig/otherquery.png){: .image-with-shadow }
 
