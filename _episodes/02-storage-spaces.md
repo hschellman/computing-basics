@@ -90,13 +90,17 @@ Each has its own advantages and limitations, and knowing which one to use when i
 
 <!-- FIXME - how do you check quota -->
 
-**Network Attached Storage (NAS)** element behaves similar to a locally mounted volume.
+**Network Attached Storage (NAS) ** element behaves similar to a locally mounted volume.
 * functions similar to services such as Dropbox or OneDrive
 * fast and stable POSIX access to these volumes
 * volumes available only on a limited number of computers or servers
 * not available on grid computing (FermiGrid, Open Science Grid, WLCG, HPC, etc.)
+### At Fermilab
 * /exp/dune/app/users/....<yourdir> has periodic snapshots in /exp/dune/app/....<yourdir>/.snap, but /exp/dune/data does NOT
 * easy to share files with colleagues using /exp/dune/data and /exp/dune/app
+* See the [Ceph](https://fifewiki.fnal.gov/wiki/Ceph) documentation for details on those systems.
+### At CERN
+At CERN the analog is EOS
 
 <!-- FIXME - how to you check quota -->
 
@@ -119,6 +123,8 @@ access to these groups.  In general, if you need to store more than 5TB in persi
 
 <!-- FIXME - comment on quotas -->
 
+
+
 **Scratch dCache**: large volume shared across all experiments. When a new file is written to scratch space, old files are removed in order to make room for the newer file. Removal is based on Least Recently Utilized (LRU) policy, and performed by an automated daemon.
 
 
@@ -133,6 +139,26 @@ Files are not available for immediate read on disk, but needs to be 'staged' fro
 **CVMFS**: CERN Virtual Machine File System is a centrally managed storage area that is distributed over the network, and utilized to distribute common software and a limited set of reference files. CVMFS is mounted over the network, and can be utilized on grid nodes, interactive nodes, and personal desktops/laptops. It is read only, and the most common source for centrally maintained versions of experiment software libraries/executables. CVMFS is mounted at `/cvmfs/` and access is POSIX-like, but read only.  
 
 See [CVMFS]({{ site.baseurl }}/02.3-cvmfs) for more information.
+
+## What's my quota?
+
+We use multiple systems so there are multiple ways for checking your disk quota.
+
+#### Your home area 
+
+~~~
+quota -u -m -s
+~~~
+{: ..language-bash}
+
+#### The /app/ and /data/ areas at FNAL
+
+See the quota section of:
+[https://fifewiki.fnal.gov/wiki/Ceph#Quotas](https://fifewiki.fnal.gov/wiki/Ceph#Quotas)
+
+#### Fermilab dCache
+
+Go to [https://fndca.fnal.gov/cgi-bin/quota.py](https://fndca.fnal.gov/cgi-bin/quota.py) - you need to be on the Fermilab VPN - otherwise it sits there not loading. 
 
 > ## Note - When reading from dcache always use the root: syntax, not direct /pnfs
 > The Fermilab dcache areas have NFS mounts.  These are for your convenience, they allow you to look at the directory structure and, for example, remove files.  However, NFS access is slow, inconsistent, and can hang the machine if I/O heavy processes use it.  Always use the `xroot root://<site>` ... when reading/accessing files instead of `/pnfs/` directly.  Once you have your [dune environment set up](software_setup) the `pnfs2xrootd` command can do the conversion to `root:` format for you (only for files at FNAL for now). 

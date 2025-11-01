@@ -12,7 +12,7 @@ permalink: pnfs2xrootd
 
 while true
 do
-echo -n `readlink -f $1` | sed -e 's%/pnfs%root://fndca1.fnal.gov:1094//pnfs/fna
+echo -n `readlink -f $1` | sed -e 's%/pnfs%root://fndcadoor.fnal.gov:1094//pnfs/fna
 l.gov/usr%'
 shift
 if [ x$1 == x ]; then break; fi
