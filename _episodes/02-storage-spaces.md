@@ -69,10 +69,15 @@ Each has its own advantages and limitations, and knowing which one to use when i
 * important: users have a single home area at FNAL used for all experiments 
 * not accessible from grid worker nodes
 * not for code developement (home area is 5 GB)
-* at Fermilab, need a valid Kerberos ticket in order to access files in your Home area
+### at Fermilab
+* you need a valid Kerberos ticket in order to access files in your Home area
 * periodic snapshots are taken so you can recover deleted files. (/nashome/.snapshot) 
 * permissions are set so your collaborators cannot see files in your home area
-* can find quota with command quota -u -m -s 
+* can find quota with command `quota -u -m -s `
+### at CERN
+* CERN uses AFS for your home area
+* [AFS info from CERN](https://twiki.cern.ch/twiki/bin/view/Main/HowtoUseLxplus)
+* get quota via the command `fs listquota`
 > ## Note: your home area is small and private
 > You want to use your home area for things that only you should see.  If you want to share files with collaborators you need to put them in the /app/ or /data/ areas described below. 
 {: .callout}
@@ -101,6 +106,7 @@ Each has its own advantages and limitations, and knowing which one to use when i
 * See the [Ceph](https://fifewiki.fnal.gov/wiki/Ceph) documentation for details on those systems.
 ### At CERN
 At CERN the analog is EOS
+See [EOS](https://cern.service-now.com/service-portal?id=kb_article&n=KB0001998) for information about using EOS
 
 <!-- FIXME - how to you check quota -->
 
@@ -144,17 +150,39 @@ See [CVMFS]({{ site.baseurl }}/02.3-cvmfs) for more information.
 
 We use multiple systems so there are multiple ways for checking your disk quota.
 
-#### Your home area 
+#### Your home area at FNAL
 
 ~~~
 quota -u -m -s
 ~~~
 {: ..language-bash}
 
+#### Your home area at CERN
+~~~
+fs listquota
+~~~
+{: ..language-bash}
+
 #### The /app/ and /data/ areas at FNAL
 
+These use the Ceph file system which has directory quotas instead of user quotas.
 See the quota section of:
 [https://fifewiki.fnal.gov/wiki/Ceph#Quotas](https://fifewiki.fnal.gov/wiki/Ceph#Quotas)
+
+The most useful commands for general users are
+~~~
+getfattr -n ceph.quota.max_bytes /exp/dune/app/users/$USER
+getfattr -n ceph.quota.max_bytes /exp/dune/data/users/$USER
+~~~
+{: ..language-bash}
+
+#### EOS at CERN
+
+~~~
+export EOS_MGM_URL=root://eosuser.cern.ch
+eos quota
+~~~
+{: ..language-bash}
 
 #### Fermilab dCache
 
