@@ -61,18 +61,24 @@ Each has its own advantages and limitations, and knowing which one to use when i
 
 **What is immutable?** A file that is immutable means that once it is written to the volume it cannot be modified. It can only be read, moved, or deleted. This property is in general a restriction imposed by the storage volume on which the file is stored. Not a good choice for code or other files you want to change.  
 
-## Interactive storage volumes (mounted on dunegpvmXX.fnal.gov)
+## Interactive storage volumes (mounted on dunegpvmXX.fnal.gov or lxplus.cern.ch)
 
-**Home area** is similar to the user's local hard drive but network mounted
+### Your home area 
+Your home area is similar to the user's local hard drive but network mounted
 * access speed to the volume very high, on top of full POSIX access
 * network volumes are NOT safe to store certificates and tickets
 * important: users have a single home area at FNAL used for all experiments 
 * not accessible from grid worker nodes
 * not for code developement (home area is 5 GB)
-* at Fermilab, need a valid Kerberos ticket in order to access files in your Home area
+#### at Fermilab
+* you need a valid Kerberos ticket in order to access files in your Home area
 * periodic snapshots are taken so you can recover deleted files. (/nashome/.snapshot) 
 * permissions are set so your collaborators cannot see files in your home area
-* can find quota with command quota -u -m -s 
+* can find quota with command `quota -u -m -s `
+#### at CERN
+* CERN uses AFS for your home area
+* [AFS info from CERN](https://twiki.cern.ch/twiki/bin/view/Main/HowtoUseLxplus)
+* get quota via the command `fs listquota`
 > ## Note: your home area is small and private
 > You want to use your home area for things that only you should see.  If you want to share files with collaborators you need to put them in the /app/ or /data/ areas described below. 
 {: .callout}
@@ -80,7 +86,8 @@ Each has its own advantages and limitations, and knowing which one to use when i
 <!-- FIXME - notes on caches for VNC/VScode PIP -->
 <!-- FIXME - how to you check quota -->
 
-**Locally mounted volumes** are physical disks, mounted directly on the computer
+### Locally mounted volumes
+local volumes are physical disks, mounted directly on the computer
 * physically inside the computer node you are remotely accessing
 * mounted on the machine through the motherboard (not over network)
 * used as temporary storage for infrastructure services (e.g. /var, /tmp,)
@@ -90,17 +97,24 @@ Each has its own advantages and limitations, and knowing which one to use when i
 
 <!-- FIXME - how do you check quota -->
 
-**Network Attached Storage (NAS)** element behaves similar to a locally mounted volume.
+### Network Attached Storage (NAS) 
+NAS elements behaves similar to a locally mounted volume.
 * functions similar to services such as Dropbox or OneDrive
 * fast and stable POSIX access to these volumes
 * volumes available only on a limited number of computers or servers
 * not available on grid computing (FermiGrid, Open Science Grid, WLCG, HPC, etc.)
+#### At Fermilab
 * /exp/dune/app/users/....<yourdir> has periodic snapshots in /exp/dune/app/....<yourdir>/.snap, but /exp/dune/data does NOT
 * easy to share files with colleagues using /exp/dune/data and /exp/dune/app
+* See the [Ceph](https://fifewiki.fnal.gov/wiki/Ceph) documentation for details on those systems.
+#### At CERN
+At CERN the analog is EOS
+See [EOS](https://cern.service-now.com/service-portal?id=kb_article&n=KB0001998) for information about using EOS
 
-<!-- FIXME - how to you check quota -->
 
-## Grid-accessible storage volumes
+### Grid-accessible storage volumes
+
+The following areas are grid accessible via methods such as `xrdcp/xrootd` and `ifdh`. You can read files in dCache across DUNE if you have the appropriate authorization. Writing files may require special permissions.  
 
 - At Fermilab, an instance of dCache+CTA is used for large-scale, distributed storage with capacity for more than 100 PB of storage and O(10000) connections. 
 - At CERN, the analog is EOS+CASTOR
@@ -111,28 +125,82 @@ DUNE also maintains disk copies of most recent files across many sites worldwide
 
 Whenever possible, these storage elements should be accessed over xrootd (see next section) as the mount points on interactive nodes are slow, unstable, and can cause the node to become unusable. Here are the different dCache volumes:
 
-**Persistent dCache**: the data in the file is actively available for reads at any time and will not be removed until manually deleted by user.  The persistent dCache contains 3 logical areas: (1) /pnfs/dune/persistent/users in which every user has a quota up to 5TB total  (2) /pnfs/dune/persistent/physicsgroups.  This is dedicated for DUNE Physics groups and managed by the respective physics conveners of those physics groups. 
+#### Persistent dCache
+ `/pnfs/dune/persistent/` is "persistent" storage. If a file is in persistent dCache, the data in the file is actively available for reads at any time and will not be removed until manually deleted by user.  The persistent dCache contains 3 logical areas: (1) /pnfs/dune/persistent/users in which every user has a quota up to 5TB total  (2) /pnfs/dune/persistent/physicsgroups.  This is dedicated for DUNE Physics groups and managed by the respective physics conveners of those physics groups. 
+
 https://wiki.dunescience.org/wiki/DUNE_Computing/Using_the_Physics_Groups_Persistent_Space_at_Fermilab gives more details on how to get 
 access to these groups.  In general, if you need to store more than 5TB in persistent dCache you should be working with the Physics Groups areas. (3) the "staging" area /pnfs/dune/persistent/staging which is not accessible by regular users but is by far the largest of the three.  It is used for official datasets.
+
+
 
 <!-- FIXME - comment about read/write permissions with tokens -->
 
 <!-- FIXME - comment on quotas -->
 
-**Scratch dCache**: large volume shared across all experiments. When a new file is written to scratch space, old files are removed in order to make room for the newer file. Removal is based on Least Recently Utilized (LRU) policy, and performed by an automated daemon.
 
 
-**Tape-backed dCache**: disk based storage areas that have their contents mirrored to permanent storage on CTA tape.  
+#### Scratch dCache
+`/pfns/dune/scratch` is a large volume shared across all experiments. When a new file is written to scratch space, old files are removed in order to make room for the newer file. Removal is based on Least Recently Utilized (LRU) policy, and performed by an automated daemon.
+
+
+#### Tape-backed dCache
+Tape-backed disk based storage areas that have their contents mirrored to permanent storage on CTA tape.  
 
 Files are not available for immediate read on disk, but needs to be 'staged' from tape first ([see video of a tape storage robot](https://www.youtube.com/watch?v=kiNWOhl00Ao)).
 
 <!-- **Resilient dCache**: NOTE: DIRECT USAGE is being phased out and if the Rapid Code Distribution function in POMS/jobsub does not work for you, consult with the FIFE team for a solution (handles custom user code for their grid jobs, often in the form of a tarball. Inappropriate to store any other files here (NO DATA OR NTUPLES)). -->
 
-**Rucio Storage Elements**: Rucio Storage Elements (or RSEs) are storage elements provided by collaborating institution for official DUNE datasets.  Data stored in DUNE RSE's must be fully cataloged in the [metacat][metacat] catalog and is managed by the DUNE data management team. This is where you find the official data samples.
+#### Rucio Storage Elements
+ Rucio Storage Elements (or RSEs) are storage elements provided by collaborating institution for official DUNE datasets.  Data stored in DUNE RSE's must be fully cataloged in the [metacat][metacat] catalog and is managed by the DUNE data management team. This is where you find the official data samples.
 
-**CVMFS**: CERN Virtual Machine File System is a centrally managed storage area that is distributed over the network, and utilized to distribute common software and a limited set of reference files. CVMFS is mounted over the network, and can be utilized on grid nodes, interactive nodes, and personal desktops/laptops. It is read only, and the most common source for centrally maintained versions of experiment software libraries/executables. CVMFS is mounted at `/cvmfs/` and access is POSIX-like, but read only.  
+ See the [data management]({{ site.baseurl }}/03-data-management) lesson for much more information about using the `rucio` system to find official data.
+
+### CVMFS
+CVMFS is the  CERN Virtual Machine File System is a centrally managed storage area that is distributed over the network, and utilized to distribute common software and a limited set of reference files. CVMFS is mounted over the network, and can be utilized on grid nodes, interactive nodes, and personal desktops/laptops. It is read only, and the most common source for centrally maintained versions of experiment software libraries/executables. CVMFS is mounted at `/cvmfs/` and access is POSIX-like, but read only.  
 
 See [CVMFS]({{ site.baseurl }}/02.3-cvmfs) for more information.
+
+## What's my quota?
+
+We use multiple systems so there are multiple ways for checking your disk quota.
+
+#### Your home area at FNAL
+
+~~~
+quota -u -m -s
+~~~
+{: ..language-bash}
+
+#### Your home area at CERN
+~~~
+fs listquota
+~~~
+{: ..language-bash}
+
+#### The /app/ and /data/ areas at FNAL
+
+These use the Ceph file system which has directory quotas instead of user quotas.
+See the quota section of:
+[https://fifewiki.fnal.gov/wiki/Ceph#Quotas](https://fifewiki.fnal.gov/wiki/Ceph#Quotas)
+
+The most useful commands for general users are
+~~~
+getfattr -n ceph.quota.max_bytes /exp/dune/app/users/$USER
+getfattr -n ceph.quota.max_bytes /exp/dune/data/users/$USER
+~~~
+{: ..language-bash}
+
+#### EOS at CERN
+
+~~~
+export EOS_MGM_URL=root://eosuser.cern.ch
+eos quota
+~~~
+{: ..language-bash}
+
+#### Fermilab dCache
+
+Go to [https://fndca.fnal.gov/cgi-bin/quota.py](https://fndca.fnal.gov/cgi-bin/quota.py) - you need to be on the Fermilab VPN - otherwise it sits there not loading. 
 
 > ## Note - When reading from dcache always use the root: syntax, not direct /pnfs
 > The Fermilab dcache areas have NFS mounts.  These are for your convenience, they allow you to look at the directory structure and, for example, remove files.  However, NFS access is slow, inconsistent, and can hang the machine if I/O heavy processes use it.  Always use the `xroot root://<site>` ... when reading/accessing files instead of `/pnfs/` directly.  Once you have your [dune environment set up](software_setup) the `pnfs2xrootd` command can do the conversion to `root:` format for you (only for files at FNAL for now). 
@@ -187,7 +255,7 @@ This section will teach you the main tools and commands to display storage infor
 Another useful data handling command you will soon come across is ifdh. This stands for Intensity Frontier Data Handling. It is a tool suite that facilitates selecting the appropriate data transfer method from many possibilities while protecting shared resources from overload. You may see *ifdhc*, where *c* refers to *client*.
 
 > ## Note
->  ifdh is much more efficient than NFS file access.  Please use it and/or xrdcp when accessing remote files. 
+>  `ifdh` is much more efficient than NFS file access.  Please use it and/or `xrdcp/xrootd` when accessing remote files. 
 {: .challenge}
 
 Here is an example to copy a file. Refer to the [Mission Setup]({{ site.baseurl }}/setup.html) for the setting up the `DUNELAR_VERSION`.
@@ -216,18 +284,21 @@ Prior to attempting the first exercise, please take a look at the full list of I
 
 **Resource:** [ifdh commands](https://cdcvs.fnal.gov/redmine/projects/ifdhc/wiki/Ifdh_commands)
 
+
 > ## Exercise 1
-> Using the ifdh command, complete the following tasks:
-> * create a directory in your dCache scratch area (/pnfs/dune/scratch/users/${USER}/) called "DUNE_tutorial_2025" 
+> use normal `mkdir` to create a directory in your dCache scratch area (/pnfs/dune/scratch/users/${USER}/) called "DUNE_tutorial_2025" 
+> Using the `ifdh command, complete the following tasks:
 > * copy /exp/dune/app/users/${USER}/my_first_login.txt file to that directory
 > * copy the my_first_login.txt file from your dCache scratch directory (i.e. DUNE_tutorial_2024) to /dev/null
 > * remove the directory DUNE_tutorial_2025
 > * create the directory DUNE_tutorial_2025_data_file
 > Note, if the destination for an ifdh cp command is a directory instead of filename with full path, you have to add the "-D" option to the command line. Also, for a directory to be deleted, it must be empty.
 > 
+> Note `ifdh` no longer has a `mkdir` command as it auto-creates directories.  In this example, we use the NFS command `mkdir` directly for clarity. 
+> 
 > > ## Answer
 > > ~~~
-> > ifdh mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2025
+> > mkdir /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2025
 > > ifdh cp -D /exp/dune/app/users/${USER}/my_first_login.txt /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2025
 > > ifdh cp /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2025/my_first_login.txt /dev/null
 > > ifdh rm /pnfs/dune/scratch/users/${USER}/DUNE_tutorial_2025/my_first_login.txt
@@ -292,6 +363,10 @@ root://fndca1.fnal.gov:1094//pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodun
 ~~~
 {: .output}
 
+> ## Note - if you don't have pfns2xrootd on your system
+> Copy [this]({{ side.baseurl}}/pnfs2xrootd) to your local area, make it executable and use it instead.
+{: .callout}
+
 you can then 
 
 ~~~ 
@@ -310,6 +385,9 @@ export DUNELAR_QUALIFIER=e26:prof
 export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 setup dunesw $DUNELAR_VERSION -q $DUNELAR_QUALIFIER
+setup justin # use justin to get appropriate tokens
+justin time  # this will ask you to authenticate via web browser
+justin get-token # this actually gets you a token
 ~~~
 {: .language-bash}
 

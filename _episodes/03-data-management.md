@@ -149,7 +149,8 @@ First get metacat if you have not already done so
  token authentication. 
 {: .callout} -->
 
-### then do queries to find particular sets of files
+### then do queries to find particular groups of files
+
 
 ~~~
 metacat query "files from dune:all where core.file_type=detector and core.run_type=hd-protodune and core.data_tier=raw and core.runs[any]=27331 limit 1"
@@ -242,7 +243,6 @@ Files:        4144
 Total size:   17553648200600 (17.554 TB)
 ~~~
 {: .output}
-
 
 
 <!-- To look at all the files in that run you need to use XRootD - **DO NOT TRY TO COPY 4 TB to your local area!!!*** -->
@@ -340,10 +340,28 @@ You can also do keyword/value queries like the ones above using the Other tab on
 
 ![Full query search](../fig/otherquery.png){: .image-with-shadow }
  -->
+
+### find out how much data there is in a dataset
+
+Do a query using the `-s` or `--summary` option
+
+~~~
+metacat query -s "files from fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3__prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official"
+~~~
+{: .language-bash}
+
+~~~
+Files:        20648
+Total size:   34550167782531 (34.550 TB)
+~~~
+{: .output}
+
+this may take a while as that is a big dataset. 
+
  
 ### What describes a dataset?
 
-Let's look at the metadata describing that anti-neutrino dataset: the -j means json output
+Let's look at the metadata describing an anti-neutrino dataset: the -j means json output
 
 ~~~
 metacat dataset show -j fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3__prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official
@@ -390,7 +408,7 @@ You can use any of those keys to refine dataset searches as we did above. You pr
 
 ### What files are in that dataset and how do I use them?
 
-You can either click on a dataset in the web data catalog or:
+You can either locate and click on a dataset in the [web data catalog](https://dune-tech.rice.edu/dunecatalog/) or use the[metacat web interface](https://metacat.fnal.gov:9443/dune_meta_prod/app/gui)  or use the command line:
 
 ~~~
 metacat query  "files from  fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3__prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official limit 10"
@@ -402,7 +420,7 @@ will list the first 10 files in that dataset (you probably don't want to list al
 You can also use a similar query in your batch job to get the files you want. 
 
 
-### Finding those files on disk
+## Finding those files on disk
 
 To find your files, you need to use [Rucio](#Rucio) directly or give the [justIN](https://dunejustin.fnal.gov/docs/tutorials.dune.md) batch system your query and it will locate them for you. 
 
