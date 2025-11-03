@@ -1,0 +1,10 @@
+python code/tocgen.py _episodes/01-introduction.md
+python code/tocgen.py _episodes/01.5-documentation.md
+python code/tocgen.py _episodes/02-storage-spaces.md
+python code/tocgen.py _episodes/02.3-cvmfs.md
+python code/tocgen.py _episodes/03-data-management.md
+python code/tocgen.py _episodes/03.2-UPS.md
+python code/tocgen.py _episodes/04-Spack.md
+python code/tocgen.py _episodes/05-end-of-basics.md
+python code/tocgen.py _episodes/05.1-improve-code-efficiency.md
+python code/tocgen.py _episodes/10-closing-remarks.md
