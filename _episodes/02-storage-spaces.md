@@ -17,6 +17,7 @@ keypoints:
 - The tool suites idfh and XRootD allow for accessing data with appropriate transfer method and in a scalable way.
 ---
 
+{% include 02-storage-spaces.toc.md %}
 ## This is an updated version of the 2023 training
 
 <!-- #### Session Video
@@ -160,7 +161,7 @@ CVMFS is the  CERN Virtual Machine File System is a centrally managed storage ar
 
 See [CVMFS]({{ site.baseurl }}/02.3-cvmfs) for more information.
 
-## What's my quota?
+### What is my quota?
 
 We use multiple systems so there are multiple ways for checking your disk quota.
 

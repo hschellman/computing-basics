@@ -13,7 +13,9 @@ keypoints:
 - Xrootd allows user to stream data files. 
 ---
 
-#### Session Video
+{% include 03-data-management.toc.md %}
+
+## Session Video
 
 <!--The session will be captured on video a placed here after the workshop for asynchronous study.-->
 
