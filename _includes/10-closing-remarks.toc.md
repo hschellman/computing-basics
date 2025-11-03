@@ -1,4 +1,6 @@
-## Table of Contents
+
+
+**Table of Contents for 10-closing-remarks**
 - [Video Session](#video-session)
 - [Two Days of Training](#two-days-of-training)
 - [Survey time!](#survey-time!)

@@ -5,6 +5,11 @@ keypoints:
 - all in one place
 --- 
 
+## 2025 Speedrun of AL9 setup and test
+
+{% include al9_speedrun.toc.md %}
+
+
 {% include al9_setup_2025a.md %}
 
 {% include al9_token.md %}

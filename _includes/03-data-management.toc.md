@@ -1,4 +1,6 @@
-## Table of Contents
+
+
+**Table of Contents for 03-data-management**
 - [Session Video](#session-video)
       - [Live Notes](#live-notes)
 - [Introduction](#introduction)

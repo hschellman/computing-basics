@@ -15,14 +15,14 @@ def dealwithline(input,toclines):
         level = 1
         name = ""
         indent = ''
-        if line.startswith('####'):
+        if line.startswith('####') or line.startswith('- #### '):
             level = 3
             name = line[4:].strip()
             indent = '   '*2
-        elif line.startswith('###'):
+        elif line.startswith('###') or line.startswith('- ### '):
             indent = '   '*1
             name = line[3:].strip()
-        elif line.startswith('##'):
+        elif line.startswith('##') or line.startswith('- ##'):
             level = 1
             name = line[2:].strip()
         else:
@@ -31,7 +31,7 @@ def dealwithline(input,toclines):
         if "<a" in line:
             linkname = line.split(' <a')[1].strip().split("name=\"")[1].split('"')[0]
         else: 
-            linkname=name.lower().strip().replace('?','').replace(' ',"-")
+            linkname=name.lower().strip().replace('?','').replace(' ',"-").replace(':','')
         print (level,indent,name,linkname)
 
 
@@ -46,7 +46,7 @@ newtoc = open(newname,'w')
 input = inputmd.readlines()
 inputmd.close()
 toclines = []
-toclines.append('## Table of Contents')
+toclines.append('\n\n**Table of Contents for %s**' % os.path.basename(mdname).replace(".md","").split("(")[0])
 dealwithline(input,toclines)
 newtoc.write('\n'.join(toclines))
 newtoc.close()

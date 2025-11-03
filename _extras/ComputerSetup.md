@@ -12,13 +12,17 @@ keypoints:
 - It is also something almost all people who get paid to program are expected to know well
 ---
 
-## 0. Back up your machine
+## Computer setup
+
+{% include ComputerSetup.toc.md %}
+
+### Back up your machine
 
 We are going to be messing with your operating system at some level so it is extremely wise to do a complete backup of your machine to an external drive right now.
 
 Also turn off automatic updates.  Operating system updates can mess with your setup.  Generally, back up before doing updates so you can revert if necessary.
 
-## 1. Open a unix terminal window
+### Open a unix terminal window
 
 First figure out how to open a terminal on your system.  The Carpentries Shell Training has a [section that explains this][New Shell]
 
@@ -35,7 +39,7 @@ On Windows it's a bit more complicated as the underlying operating system is not
 
 
 
-## 2. Learn how to use the Unix Shell
+### Learn how to use the Unix Shell
 
 <!-- First figure out [how to open a terminal on your system][New Shell]
 -->
@@ -47,7 +51,7 @@ It tells you how to start a terminal session in Windows, Mac OSX and Unix system
 Please do that [unix shell tutorial][Unix Shell Basics] to learn about the basic command line.
 
 
-## 3. Install an x-windows emulator
+### Install an x-windows emulator
 
 #### MacOS
 
@@ -88,7 +92,7 @@ See the information about [Windows]({{ site.baseurl }}/Windows.html) terminal co
 > You should now be ready to go for the ({{ site.baseurl }}/setup) 
 {: .callout}
 
-## Extra - Get a compiler/code editor
+### Extra - Get a code editor
 
 Although you will mainly be using python to code to begin with, most HEP code is actually C++ and it is good to have access to a C++ compiler.  Bonus is that you normally get a good editor as well.
 
@@ -108,7 +112,7 @@ You can also use vim or emacs if you are old school.
 Likely you should load up the full [Visual Studio][Visual Studio] as it has a nice C++ compiler
 
 
-### Useful Links
+## Useful Links
 
 [HSF Training Center][HSF Training Center]
 

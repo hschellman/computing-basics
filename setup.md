@@ -60,6 +60,8 @@ If you do not have any FNAL accounts yet, you need to contact  your supervisor a
 ### With CERN
 If you have a valid CERN account and access to CERN machines, you will be able to do many of the exercises as some data is available at CERN. The LArSoft tutorial has been designed to work from CERN. We strongly advise pursuing the FNAL computing account though.
 
+See [lxplus documentation](#lxplus) for information about using lxplus. 
+
 If you have trouble getting access, please reach out to the training team several days ahead of time.  Some issues take some time to resolve.  Please do not put this off.  We cannot help you the day of the tutorial as we are busy doing the tutorial.  
 
 
@@ -757,7 +759,7 @@ The [DUNE FAQ][DUNE FAQ] on GitHub.
 
 [Wiki page][dune-wiki-interactive-resources] on DUNE's interactive computing resources, including tips on using Kerberos and VNC.
 
-{%include links.md%} 
+{% include links.md %} 
 
 [SL7_to_Alma9]: https://wiki.dunescience.org/wiki/SL7_to_Alma9_conversion#SL7_to_Alma_9_conversion
 

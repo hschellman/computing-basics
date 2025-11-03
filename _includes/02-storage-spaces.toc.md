@@ -1,4 +1,6 @@
-## Table of Contents
+
+
+**Table of Contents for 02-storage-spaces**
 - [This is an updated version of the 2023 training](#this-is-an-updated-version-of-the-2023-training)
       - [Live Notes](#live-notes)
    - [Workshop Storage Spaces Video from December 2024](#workshop-storage-spaces-video-from-december-2024)

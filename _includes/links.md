@@ -30,6 +30,7 @@
 [lesson-mainpage]: {{ relative_root_path }}{% link index.md %}
 [lesson-reference]: {{ relative_root_path }}{% link reference.md %}
 [lesson-setup]: {{ relative_root_path }}{% link setup.md %}
+[lxplus]: https://twiki.cern.ch/twiki/bin/view/Main/HowtoUseLxplus
 [mit-license]: https://opensource.org/licenses/mit-license.html
 [morea]: https://morea-framework.github.io/
 [numfocus]: https://numfocus.org/
