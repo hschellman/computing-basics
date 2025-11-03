@@ -18,7 +18,7 @@
       - [Tape-backed dCache](#tape-backed-dcache)
       - [Rucio Storage Elements](#rucio-storage-elements)
    - [CVMFS](#cvmfs)
-   - [What is my quota?](#what-is-my-quota?)
+   - [What is my quota?](#what-is-my-quota)
       - [Your home area at FNAL](#your-home-area-at-fnal)
       - [Your home area at CERN](#your-home-area-at-cern)
       - [The /app/ and /data/ areas at FNAL](#the-/app/-and-/data/-areas-at-fnal)
