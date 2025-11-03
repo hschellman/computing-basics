@@ -10,7 +10,8 @@ def dealwithline(input,toclines):
             dealwithline(newlines,toclines)
             continue
         # remove any labels
-        line = line.split('<a')[0]
+        # if "<a" in line:
+        # line = line.split(' <a')[0]
         level = 1
         name = ""
         indent = ''
@@ -26,10 +27,15 @@ def dealwithline(input,toclines):
             name = line[2:].strip()
         else:
             continue
-        print (level,indent,name)
+        # if labeled get the label name
+        if "<a" in line:
+            linkname = line.split(' <a')[1].strip().split("name=\"")[1].split('"')[0]
+        else: 
+            linkname=name.lower().strip().replace('?','').replace(' ',"-")
+        print (level,indent,name,linkname)
 
 
-        newline = '%s- [%s](#%s)' % (indent,name,name.lower().replace(' ',"-"))
+        newline = '%s- [%s](#%s)' % (indent,name,linkname)
         toclines.append(newline)
         print (newline)
     return toclines

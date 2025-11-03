@@ -441,7 +441,8 @@ export SAM_EXPERIMENT=dune
 -->
 ## Getting file locations using Rucio
 
-### What is Rucio? <a name="Rucio"></a>
+### What is Rucio? 
+<!-- <a name="Rucio"></a> -->
 Rucio is the next-generation Data Replica service and is part of DUNE's new Distributed Data Management (DDM) system that is currently in deployment. 
 Rucio has two functions:
 1. A rule-based system to get files to Rucio Storage Elements around the world and keep them there.
@@ -451,7 +452,7 @@ As of the date of the 2025 tutorial:
 - The Rucio client is available in CVMFS and Spack
 - Most DUNE users are now enabled to use it. New users may not automatically be added. 
 
-### You will need to authenticate to use read files
+### You will need to authenticate to read files
 
 > #### For SL7 use justin to get a token
 {:.callout}
