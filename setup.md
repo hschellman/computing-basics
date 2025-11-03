@@ -24,11 +24,12 @@ keypoints:
 - Do an exercise to help us check if all is good
 - Get streaming and grid access
 
-
-
+  
 > ## If you run into problems now or later, check out the [Common Error Messages]({{ site.baseurl }}/ErrorMessages) page and the [FAQ page](https://github.com/orgs/DUNE/projects/19/)
 > if that doesn't help, use [DUNE Slack](https://dunescience.slack.com/archives/C02TJDHUQPR) channel `#computing-training-basics` to ask us about the problem - there is always a new one cropping up.
 {: .challenge} 
+
+{%include setup.toc.md%}
 
 ## Requirements
 
@@ -750,7 +751,7 @@ If you are experiencing issues, please contact us as soon as possible. Be sure t
 > If you have issues here, please go to the [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR)Slack channel to get support. Please note that you are on a CERN machine in your message. Thanks!
 {: .discussion}
 
-### Useful Links
+## Useful Links
    
 The [DUNE FAQ][DUNE FAQ] on GitHub.
 

@@ -12,6 +12,8 @@ keypoints:
 - This tutorial is brought to you by the DUNE Computing Consortium.
 - The goals are to give you the computing basis to work on DUNE.
 ---
+
+{% include 01-introduction.toc.md %}
 ## DUNE Computing Consortium
 
 The DUNE Computing Consortium works to establish a global computing network that will handle the massive data streams produced by distributing these across the computing grid.
