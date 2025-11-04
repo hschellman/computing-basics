@@ -13,7 +13,7 @@
 - [2. ssh-in](#2.-ssh-in)
 - [3. Get a clean shell](#3.-get-a-clean-shell)
 - [Software setup <a name="software_setup"></a>](#software_setup)
-   - [4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>](#SL7_setup)
+   - [4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7setup"></a>](#SL7setup)
    - [Caveats for later](#caveats-for-later)
    - [4.2 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>](#AL9_setup)
    - [Caveats for later](#caveats-for-later)

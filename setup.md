@@ -288,7 +288,7 @@ A simpler solution would be to rename your login scripts (for instance .bashrc a
 
 
 ## Software setup <a name="software_setup"></a>
-### 4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>
+### 4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7setup"></a>
 
 <!-- See [SL7_to_Alma9][SL7_to_Alma9] for more information  -->
 
@@ -423,7 +423,7 @@ Here is how you set up basic DUNE software on Alma 9. We are using the super-com
 
 ### Caveats
 
-We don't have a full ability to rebuild DUNE Software packages such as LArSoft using Spack yet.  We will be adding more functionality soon.  Unless you are doing simple ROOT based analysis you will need to use the [SL7 Container](#SL7_setup) method for now. 
+We don't have a full ability to rebuild DUNE Software packages such as LArSoft using Spack yet.  We will be adding more functionality soon.  Unless you are doing simple ROOT based analysis you will need to use the [SL7 Container](SL7setup) method for now. 
 
 
 > ## 4.3 Optional - make an alias!
@@ -469,7 +469,7 @@ This exercise will help organizers see if you reached this step or need help.
 1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_2025_sl7.sh```.  
 
 
-Launch the *Apptainer* as described above in the [SL7 version](#SL7_setup) 
+Launch the *Apptainer* as described above in the [SL7 version](SL7setup) 
 
 Write in it the following:
 ~~~
@@ -694,7 +694,7 @@ CERN access is mainly for ProtoDUNE collaborators. If you have a valid CERN ID a
 
 log into `lxplus.cern.ch`
 
-fire up the Apptainer as explained in [SL7 Setup](#SL7_setup) but with a slightly different version as mounts are different.
+fire up the Apptainer as explained in [SL7 Setup](SL7setup) but with a slightly different version as mounts are different.
 
 ~~~
 {% include apptainer_cern.md %}
