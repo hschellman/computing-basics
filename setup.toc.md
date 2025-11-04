@@ -9,7 +9,7 @@
 - [1. Kerberos business](#1. kerberos business)
 - [2. ssh-in](#2. ssh-in)
 - [3. Get a clean shell](#3. get a clean shell)
-- [Software setup <a name="software_setup"></a>](#software setup <a name="software_setup"></a>)
+- [Software setup <a name="#4.-software-setup"></a>](#software setup <a name="#4.-software-setup"></a>)
    - [4.1 Setting up DUNE software - Scientific Linux 7 version <a name="SL7_setup"></a>](#4.1 setting up dune software - scientific linux 7 version <a name="sl7_setup"></a>)
    - [Caveats for later](#caveats for later)
    - [4.2 Setting up DUNE software - Alma9 version <a name="AL9_setup"></a>](#4.2 setting up dune software - alma9 version <a name="al9_setup"></a>)

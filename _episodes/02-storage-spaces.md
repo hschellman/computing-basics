@@ -204,7 +204,7 @@ eos quota
 Go to [https://fndca.fnal.gov/cgi-bin/quota.py](https://fndca.fnal.gov/cgi-bin/quota.py) - you need to be on the Fermilab VPN - otherwise it sits there not loading. 
 
 > ## Note - When reading from dcache always use the root: syntax, not direct /pnfs
-> The Fermilab dcache areas have NFS mounts.  These are for your convenience, they allow you to look at the directory structure and, for example, remove files.  However, NFS access is slow, inconsistent, and can hang the machine if I/O heavy processes use it.  Always use the `xroot root://<site>` ... when reading/accessing files instead of `/pnfs/` directly.  Once you have your [dune environment set up](#software_setup) the `pnfs2xrootd` command can do the conversion to `root:` format for you (only for files at FNAL for now). 
+> The Fermilab dcache areas have NFS mounts.  These are for your convenience, they allow you to look at the directory structure and, for example, remove files.  However, NFS access is slow, inconsistent, and can hang the machine if I/O heavy processes use it.  Always use the `xroot root://<site>` ... when reading/accessing files instead of `/pnfs/` directly.  Once you have your dune environment set up the `pnfs2xrootd` command can do the conversion to `root:` format for you (only for files at FNAL for now). 
 {: .callout} 
 
 ## Summary on storage spaces
