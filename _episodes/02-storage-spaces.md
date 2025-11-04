@@ -365,7 +365,7 @@ root://fndca1.fnal.gov:1094//pnfs/fnal.gov/usr/dune/tape_backed/dunepro/protodun
 {: .output}
 
 > ## Note - if you don't have pfns2xrootd on your system
-> Copy [this]({{ side.baseurl}}/pnfs2xrootd) to your local area, make it executable and use it instead.
+> Copy [this]({{ site.baseurl}}/pnfs2xrootd) to your local area, make it executable and use it instead.
 {: .callout}
 
 you can then 
