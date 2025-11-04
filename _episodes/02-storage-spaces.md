@@ -265,7 +265,7 @@ Here is an example to copy a file. Refer to the [Mission Setup]({{ site.baseurl 
 > For now do this in the Apptainer
 {: .challenge}
 
-Do the standard [sl7 setup]({{ site.baseurl }}/setup_sl7) 
+Do the standard [sl7 setup]({{ site.baseurl }}/sl7_setup) 
 
 
 once you are set up 
