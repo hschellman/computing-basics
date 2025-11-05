@@ -22,7 +22,7 @@ python code/tocgen.py  _extras/InstallConda.md
 python code/tocgen.py  _extras/OfficialDatasets.md
 python code/tocgen.py  _extras/pnfs2xrootd.md
 python code/tocgen.py  _extras/putty.md
-python code/tocgen.py  _extras/setup_ruby.md
+python code/tocgen.py  _extras/howToBuild.md
 python code/tocgen.py  _extras/sites.md
 python code/tocgen.py  _extras/sl7_setup.md
 python code/tocgen.py  _extras/sl7_speedrun.md
