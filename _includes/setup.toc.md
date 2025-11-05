@@ -25,7 +25,7 @@
    - [Tokens method <a name="tokens"></a>](#tokens)
       - [Get and store your token](#get-and-store-your-token)
       - [2. Tell the system where your token is](#2.-tell-the-system-where-your-token-is)
-- [Set up on CERN machines <a name="setup_CERN"></a>](#setup_CERN)
+- [Set up on CERN machines](#set-up-on-cern-machines)
    - [Setup in Alma9](#setup-in-alma9)
    - [For SL7](#for-sl7)
       - [Source the DUNE environment SL7 setup script](#source-the-dune-environment-sl7-setup-script)

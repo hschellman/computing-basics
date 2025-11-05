@@ -89,7 +89,7 @@ Also check out our [Computing FAQ](https://github.com/orgs/DUNE/projects/19/view
 [Computer Setup]({{ site.baseurl }}/ComputerSetup) goes through how to find a terminal and set up xwindows on MacOS and Windows.  You can skip this if already familiar with doing that. 
 
 > ## Note
-> The instructions directly below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#setup_CERN) section.
+> The instructions directly below are for FNAL accounts. If you do not have a valid FNAL account but a CERN one, go at the bottom of this page to the [Setup on CERN machines](#Setup) section.
 {: .challenge}
 
 ## Kerberos business
@@ -674,7 +674,7 @@ With this done, you should be able to submit jobs and access remote DUNE storage
 
 
 
-## Set up on CERN machines <a name="setup_CERN"></a>
+## Set up on CERN machines
 
 <!-- Caution: the following instructions are for those of you who do not have a valid FNAL account but have access to CERN machines. -->
 
@@ -751,7 +751,7 @@ If you are experiencing issues, please contact us as soon as possible. Be sure t
 {: .checklist}
 
 > ## Issues
-> If you have issues here, please go to the [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR)Slack channel to get support. Please note that you are on a CERN machine in your message. Thanks!
+> If you have issues here, please go to the [#computing-training-basics](https://dunescience.slack.com/archives/C02TJDHUQPR) Slack channel to get support. Please note that you are on a CERN machine in your message. Thanks!
 {: .discussion}
 
 ## Useful Links
