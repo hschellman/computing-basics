@@ -4,6 +4,7 @@ To get a token that allows you to access files interactively in SL7
 ~~~
 htgettoken -i dune --vaultserver htvaultprod.fnal.gov -r interactive 
 export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
+export X509_CERT_DIR=/cvmfs/oasis.opensciencegrid.org/mis/certificates
 ~~~
 {: ..language-bash}
 
@@ -74,3 +75,4 @@ You will need to do this sequence weekly as your justin access expires.
 
 > ## Note: 
 > Despite the name of this command it gets you both a token and a special X.509 proxy and it is the latter you are actually using to talk to rucio in these SL7 examples
+{: .callout}
