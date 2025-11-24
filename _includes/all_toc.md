@@ -22,6 +22,7 @@ al9_speedrun.toc.md %}{% include
 figures.toc.md %}{% include 
 guide.toc.md %}{% include 
 helpers.toc.md %}{% include 
+howToBuild.toc.md %}{% include 
 pnfs2xrootd.toc.md %}{% include 
 putty.toc.md %}{% include 
 setup.toc.md %}{% include 

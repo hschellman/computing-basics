@@ -5,4 +5,5 @@
    - [a tip](#a-tip)
 - [Set up software](#set-up-software)
 - [Get a token](#get-a-token)
-   - [getting a token for xroot access in AL9](#getting-a-token-for-xroot-access-in-al9)
+   - [Interactive file access](#interactive-file-access)
+   - [Accessing rucio and justIn resources requires a bit more](#accessing-rucio-and-justin-resources-requires-a-bit-more)

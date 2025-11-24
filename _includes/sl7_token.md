@@ -1,3 +1,4 @@
+### Interactive file access
 
 To get a token that allows you to access files interactively in SL7
 
@@ -36,7 +37,7 @@ Storing bearer token in /run/user/XXXX/bt_XXXX
 
 
 
-## Accessing `rucio` and `justin` require a bit more
+### Accessing rucio and justIn resources requires a bit more
 
 in SL7 - put this in a file called `dune_data_sl7.sh` so you can use it again.
 
