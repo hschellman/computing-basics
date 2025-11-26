@@ -1,28 +1,11 @@
+### Interactive file access
 
-> ## Note: The justin get-token method for authentication does not currently work on AL9 
-> The justin get-token command is not distributed on AL9/Spack currently.
-> Please use [SL7]({{ site.baseurl }}/sl7_setup) if you need to use rucio.
->
-> normal tokens (below) for `xroot` access do work
-> 
-{: .caution}
-
-### getting a token for xroot access in AL9
 Make certain you have [al9 set up]({{ site.baseurl }}/al9_setup)
 
-<!-- Get rucio:
+Then use `htgettoken` to get a token so you can read the files you find. 
 
 ~~~
-spack load r-m-dd-config experiment=dune lab=fnal.gov # r stands for rucio
-export RUCIO_ACCOUNT=justinreadonly
-~~~
-{: .language-bash} 
--->
-
-Then use htgettoken to get a token so you can read the files you find. 
-
-~~~
-htgettoken -i dune --vaultserver htvaultprod.fnal.gov #:8200
+htgettoken -i dune --vaultserver htvaultprod.fnal.gov -r interactive 
 export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
 ~~~
 {: .language-bash}
@@ -49,3 +32,42 @@ YgZTGDqHQg6NOO77NsCY5J88uyIkkoZ1tRb6iTXK0j5RsX0AjA
 You should be able to read files at remote sites now. 
 You may need to repeat the `htgettoken` as the interactive tokens are pretty short-lived.  Batch jobs do their own tokens. 
 
+### Accessing rucio and justIn resources requires a bit more
+
+You should already be set up above.  Now you can use `justIn` to get you a token.  
+
+1. First tell `justIn` knows about you
+
+~~~
+justin time
+~~~
+{: ..language-bash}
+
+The first time you do this you will get asked (after the `justin time` command)
+
+~~~
+To authorize this computer to run the justin command, visit this page with your
+usual web browser and follow the instructions within the next 10 minutes:
+https://dunejustin.fnal.gov/authorize/XXXXX
+
+Check that the Session ID displayed on that page is BfhVBmQ
+
+Once you've followed the instructions on that web page, please run the command
+you tried again. You won't need to authorize this computer again for 7 days.
+~~~
+{: ..output}
+
+Once again go to the website that appears and authenticate.  
+
+2. After the first authentication to justIn you need to do a second justin call
+
+~~~
+justin get-token
+~~~
+{: ..language-bash}
+
+You will need to do this sequence weekly as your justin access expires. 
+
+> ## Note: 
+> Despite the name of this command it gets you both a token and a special X.509 proxy and it is the latter you are actually using to talk to rucio in these SL7 examples
+{: .callout}

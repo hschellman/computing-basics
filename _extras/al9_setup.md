@@ -6,6 +6,12 @@ keypoints:
 - getting authentication set up
 --- 
 
+## How to set up a basic session in al9
+
+{% include al9_setup.toc.md %}
+
+### a tip
+
 You can store the code below as 
  `myal9.sh` and run it every time you log in. 
 

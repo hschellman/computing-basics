@@ -13,6 +13,8 @@ keypoints:
 
 ##  Installing conda and root
 
+{% include InstallConda.toc.md %}
+
 This is derived from the excellent [https://iscinumpy.gitlab.io/post/root-conda/](https://iscinumpy.gitlab.io/post/root-conda/) by Henry Schreiner
 
 Currently this has been tested on OSX and Linux distributions SL7 and AL9

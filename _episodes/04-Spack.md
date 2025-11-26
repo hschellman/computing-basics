@@ -10,6 +10,8 @@ keypoints:
 - Spack is a tool to deliver well defined software configurations
 - CVMFS distributes software and related files without installing them on the target computer (using a VM, Virtual Machine).
 ---
+
+{% include 04-Spack.toc.md %}
 ## What is Spack and why do we need it?
 
 > ## Note 

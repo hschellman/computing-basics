@@ -2,6 +2,8 @@
 title: Tokens
 ---
 
+{% include Tokens.toc.md %}
+
 ## SL7 Tokens <a name="SL7_token"></a>
 
 {% include sl7_token.md %}
@@ -9,3 +11,5 @@ title: Tokens
 ## AL9 Tokens <a name="AL9_token"></a>
 
 {% include al9_token.md %}
+
+Check your token `httogendecode`

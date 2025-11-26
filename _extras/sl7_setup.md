@@ -30,10 +30,16 @@ Start the Apptainer
 {: .challenge}
 
 
-## then do the following 
+## then do the following to set up DUNE code
 
 you can store this as
 
 `mysl7.sh` and run it every time you log in.  
 
 {% include sl7_setup_2025.md %}
+
+## then do the following to get authentication to remote data and batch systems
+
+If you want to do data access or submit batch jobs, you also need to do some authentication
+
+{% include sl7_token.md %}

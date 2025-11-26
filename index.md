@@ -21,6 +21,7 @@ eventbrite:
 
 This tutorial will teach you the basics of DUNE Computing. 
 
+
 **If attending a live tutorial, you need to complete the [Setup]({{ site.baseurl }}/setup) beforehand.  It ensures that you have a computer account at CERN or FNAL and tests that you can log in and find your disk areas.**
 
 Instructors will engage students with hands-on lessons focused in three areas:

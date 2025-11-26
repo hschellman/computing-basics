@@ -1,0 +1,32 @@
+{% include 
+01-introduction.toc.md %}{% include 
+01.5-documentation.toc.md %}{% include 
+02-storage-spaces.toc.md %}{% include 
+02.3-cvmfs.toc.md %}{% include 
+03-data-management.toc.md %}{% include 
+03.2-UPS.toc.md %}{% include 
+04-Spack.toc.md %}{% include 
+05-end-of-basics.toc.md %}{% include 
+05.1-improve-code-efficiency.toc.md %}{% include 
+10-closing-remarks.toc.md %}{% include 
+Common-Error-Messages.toc.md %}{% include 
+ComputerSetup.toc.md %}{% include 
+InstallConda.toc.md %}{% include 
+OfficialDatasets.toc.md %}{% include 
+Tokens.toc.md %}{% include 
+TutorialsMasterList.toc.md %}{% include 
+Windows.toc.md %}{% include 
+about.toc.md %}{% include 
+al9_setup.toc.md %}{% include 
+al9_speedrun.toc.md %}{% include 
+figures.toc.md %}{% include 
+guide.toc.md %}{% include 
+helpers.toc.md %}{% include 
+howToBuild.toc.md %}{% include 
+pnfs2xrootd.toc.md %}{% include 
+putty.toc.md %}{% include 
+setup.toc.md %}{% include 
+setup_ruby.toc.md %}{% include 
+sites.toc.md %}{% include 
+sl7_setup.toc.md %}{% include 
+sl7_speedrun.toc.md %}
