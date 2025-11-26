@@ -25,6 +25,7 @@ python code/tocgen.py  _extras/putty.md
 python code/tocgen.py  _extras/howToBuild.md
 python code/tocgen.py  _extras/sites.md
 python code/tocgen.py  _extras/sl7_setup.md
+python code/tocgen.py  _extras/sl7_token.md
 python code/tocgen.py  _extras/sl7_speedrun.md
 python code/tocgen.py  _extras/Tokens.md
 python code/tocgen.py  _extras/TutorialsMasterList.md
