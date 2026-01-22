@@ -2,10 +2,11 @@
 # find a spack environment and set it up
 # setup spack  (pre spack 1.0 version)
 
-source /cvmfs/dune.opensciencegrid.org/spack/setup-env.sh
+# this is for spack v1.0
+source /cvmfs/dune.opensciencegrid.org/spack/v1.0/share/spack/setup-env.sh
 echo "Activate dune-workflow"
 spack env activate dune-workflow
-echo "load GCC and CMAKE so don't use system"
+echo "load GCC"
 echo "GCC"
 spack load gcc@12.5.0 arch=linux-almalinux9-x86_64_v2 
 
