@@ -14,6 +14,11 @@ spack load gcc@12.5.0 arch=linux-almalinux9-x86_64_v2
 echo "CMAKE"
 spack load cmake 
 
+echo "load GCC and CMAKE so don't use system"
+echo "GCC"
+spack load gcc@12.5.0 arch=linux-almalinux9-x86_64_v2 
+echo "CMAKE"
+spack load cmake 
 ~~~
 {: .language-bash}
 
