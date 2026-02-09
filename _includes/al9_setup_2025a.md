@@ -1,13 +1,18 @@
 ~~~
 # find a spack environment and set it up
-# setup spack  (pre spack 1.0 version)
+# setup spack   
 
-# this is for spack v1.0/devel - tutorial
+# this is for spack v1.1
+echo "setup-prototype.sh"
+. /cvmfs/dune.opensciencegrid.org/spack/setup-env.sh
+spack env activate dune-prototype
+echo "Activated dune-prototype"
 
-echo "setup-tutorial.sh"
-. /cvmfs/dune.opensciencegrid.org/dune-spack/spack-develop-fermi/setup-env.sh
-spack env activate dune-tutorial
-echo "Activate dune-tutorial"
+echo "load GCC and CMAKE so don't use system"
+echo "GCC"
+spack load gcc@12.5.0 arch=linux-almalinux9-x86_64_v2 
+echo "CMAKE"
+spack load cmake 
 
 echo "load GCC and CMAKE so don't use system"
 echo "GCC"
