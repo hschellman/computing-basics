@@ -710,7 +710,6 @@ You should then be able to proceed with much of the tutorial thanks to the wonde
 Set up the DUNE software 
 
 ~~~
-export UPS_OVERRIDE="-H Linux64bit+3.10-2.17" # makes certain you get the right UPS
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 ~~~
 {: .language-bash}

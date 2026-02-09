@@ -109,11 +109,15 @@ and when searching for specific types of data
 - `core.data_stream` (physics, calibration, cosmics)
 - `core.runs[any]=<runnumber>`
 
-You probably also want to know about
+For processed data you also need to know about
 
 - `core.application.version` (version of code run)
-- `dune.config_file` (configuration file for the reconstruction)
+- `dune.config_file` (configuration file for the reconstruction/simulation)
 - `dune_mc.gen_fcl_filename` (configuration for the initial simulation physics)
+- `dune.output_status` (This should be 'confirmed' for processed files.  If it is not, the file likely never got stored.)
+- `core.data_tier` (what kind of output is it?)
+
+
 
 ### Example of doing a metacat search
 
@@ -227,7 +231,7 @@ and v09_91_02d01).
 > **If you are doing real analysis please use the [official datasets](#Official_Datasets) which experts have defined** 
 > 
 > if no official dataset exists, you need to require additional fields like:
-> `core.application.version=v09_91_02d01` and `dune.config_file=standard_reco_stage2_calibration_protodunehd_keepup.fcl` to make certain you are not looking at 2 versions of the same file.
+> `dune.output_status=confirmed` and `core.application.version=v09_91_02d01` and `dune.config_file=standard_reco_stage2_calibration_protodunehd_keepup.fcl` to make certain that the job that created the file actually wrote the output back to storage and you are not looking at 2 versions of the same file.
 {: .callout}
 
 
@@ -345,7 +349,7 @@ You can also do keyword/value queries like the ones above using the Other tab on
 
 ### find out how much data there is in a dataset
 
-Do a query using the `-s` or `--summary` option
+Do a query of a dataset using the `-s` or `--summary` option
 
 ~~~
 metacat query -s "files from fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3__prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official"
