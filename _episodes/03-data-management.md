@@ -159,7 +159,7 @@ First get metacat if you have not already done so
 
 
 ~~~
-metacat query "files from dune:all where core.file_type=detector and core.run_type=hd-protodune and core.data_tier=raw and core.runs[any]=27331 limit 1"
+metacat query "files from dune:all where core.file_type=detector and core.run_type=hd-protodune and core.data_tier=raw and core.runs[any]=27331 ordered limit 1"
 ~~~
 {: .language-bash}
 
@@ -347,6 +347,26 @@ You can also do keyword/value queries like the ones above using the Other tab on
 ![Full query search](../fig/otherquery.png){: .image-with-shadow }
  -->
 
+### get a limited number of files in a query
+
+Batch workflows with more than 10,000 files are strongly discouraged (largely as when they fail, they fail BIG!). You can chop up larger sets by using the skip and limit fields in your query.
+
+To chop up a big query into smaller chunks:
+
+~~~
+export MYBIGQUERY=<your query>
+export MYQUERY1="$MYBIGQUERY ordered skip 0 limit 1000"
+export MYQUERY2="$MYBIGQUERY ordered skip 1000 limit 1000"
+export MYQUERY3="$MYBIGQUERY ordered skip 2000 limit 1000"
+..etc.
+~~~
+
+- the `ordered` assures that your query is reproducible 
+
+- the `skip` needs to appear before the `limit`
+
+Always look at the output of your workflow on one of the queries before submitting them all. 
+
 ### find out how much data there is in a dataset
 
 Do a query of a dataset using the `-s` or `--summary` option
@@ -417,7 +437,7 @@ You can use any of those keys to refine dataset searches as we did above. You pr
 You can either locate and click on a dataset in the [web data catalog](https://dune-tech.rice.edu/dunecatalog/) or use the[metacat web interface](https://metacat.fnal.gov:9443/dune_meta_prod/app/gui)  or use the command line:
 
 ~~~
-metacat query  "files from  fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3__prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official limit 10"
+metacat query  "files from  fardet-vd:fardet-vd__full-reconstructed__v09_81_00d02__reco2_dunevd10kt_anu_1x8x6_3view_30deg_geov3__prodgenie_anu_numu2nue_nue2nutau_dunevd10kt_1x8x6_3view_30deg__out1__v2_official ordered limit 10"
 ~~~
 {: .languate-bash}
 
@@ -575,7 +595,7 @@ What about some files from a reconstructed version?
 ~~~ 
 metacat query "files from dune:all where core.file_type=detector \
  and core.run_type='protodune-sp' and core.data_tier=full-reconstructed  \
- and core.data_stream=physics and core.runs[any] in (5141) and dune.campaign=PDSPProd4 limit 10" 
+ and core.data_stream=physics and core.runs[any] in (5141) and dune.campaign=PDSPProd4 ordered limit 10" 
 ~~~
 {: .language-bash}
 
