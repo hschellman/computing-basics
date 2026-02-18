@@ -25,6 +25,7 @@
    - [metacat web interface](#metacat-web-interface)
    - [Example of finding reconstructed Monte Carlo](#example-of-finding-reconstructed-monte-carlo)
    - [you can use the web data catalog to do advanced searches](#you-can-use-the-web-data-catalog-to-do-advanced-searches)
+   - [get a limited number of files in a query](#get-a-limited-number-of-files-in-a-query)
    - [find out how much data there is in a dataset](#find-out-how-much-data-there-is-in-a-dataset)
    - [What describes a dataset?](#what-describes-a-dataset)
    - [What files are in that dataset and how do I use them?](#what-files-are-in-that-dataset-and-how-do-i-use-them)
