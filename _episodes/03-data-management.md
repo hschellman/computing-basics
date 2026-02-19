@@ -357,7 +357,7 @@ To chop up a big query into smaller chunks:
 export MYBIGQUERY=<your query>
 export MYQUERY1="$MYBIGQUERY ordered skip 0 limit 1000"
 export MYQUERY2="$MYBIGQUERY ordered skip 1000 limit 1000"
-export MYQUERY2="$MYBIGQUERY ordered skip 2000 limit 1000"
+export MYQUERY3="$MYBIGQUERY ordered skip 2000 limit 1000"
 ..etc.
 ~~~
 
