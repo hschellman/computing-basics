@@ -42,7 +42,7 @@ Windows users are invited to review the [Windows Setup page]({{ site.baseurl }}/
 
 ## Step 1: DUNE membership
 
-To follow most of this training, you must be on the DUNE Collaboration member list. If you are not, talk to your supervisor or representative to get on it.
+To follow most of this training, you must be on the DUNE Collaboration member list. If you are not, talk to your supervisor or Institutional Board representative to get on it.
 
 >### Note: Other experiments may find the setup and first few modules useful.
 > The first few modules on access and disk spaces should work for other Fermilab experiments if you substitute `dune --> other`. 
@@ -55,7 +55,9 @@ If you have a valid FNAL computing account with DUNE, go to step 3.
 
 If you have a valid FNAL computing account but not on DUNE yet (say you have access to another experiment's resources), you can ask for a DUNE-specific account using the Service Now [Update my Affiliation/Experiment/Collaboration membership Request](https://fermi.servicenowservices.com/nav_to.do?uri=%2Fcom.glideapp.servicecatalog_cat_item_view.do%3Fv%3D1%26sysparm_id%3D9a35be8d1b42a550746aa82fe54bcb6f%26sysparm_link_parent%3Da5a8218af15014008638c2db58a72314%26sysparm_catalog%3De0d08b13c3330100c8b837659bba8fb4%26sysparm_catalog_view%3Dcatalog_default%26sysparm_view%3Dcatalog_default) form. 
 
-If you do not have any FNAL accounts yet, you need to contact  your supervisor and/or Institutional Board representative to obtain a Fermilab User Account. More info: [https://get-connected.fnal.gov/users/access/](https://get-connected.fnal.gov/users/access/).  This can take several weeks the first time. 
+If you do not have any FNAL accounts yet, you need to contact  your supervisor and/or Institutional Board representative and then apply for an account.  The application requires a contact person at Fermilab - that is Laura Rogas, lrogas@fnal.gov. 
+
+More info: [https://get-connected.fnal.gov/users/access/](https://get-connected.fnal.gov/users/access/).  This can take several weeks the first time. 
 
 ### With CERN
 If you have a valid CERN account and access to CERN machines, you will be able to do many of the exercises as some data is available at CERN. The LArSoft tutorial has been designed to work from CERN. We strongly advise pursuing the FNAL computing account though.
