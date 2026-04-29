@@ -233,14 +233,47 @@ Now you can try to log into a machine at Fermilab. There are now 15 different ma
 **How to connect?** The ssh command does the job. The -Y option turns on the xwindow protocol so that you can have graphical display and keyboard/mouse handling (quite useful). But if you have the line "ForwardX11Trusted yes" in your ssh config file, this will do the -Y option. For connecting to e.g. dunegpvm07, the command is:
 
 ~~~
-ssh username@dunegpvmXX.fnal.gov
+ssh -Y username@dunegpvmXX.fnal.gov
 ~~~
 {: .language-bash}
 
 where XX is a number from 01 to 15. 
 If you experience long delays in loading programs or graphical output, you can try connecting with VNC. More info: [Using VNC Connections on the dunegpvms][dunegpvm-vnc].  Please remember to shut down your VNC connection at least once/week - the machines can get overrun by zombies. 
 
-### Get a clean shell
+### Check that your kerberos ticket forwarded 
+
+Some firewalls block kerberos ticket forwarding. Access to your home area on the gpvms requires that you have a valid ticket forwarded to that machine. 
+
+Try the following:
+
+~~~
+touch ~/test.txt
+~~~
+{: .language-bash}
+
+If it works, you are fine. If not:
+
+You may see errors like
+
+~~~
+Could not chdir to home directory /nashome/x/xenon: Permission denied
+~~~
+{: .output}
+
+or it may complain about `.Xauthority` or other home area features.
+
+First check that you in fact did try to forward a ticket. 
+
+~~~
+kinit -f -A username@FNAL.GOV
+~~~
+{: .language-bash}
+
+and that your `~/.ssh/config` on the originating machine actually contains the lines listed above, as an operating system upgrade may have changed them.
+
+If all of that fails, you can `kinit` on the gpvm but do not do so in an X window as that traffic is not encrypted. 
+
+### Always use a clean shell
 To run DUNE software, it is necessary to have a 'clean login'. What is meant by clean here? If you work on other experiment(s), you may have some environment variables defined (for NOvA, MINERvA, MicroBooNE). Theses may conflict with the DUNE environment ones.
 
 Two ways to clean your shell once on a DUNE machine:
