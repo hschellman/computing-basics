@@ -510,7 +510,7 @@ Launch the *Apptainer* as described above in the [SL7 version](#sl7-version)
 
 Write in it the following:
 ~~~
-export DUNELAR_VERSION=v10_07_00d00
+export DUNELAR_VERSION=v10_17_00d00
 export DUNELAR_QUALIFIER=e26:prof
 
 export UPS_OVERRIDE="-H Linux64bit+3.10-2.17"
