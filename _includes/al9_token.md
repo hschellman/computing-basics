@@ -5,8 +5,9 @@ Make certain you have [al9 set up]({{ site.baseurl }}/al9_setup)
 Then use `htgettoken` to get a token so you can read the files you find. 
 
 ~~~
-htgettoken -i dune --vaultserver htvaultprod.fnal.gov -r interactive 
+htgettoken -i dune --vaultserver htvaultprod.fnal.gov -r interactive #:8200
 export BEARER_TOKEN_FILE=/run/user/`id -u`/bt_u`id -u`
+export X509_CERT_DIR=/cvmfs/oasis.opensciencegrid.org/mis/certificates
 ~~~
 {: .language-bash}
 
