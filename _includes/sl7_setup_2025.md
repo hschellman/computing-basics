@@ -16,7 +16,7 @@ export SCRATCH=/pnfs/dune/scratch/users/$USER
 
 # set up the full DUNE SW suite
 
-export DUNELAR_VERSION=v10_07_00d00 # you want to update this
+export DUNELAR_VERSION=v10_17_00d00 # you want to update this
 export DUNELAR_QUALIFIER=e26:prof # you want to update this
 
 setup -B dunesw ${DUNELAR_VERSION} -q ${DUNELAR_QUALIFIER}
