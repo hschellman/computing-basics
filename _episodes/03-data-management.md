@@ -90,7 +90,7 @@ It also allows for querying jointly the file catalog and the DUNE conditions dat
 
 You can find extensive documentation on metacat at:
 
-[General metacat documentation](https://metacat.readthedocs.io/en/latest/)
+[General metacat documentation](https://fermitools.github.io/metacat)
 
 [DUNE metacat examples](https://dune.github.io/DataCatalogDocs/index.html)
 
